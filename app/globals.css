@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+/* Site palette — cerulean / light-sea-green / apricot-cream / floral-white /
+   grapefruit-pink. Every neutral and accent token below is derived from
+   these five (computed OKLCH, not eyeballed — see scratchpad/oklch.js for
+   the conversion), so the whole site re-themes from these two blocks alone;
+   no component file hardcodes a color. The --gantt-1..8 categorical palette
+   is deliberately NOT touched — it's a separate, CVD-validated system built
+   to tell many individual calendar events apart (see the comment below it),
+   a different job than site chrome, and this 5-color palette doesn't have
+   enough distinguishable hues to replace it without failing that validation.
+
+   The UI is styled with Tailwind's neutral scale as a dark theme (light text
+   classes on neutral-900/950 surfaces). Rather than sprinkle `dark:` variants
+   over every component, light mode flips the scale itself: neutral-50 becomes
+   what neutral-950 is, 100 <-> 900, and so on, so every existing class
+   resolves to the mirrored shade. Dark mode's neutral scale is tinted toward
+   cerulean (cool, "night"); light mode's is tinted toward floral-white
+   (warm, "day") — the palette's own two temperature extremes, used as the
+   two themes instead of picking one tint for both. Accent text colors (the
+   *-400 shades used for links, badges and errors) are too pale on a light
+   surface, so they map to darker shades there. Backgrounds using the 500
+   shades are left alone — they're already saturated enough for both. */
+:root {
+  color-scheme: dark;
+  --background: var(--color-neutral-950);
+  --foreground: var(--color-neutral-100);
+
+  /* Neutral scale, cerulean-tinted (hue ~228, from #227c9d). */
+  --color-neutral-50: oklch(96% 0.015 227.6);
+  --color-neutral-100: oklch(91% 0.02 227.6);
+  --color-neutral-200: oklch(83% 0.025 227.6);
+  --color-neutral-300: oklch(70% 0.03 227.6);
+  --color-neutral-400: oklch(56% 0.035 227.6);
+  --color-neutral-500: oklch(50% 0.035 227.6);
+  --color-neutral-600: oklch(40% 0.03 227.6);
+  --color-neutral-700: oklch(27% 0.025 227.6);
+  --color-neutral-800: oklch(19% 0.02 227.6);
+  --color-neutral-900: oklch(14% 0.018 227.6);
+  --color-neutral-950: oklch(10% 0.015 227.6);
+
+  /* Primary accent (buttons, brand dot, focus rings, links, today-marker) —
+     grapefruit-pink, hue ~20 from #fe6d73. -500 is the solid-fill shade
+     (same both modes); -400 is for text/links, so it gets its own
+     dark-vs-light contrast step same as the others below. */
+  --color-orange-500: oklch(71.4% 0.1772 20.2);
+  --color-orange-400: oklch(78% 0.16 20.2);
+
+  /* Destructive / error (reject, delete) — a deeper, more saturated red so
+     it reads as "warning," not as a second brand accent next to orange. */
+  --color-red-400: oklch(62% 0.19 15);
+
+  /* "Blue" badge tone — cerulean itself, hue ~228. */
+  --color-sky-400: oklch(68% 0.11 227.6);
+
+  /* "Purple" badge tone — light-sea-green, hue ~184 from #17c3b2 (teal
+     reads as a clearly distinct cool hue from cerulean at a glance). */
+  --color-violet-400: oklch(73.6% 0.1275 183.7);
+
+  /* Success / approved states — also light-sea-green, different lightness
+     steps for each role (main text, hover text, subtle border). */
+  --color-emerald-400: oklch(73.6% 0.1275 183.7);
+  --color-emerald-300: oklch(73.6% 0.1275 183.7);
+  --color-emerald-200: oklch(88% 0.07 183.7);
+  --color-emerald-900: oklch(35% 0.08 183.7);
+
+  /* GanttChart's per-event categorical palette — the dataviz skill's
+     validated 8-hue instance (fixed order, not eyeballed; re-run
+     scripts/validate_palette.js before changing any hex). Each event's id
+     picks a slot by (id % 8), so every event keeps one stable, unique color
+     everywhere it appears — no activity-based recoloring, no fill texture.
+     -ink is the higher-contrast of black/white for that hue (computed via
+     WCAG contrast, not eyeballed); most slots read better with black text,
+     green always needs white. */
+  --gantt-1: #3987e5; --gantt-1-ink: #000; /* blue */
+  --gantt-2: #d95926; --gantt-2-ink: #000; /* orange */
+  --gantt-3: #199e70; --gantt-3-ink: #000; /* aqua */
+  --gantt-4: #c98500; --gantt-4-ink: #000; /* yellow */
+  --gantt-5: #d55181; --gantt-5-ink: #000; /* magenta */
+  --gantt-6: #008300; --gantt-6-ink: #fff; /* green */
+  --gantt-7: #9085e9; --gantt-7-ink: #000; /* violet */
+  --gantt-8: #e66767; --gantt-8-ink: #000; /* red */
+}
+
+/* The site is always the off-white (floral-white) theme, whatever the
+   visitor's system preference — `all` applies this block unconditionally, so
+   it overrides the dark values above. To restore system-following, change it
+   back to `(prefers-color-scheme: light)`. */
+@media all {
+  :root {
+    color-scheme: light;
+
+    /* Same neutral scale, inverted per the note above, floral-white-tinted
+       (hue ~85, from #fef9ef) instead of cerulean — neutral-950 lands
+       almost exactly on floral-white itself. */
+    --color-neutral-50: oklch(10% 0.015 84.6);
+    --color-neutral-100: oklch(14% 0.016 84.6);
+    --color-neutral-200: oklch(19% 0.017 84.6);
+    --color-neutral-300: oklch(27% 0.018 84.6);
+    --color-neutral-400: oklch(40% 0.02 84.6);
+    --color-neutral-500: oklch(50% 0.02 84.6);
+    --color-neutral-600: oklch(56% 0.02 84.6);
+    --color-neutral-700: oklch(70% 0.018 84.6);
+    --color-neutral-800: oklch(83% 0.016 84.6);
+    --color-neutral-900: oklch(91% 0.015 84.6);
+    --color-neutral-950: oklch(100% 0 0); /* pure white page background */
+
+    --color-orange-400: oklch(48% 0.19 20.2);
+    --color-red-400: oklch(50% 0.2 15);
+    --color-sky-400: oklch(42% 0.11 227.6);
+    --color-violet-400: oklch(46% 0.12 183.7);
+    --color-emerald-400: oklch(50.8% 0.118 183.7);
+    --color-emerald-300: oklch(50.8% 0.118 183.7);
+    --color-emerald-200: oklch(37.8% 0.077 183.7);
+    --color-emerald-900: oklch(84.5% 0.1 183.7);
+
+    /* Same 8 hues, light-surface steps from the same validated instance —
+       see the :root block above for what these are and why. */
+    --gantt-1: #2a78d6; --gantt-1-ink: #000;
+    --gantt-2: #eb6834; --gantt-2-ink: #000;
+    --gantt-3: #1baf7a; --gantt-3-ink: #000;
+    --gantt-4: #eda100; --gantt-4-ink: #000;
+    --gantt-5: #e87ba4; --gantt-5-ink: #000;
+    --gantt-6: #008300; --gantt-6-ink: #fff;
+    --gantt-7: #4a3aa7; --gantt-7-ink: #fff;
+    --gantt-8: #e34948; --gantt-8-ink: #000;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans-ui);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans-ui), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* GanttChart's calendar bars grow in from the left on mount (and again on
+   month navigation, since each bar remounts with a fresh key) — referenced
+   via Tailwind's arbitrary `animate-[gantt-grow_...]` utility in that
+   component. motion-reduce:animate-none there cancels it outright. */
+/* Form controls share one corner radius site-wide (public + admin) so inputs
+   match the rounded cards and tables instead of staying the lone sharp boxes. */
+input:not([type="checkbox"], [type="radio"]),
+select,
+textarea {
+  border-radius: 0.75rem;
+}
+
+/* Scrollbars are hidden everywhere (scrolling itself still works). */
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes gantt-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* components/polytime-ui — the "closing soon" sticker's wobble and the
+   HexClockLogo's slowly turning hand. Both referenced via Tailwind's
+   arbitrary `animate-[pt-bob_...]` / `animate-[pt-spin_...]`, both paired
+   with motion-reduce:animate-none at the call site. */
+@keyframes pt-bob {
+  0%,
+  100% {
+    transform: rotate(6deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(10deg);
+  }
+}
+
+@keyframes pt-shake { 0%, 100% { transform: translateX(0) rotate(0); } 15% { transform: translateX(-9px) rotate(-6deg); } 35% { transform: translateX(8px) rotate(5deg); } 55% { transform: translateX(-6px) rotate(-3deg); } 75% { transform: translateX(4px) rotate(2deg); } }
+@keyframes pt-float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-9px) rotate(2deg); } }
+@keyframes pt-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

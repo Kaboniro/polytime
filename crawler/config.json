@@ -1,0 +1,361 @@
+{
+  "_readme": "Edit freely. `locales` drive per-country web searches (needs BRAVE_API_KEY); `sources` are seed pages whose links are scanned. A locale's `proxyEnv` names an env var holding an HTTP proxy URL you operate/rent in that country (e.g. CRAWL_PROXY_CN=http://user:pass@host:port) — used only for sites that can't be reached from your own network. `searxEngines` is only used with SEARXNG_URL: the engines to query for that country (they must be enabled on your SearXNG). With SearXNG each query uses one engine from `searxEngines` in rotation and falls back to the next if it returns nothing (scraped engines rate-limit quickly). `search.recencyDays` limits results to pages posted/updated in that many days (0 = no limit); `search.pagesPerQuery` is how many result pages to page through per query. A source can set `adapter` (a reader in crawler/adapters.js for structured calendars such as 80.lv), `linkPattern` (a regex: follow every link on the page whose URL matches, instead of only 3D-looking ones), `limit` (max links to follow) or `disabled` (a reason; the source is skipped).",
+  "locales": [
+    {
+      "country": "CN",
+      "lang": "zh",
+      "acceptLanguage": "zh-CN,zh;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_CN",
+      "queries": [
+        "3D 比赛 征集 2026",
+        "三维 建模 大赛 报名",
+        "数字艺术 3D 作品 征集 评选",
+        "Blender 大赛 2026",
+        "C4D 比赛 报名"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    },
+    {
+      "country": "KR",
+      "lang": "ko",
+      "acceptLanguage": "ko-KR,ko;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_KR",
+      "queries": [
+        "3D 공모전 2026",
+        "3D 모델링 대회 접수",
+        "블렌더 공모전",
+        "3D 아트 콘테스트 모집",
+        "게임 그래픽 3D 공모전"
+      ],
+      "searxEngines": "naver,startpage,mojeek,brave"
+    },
+    {
+      "country": "TH",
+      "lang": "th",
+      "acceptLanguage": "th-TH,th;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_TH",
+      "queries": [
+        "ประกวด 3D 2569",
+        "ประกวดโมเดล 3 มิติ",
+        "การแข่งขัน 3D Blender",
+        "ประกวด ออกแบบ 3D รับสมัคร"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    },
+    {
+      "country": "JP",
+      "lang": "ja",
+      "acceptLanguage": "ja-JP,ja;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_JP",
+      "queries": [
+        "3DCG コンテスト 2026 募集",
+        "3D モデリング コンペ 応募",
+        "Blender コンテスト 募集"
+      ],
+      "searxEngines": "yahoo,startpage,mojeek,brave"
+    },
+    {
+      "country": "TW",
+      "lang": "zh",
+      "acceptLanguage": "zh-TW,zh;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_TW",
+      "queries": [
+        "3D 競賽 徵件 2026",
+        "3D 建模 比賽 報名"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    },
+    {
+      "country": "VN",
+      "lang": "vi",
+      "acceptLanguage": "vi-VN,vi;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_VN",
+      "queries": [
+        "cuộc thi 3D 2026",
+        "thi thiết kế 3D Blender"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    },
+    {
+      "country": "ID",
+      "lang": "id",
+      "acceptLanguage": "id-ID,id;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_ID",
+      "queries": [
+        "lomba 3D 2026",
+        "kompetisi desain 3D Blender"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    },
+    {
+      "country": "US",
+      "lang": "en",
+      "acceptLanguage": "en-US,en;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_US",
+      "queries": [
+        "3D art challenge 2026 submissions open",
+        "3D modeling contest 2026 prizes",
+        "Blender competition 2026",
+        "game jam 3D art 2026",
+        "digital sculpting contest 2026",
+        "Reallusion contest 2026",
+        "Daz 3D art contest 2026",
+        "KitBash3D challenge 2026",
+        "Fox Renderfarm CG competition 2026",
+        "ArtStation challenge 2026",
+        "itch.io 3D game jam 2026"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    },
+    {
+      "country": "GB",
+      "lang": "en",
+      "acceptLanguage": "en-GB,en;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_GB",
+      "queries": [
+        "CG artists competition 2026 call for entries",
+        "3D animation VFX student competition 2026",
+        "environment art challenge 2026 prizes",
+        "3D character art contest 2026 deadline"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    },
+    {
+      "country": "DE",
+      "lang": "de",
+      "acceptLanguage": "de-DE,de;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_DE",
+      "queries": [
+        "3D Wettbewerb 2026 Einreichung",
+        "Blender Wettbewerb 2026",
+        "3D Kunst Wettbewerb Teilnahme Preis",
+        "CGI Animation Wettbewerb 2026"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    },
+    {
+      "country": "FR",
+      "lang": "fr",
+      "acceptLanguage": "fr-FR,fr;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_FR",
+      "queries": [
+        "concours 3D 2026 inscription",
+        "concours Blender 2026",
+        "concours création 3D étudiants 2026",
+        "concours art numérique 3D prix"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    },
+    {
+      "country": "ES",
+      "lang": "es",
+      "acceptLanguage": "es-ES,es;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_ES",
+      "queries": [
+        "concurso 3D 2026 inscripción",
+        "concurso Blender 2026",
+        "concurso arte digital 3D premios"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    },
+    {
+      "country": "IT",
+      "lang": "it",
+      "acceptLanguage": "it-IT,it;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_IT",
+      "queries": [
+        "concorso 3D 2026 iscrizione",
+        "concorso Blender 2026",
+        "concorso arte digitale 3D premi"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    },
+    {
+      "country": "NL",
+      "lang": "nl",
+      "acceptLanguage": "nl-NL,nl;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_NL",
+      "queries": [
+        "3D wedstrijd 2026 inschrijven",
+        "Blender wedstrijd 2026"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    },
+    {
+      "country": "PL",
+      "lang": "pl",
+      "acceptLanguage": "pl-PL,pl;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_PL",
+      "queries": [
+        "konkurs 3D 2026 zgłoszenia",
+        "konkurs Blender 2026 nagrody"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    },
+    {
+      "country": "BR",
+      "lang": "pt",
+      "acceptLanguage": "pt-BR,pt;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_BR",
+      "queries": [
+        "concurso 3D 2026 inscrições",
+        "concurso Blender 2026 prêmios",
+        "desafio arte 3D 2026"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo"
+    }
+  ],
+  "sources": [
+    {
+      "name": "Wevity (KR contests)",
+      "url": "https://www.wevity.com/",
+      "country": "KR",
+      "lang": "ko"
+    },
+    {
+      "name": "ContestKorea",
+      "url": "https://www.contestkorea.com/",
+      "country": "KR",
+      "lang": "ko"
+    },
+    {
+      "name": "ZCOOL (CN design)",
+      "url": "https://www.zcool.com.cn/",
+      "country": "CN",
+      "lang": "zh"
+    },
+    {
+      "name": "Blender events",
+      "url": "https://www.blender.org/events/",
+      "country": null,
+      "lang": "en"
+    },
+    {
+      "name": "CGTrader challenges",
+      "url": "https://www.cgtrader.com/challenges",
+      "country": null,
+      "lang": "en"
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "80 Level events",
+      "url": "https://80.lv/events",
+      "adapter": "80lv"
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "RenderHub contests",
+      "url": "https://www.renderhub.com/3d-contests/",
+      "linkPattern": "contest|challenge|competition|giveaway",
+      "limit": 20
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "RenderHub blog",
+      "url": "https://www.renderhub.com/blog",
+      "linkPattern": "contest|challenge|competition|giveaway|events-calendar",
+      "limit": 15
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "KitBash3D",
+      "url": "https://kitbash3d.com/",
+      "linkPattern": "contest|challenge|competition|giveaway"
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "Reallusion Magazine",
+      "url": "https://magazine.reallusion.com/",
+      "linkPattern": "contest|challenge|competition|giveaway",
+      "limit": 20
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "Daz 3D blog",
+      "url": "https://www.daz3d.com/blog",
+      "linkPattern": "contest|challenge|competition|giveaway"
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "Daz 3D art studio forum",
+      "url": "https://www.daz3d.com/forums/categories/art-studio",
+      "linkPattern": "contest|challenge|competition|giveaway"
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "Fox Renderfarm",
+      "url": "https://www.foxrenderfarm.com/",
+      "linkPattern": "contest|challenge|competition|giveaway|award"
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "ReBusFarm news",
+      "url": "https://www.rebusfarm.net/en/news",
+      "linkPattern": "contest|challenge|competition|giveaway",
+      "limit": 20
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "GarageFarm blog",
+      "url": "https://garagefarm.net/blog",
+      "linkPattern": "contest|challenge|competition|giveaway"
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "GarageFarm news",
+      "url": "https://garagefarm.net/news",
+      "linkPattern": "contest|challenge|competition|giveaway"
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "iRender blog",
+      "url": "https://www.irendering.net/blog/",
+      "linkPattern": "contest|challenge|competition|giveaway",
+      "limit": 20
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "itch.io jams (upcoming)",
+      "url": "https://itch.io/jams/upcoming",
+      "linkPattern": "itch\\.io/jam/",
+      "limit": 25
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "itch.io jams (in progress)",
+      "url": "https://itch.io/jams/in-progress",
+      "linkPattern": "itch\\.io/jam/",
+      "limit": 25
+    },
+    {
+      "country": null,
+      "lang": "en",
+      "name": "ArtStation contests",
+      "url": "https://www.artstation.com/contests",
+      "disabled": "ArtStation answers automated readers with HTTP 403, so it can't be crawled. Its challenges are found through search and press coverage instead (see the brand queries under the US locale)."
+    }
+  ],
+  "schedule": {
+    "intervalMinutes": 1440,
+    "maxPagesPerRun": 300,
+    "startDelaySeconds": 30
+  },
+  "search": {
+    "recencyDays": 30,
+    "pagesPerQuery": 2
+  }
+}

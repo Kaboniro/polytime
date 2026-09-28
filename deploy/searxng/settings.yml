@@ -1,0 +1,40 @@
+# SearXNG for the crawler's web searches (used by docker-compose.yml).
+# It is only reachable from the app container, never from outside.
+use_default_settings: true
+
+general:
+  debug: false
+  instance_name: "PolyTime search"
+
+search:
+  safe_search: 0
+  formats:
+    - html
+    - json # the crawler needs the JSON API
+
+server:
+  bind_address: "0.0.0.0"
+  port: 8080
+  # Replaced with a random value by the container on first start.
+  secret_key: "ultrasecretkey"
+  limiter: false
+  public_instance: false
+  image_proxy: false
+
+# Engines the crawler rotates through (see "searxEngines" in crawler/config.json).
+# Scraped engines rate-limit; the crawler paces itself and falls back between them.
+engines:
+  - name: naver
+    disabled: false
+  - name: google
+    disabled: false
+  - name: bing
+    disabled: false
+  - name: yahoo
+    disabled: false
+  - name: startpage
+    disabled: false
+  - name: mojeek
+    disabled: false
+  - name: brave
+    disabled: false

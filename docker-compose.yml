@@ -1,0 +1,54 @@
+# PolyTime on one server: the app (with its crawler), the SearXNG search engine
+# the crawler uses, and — optionally — Caddy for automatic HTTPS.
+#
+#   1. cp deploy/env.production.example .env.production   and fill it in
+#   2. docker compose up -d --build
+#   3. HTTPS on your own domain:  docker compose --profile https up -d --build
+#      (set SITE_DOMAIN in .env and point the domain's DNS at this server first)
+#
+# Only the app (or Caddy) is reachable from outside; SearXNG stays on the
+# internal network.
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env.production
+    environment:
+      # Overrides anything in the env file: the crawler talks to the search
+      # container by its service name, and there is no WSL autostart in Docker.
+      SEARXNG_URL: http://searxng:8080
+      SEARXNG_AUTOSTART: ""
+    volumes:
+      - polytime-data:/app/data
+    ports:
+      # Behind Caddy you can bind to 127.0.0.1 only: "127.0.0.1:3000:3000"
+      - "3000:3000"
+    depends_on:
+      - searxng
+
+  searxng:
+    image: searxng/searxng:latest
+    restart: unless-stopped
+    volumes:
+      - ./deploy/searxng:/etc/searxng
+    environment:
+      SEARXNG_BASE_URL: http://searxng:8080/
+
+  caddy:
+    image: caddy:2
+    profiles: ["https"]
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN:?set SITE_DOMAIN to your domain, e.g. polytime.example}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+    depends_on:
+      - app
+
+volumes:
+  polytime-data:
+  caddy-data:

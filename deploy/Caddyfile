@@ -1,0 +1,5 @@
+# Automatic HTTPS (Let's Encrypt), HTTP->HTTPS redirects and HSTS for your domain.
+{$SITE_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy app:3000
+}
