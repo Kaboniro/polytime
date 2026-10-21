@@ -200,6 +200,12 @@
       "namedRegex": "^/api/health(?:/)?$"
     },
     {
+      "page": "/api/places",
+      "regex": "^/api/places(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/places(?:/)?$"
+    },
+    {
       "page": "/api/submit/event",
       "regex": "^/api/submit/event(?:/)?$",
       "routeKeys": {},

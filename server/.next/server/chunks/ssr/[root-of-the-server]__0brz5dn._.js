@@ -1,0 +1,163 @@
+module.exports=[54799,(a,b,c)=>{b.exports=a.x("crypto",()=>require("crypto"))},22734,(a,b,c)=>{b.exports=a.x("fs",()=>require("fs"))},75625,a=>{a.v({className:"nunito_8c9a20a5-module__5PfwKa__className",variable:"nunito_8c9a20a5-module__5PfwKa__variable"})},54421,a=>{"use strict";var b=a.i(75625);let c={className:b.default.className,style:{fontFamily:"'Nunito', 'Nunito Fallback'",fontStyle:"normal"}};null!=b.default.variable&&(c.variable=b.default.variable),a.s(["default",0,c])},77562,a=>{"use strict";var b=a.i(7997),c=a.i(5246),d=a.i(54421),e=a.i(7008),f=a.i(46635),g=a.i(70185),h=a.i(59773),i=a.i(52902),j=a.i(86190),k=a.i(69140),l=a.i(25081);a.i(64195);var m=a.i(76365);let n={metadataBase:new URL((0,j.siteUrl)()),title:{default:`${j.SITE_NAME} — ${j.SITE_TAGLINE}`,template:`%s — ${j.SITE_NAME}`},description:j.SITE_DESCRIPTION,applicationName:j.SITE_NAME,alternates:{canonical:"/"},openGraph:{type:"website",siteName:j.SITE_NAME,locale:"en_US",title:`${j.SITE_NAME} — ${j.SITE_TAGLINE}`,description:j.SITE_DESCRIPTION,url:"/"},twitter:{card:"summary_large_image",title:`${j.SITE_NAME} — ${j.SITE_TAGLINE}`,description:j.SITE_DESCRIPTION},robots:{index:!0,follow:!0}},o=[{href:"/",label:"Timeline"},{href:"/timeline",label:"Calendar"},{href:"/links",label:"Links"},{href:"/submit",label:"Submit"}];async function p({children:a}){let j=await (0,c.cookies)(),n=await (0,c.headers)();if(j.get("cg_consent")?.value==="1"){let a=j.get("cg_visitor")?.value;a&&(0,e.recordPageView)({visitorId:a,path:n.get("x-pathname")||"/",headers:n})}let q=(0,f.isAdminRequest)(j)?[...o,{href:"/admin",label:"Admin"}]:o;return(0,b.jsx)("html",{lang:"en",className:d.default.variable,children:(0,b.jsxs)("body",{className:"flex min-h-screen flex-col bg-neutral-950 text-neutral-100 antialiased",children:[(0,b.jsx)("header",{className:"border-b border-neutral-800 bg-neutral-950/80 backdrop-blur sticky top-0 z-30",children:(0,b.jsxs)("div",{className:"mx-auto max-w-6xl px-4 sm:px-6 flex flex-wrap items-center justify-between gap-x-4 min-h-16 py-2",children:[(0,b.jsxs)("a",{href:"/",className:"flex items-center gap-2 font-semibold text-base tracking-tight",children:[(0,b.jsx)(m.HexClockLogo,{size:28}),"PolyTime"]}),(0,b.jsx)(l.default,{items:q})]})}),(0,b.jsx)("main",{className:"mx-auto w-full max-w-6xl flex-1 px-4 sm:px-6 py-8",children:a}),(0,b.jsxs)("footer",{className:"mx-auto w-full max-w-6xl px-4 sm:px-6 py-8 text-xs text-neutral-500 border-t border-neutral-800 mt-16",children:["PolyTime is community-curated."," ",(0,b.jsx)("a",{href:"/submit",className:"underline hover:text-neutral-300",children:"Know one we're missing?"})," ","· ",(0,b.jsx)("a",{href:"/privacy",className:"underline hover:text-neutral-300",children:"Privacy & data"})," ","· ",(0,b.jsx)(k.default,{})]}),(0,b.jsx)(g.default,{}),(0,b.jsx)(h.default,{data:(0,i.websiteJsonLd)()})]})})}a.s(["default",0,p,"metadata",0,n])},73841,function(a){a.n(a.i(77562))},78672,a=>{"use strict";a.s(["default",()=>b]);let b=(0,a.i(11857).registerClientReference)(function(){throw Error("Attempted to call the default export of [project]/components/CookieConsent.js from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.")},"[project]/components/CookieConsent.js","default")},70185,a=>{"use strict";var b=a.i(78672);a.n(b)},79469,a=>{"use strict";a.s(["default",()=>b]);let b=(0,a.i(11857).registerClientReference)(function(){throw Error("Attempted to call the default export of [project]/components/CookiePrefsLink.js from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.")},"[project]/components/CookiePrefsLink.js","default")},69140,a=>{"use strict";var b=a.i(79469);a.n(b)},59773,52902,a=>{"use strict";var b=a.i(7997),c=a.i(60038),d=a.i(70716),e=a.i(73235),f=a.i(86190);function g(a){return`/events/${a.id}`}function h(a){let b=(a.description||"").replace(/\s+/g," ").trim();if(b.length>=40)return b.length<=158?b:b.slice(0,155).replace(/\s+\S*$/,"")+"…";let g=(0,d.fmtDateRange)(a.start_date,a.end_date),h=[`${(0,c.labelFor)(c.EVENT_CATEGORIES,a.category)} ${"conference"===a.event_type?"conference":"event"}`,a.host?`hosted by ${a.host}`:null,g||null,(0,e.geographyLabel)(a.geography)].filter(Boolean);return`${a.title} — ${h.join(" · ")}. Details, dates and link on ${f.SITE_NAME}.`.slice(0,200)}let i=/^(see (the )?(event )?(page|link|website|site)|tbd|tba|tbc|unknown|n\/a|-+)\.?$/i,j=a=>{let b=(a.location||"").trim();return b&&!i.test(b)?b:null},k=a=>JSON.stringify(a).replace(/</g,"\\u003c");a.s(["breadcrumbJsonLd",0,function(a){return{"@context":"https://schema.org","@type":"BreadcrumbList",itemListElement:a.map((a,b)=>({"@type":"ListItem",position:b+1,name:a.name,item:(0,f.absoluteUrl)(a.path)}))}},"eventDescription",0,h,"eventJsonLd",0,function(a){if(!a.start_date)return null;let b=!j(a)||/online|virtual|remote/i.test(a.location);return{"@context":"https://schema.org","@type":"Event",name:a.title,description:h(a),startDate:a.start_date,...a.end_date?{endDate:a.end_date}:{},eventStatus:"https://schema.org/EventScheduled",eventAttendanceMode:b?"https://schema.org/OnlineEventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",location:b?{"@type":"VirtualLocation",url:a.url||(0,f.absoluteUrl)(g(a))}:{"@type":"Place",name:a.location,address:a.location},url:(0,f.absoluteUrl)(g(a)),...a.host?{organizer:{"@type":"Organization",name:a.host}}:{},image:[(0,f.absoluteUrl)("/opengraph-image")],isAccessibleForFree:!0}},"eventPath",0,g,"jsonLdString",0,k,"realLocation",0,j,"websiteJsonLd",0,function(){return[{"@context":"https://schema.org","@type":"WebSite",name:f.SITE_NAME,url:(0,f.absoluteUrl)("/"),description:f.SITE_DESCRIPTION,inLanguage:"en"},{"@context":"https://schema.org","@type":"Organization",name:f.SITE_NAME,url:(0,f.absoluteUrl)("/"),logo:(0,f.absoluteUrl)("/logo.svg")}]}],52902),a.s(["default",0,function({data:a}){return(0,b.jsx)(b.Fragment,{children:[].concat(a).filter(Boolean).map((a,c)=>(0,b.jsx)("script",{type:"application/ld+json",dangerouslySetInnerHTML:{__html:k(a)}},c))})}],59773)},76962,a=>{"use strict";a.s(["default",()=>b]);let b=(0,a.i(11857).registerClientReference)(function(){throw Error("Attempted to call the default export of [project]/components/NavLinks.js from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.")},"[project]/components/NavLinks.js","default")},25081,a=>{"use strict";var b=a.i(76962);a.n(b)},7209,a=>{"use strict";a.s(["EventCard",()=>b]);let b=(0,a.i(11857).registerClientReference)(function(){throw Error("Attempted to call EventCard() from the server but EventCard is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.")},"[project]/components/polytime-ui/EventCard.js","EventCard")},88973,a=>{"use strict";var b=a.i(7209);a.n(b)},57341,a=>{"use strict";a.s(["formatRemaining",()=>c,"useNow",()=>d]);var b=a.i(11857);let c=(0,b.registerClientReference)(function(){throw Error("Attempted to call formatRemaining() from the server but formatRemaining is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.")},"[project]/components/polytime-ui/useCountdown.js","formatRemaining"),d=(0,b.registerClientReference)(function(){throw Error("Attempted to call useNow() from the server but useNow is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.")},"[project]/components/polytime-ui/useCountdown.js","useNow")},51281,a=>{"use strict";var b=a.i(57341);a.n(b)},64195,76365,74792,a=>{"use strict";a.i(88973);var b=a.i(7997);let c="var(--color-neutral-100)";function d({size:a=40}){return(0,b.jsxs)("svg",{width:a,height:a,viewBox:"0 0 40 40","aria-hidden":"true",className:"mx-auto mb-3",children:[(0,b.jsx)("polygon",{points:"20,3 33,14 20,20",fill:"var(--gantt-1)",opacity:"0.3"}),(0,b.jsx)("polygon",{points:"33,14 20,37 20,20",fill:"var(--gantt-2)",opacity:"0.22"}),(0,b.jsx)("polygon",{points:"20,37 7,14 20,20",fill:"var(--gantt-3)",opacity:"0.22"}),(0,b.jsx)("polygon",{points:"7,14 20,3 20,20",fill:"var(--gantt-7)",opacity:"0.26"}),(0,b.jsx)("polygon",{points:"20,3 33,14 20,37 7,14",fill:"none",stroke:"var(--color-neutral-600)",strokeWidth:1.5,strokeLinejoin:"round"}),(0,b.jsx)("line",{x1:7,y1:14,x2:33,y2:14,stroke:"var(--color-neutral-600)",strokeWidth:1}),(0,b.jsx)("line",{x1:20,y1:3,x2:20,y2:37,stroke:"var(--color-neutral-600)",strokeWidth:1})]})}a.s(["HexClockLogo",0,function({size:a=36,label:d}){return(0,b.jsxs)("svg",{width:a,height:a,viewBox:"0 0 40 40",role:d?"img":void 0,"aria-label":d,"aria-hidden":!d||void 0,children:[(0,b.jsx)("polygon",{points:"20,20 20,2 35.6,11",fill:"var(--gantt-4)"}),(0,b.jsx)("polygon",{points:"20,20 35.6,11 35.6,29",fill:"var(--gantt-2)"}),(0,b.jsx)("polygon",{points:"20,20 35.6,29 20,38",fill:"var(--gantt-8)"}),(0,b.jsx)("polygon",{points:"20,20 20,38 4.4,29",fill:"var(--gantt-7)"}),(0,b.jsx)("polygon",{points:"20,20 4.4,29 4.4,11",fill:"var(--gantt-1)"}),(0,b.jsx)("polygon",{points:"20,20 4.4,11 20,2",fill:"var(--gantt-3)"}),(0,b.jsx)("polygon",{points:"20,2 35.6,11 35.6,29 20,38 4.4,29 4.4,11",fill:"none",stroke:c,strokeWidth:2,strokeLinejoin:"round"}),(0,b.jsx)("circle",{cx:20,cy:20,r:8,fill:"var(--color-neutral-900)",stroke:c,strokeWidth:1.5}),(0,b.jsx)("line",{x1:20,y1:20,x2:20,y2:15,stroke:c,strokeWidth:1.8,strokeLinecap:"round"}),(0,b.jsx)("line",{className:"origin-[20px_20px] animate-[pt-spin_12s_linear_infinite] motion-reduce:animate-none",style:{transformBox:"view-box"},x1:20,y1:20,x2:25,y2:20,stroke:"var(--color-orange-500)",strokeWidth:1.8,strokeLinecap:"round"})]})},"ViewportGrid",0,function({as:a="div",gridSize:c=40,className:d="",children:e}){return(0,b.jsx)(a,{className:d,style:{backgroundImage:"linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)",backgroundSize:`${c}px ${c}px`},children:e})}],76365),a.s(["EmptyState",0,function({children:a,className:c=""}){return(0,b.jsxs)("div",{className:`rounded-2xl border border-dashed border-neutral-800 p-10 text-center text-neutral-500 ${c}`,children:[(0,b.jsx)(d,{}),(0,b.jsx)("div",{children:a})]})}],74792),a.i(51281),a.s([],64195)},7008,a=>{"use strict";var b=a.i(97729);let c=["/","/timeline","/links","/submit","/privacy"];function d(a){if("string"!=typeof a)return"";let b=a.split("?")[0].split("#")[0];return b.length>1?b.replace(/\/+$/,""):b}let e=/^\/events\/(\d+)$/,f=a=>a?{...a}:a,g={"7d":7,"30d":30,"90d":90,"365d":365,all:null};function h(a){return Object.hasOwn(g,a)?a:"30d"}function i(a){return c.includes(a)?a:null}let j=a=>new Date(a).toISOString().slice(0,19).replace("T"," "),k=a=>864e5*Math.floor(a/864e5),l=c.map(()=>"?").join(","),m=`(path IN (${l}) OR (path LIKE '/events/%' AND CAST(substr(path, 9) AS INTEGER) IN (SELECT id FROM events WHERE status = 'approved')))`;function n(a,b,d){return{sql:`created_at >= ? AND created_at < ? AND ${m}${d?" AND path = ?":""}`,params:[a,b,...c,...d?[d]:[]]}}function o(a,b,c,d){let e=n(b,c,d),{views:f,visitors:g}=a.prepare(`SELECT COUNT(*) views, COUNT(DISTINCT visitor_id) visitors FROM page_views WHERE ${e.sql}`).get(...e.params),h=a.prepare(`WITH v AS (
+         SELECT visitor_id, created_at,
+                LAG(created_at) OVER (PARTITION BY visitor_id ORDER BY created_at) prev
+         FROM page_views WHERE ${e.sql}
+       ), n AS (
+         SELECT visitor_id, created_at,
+                SUM(CASE WHEN prev IS NULL OR (julianday(created_at) - julianday(prev)) * 1440 > 30 THEN 1 ELSE 0 END)
+                  OVER (PARTITION BY visitor_id ORDER BY created_at ROWS UNBOUNDED PRECEDING) sess
+         FROM v
+       ), g AS (
+         SELECT visitor_id, sess, COUNT(*) pages,
+                (julianday(MAX(created_at)) - julianday(MIN(created_at))) * 86400 seconds
+         FROM n GROUP BY visitor_id, sess
+       )
+       SELECT COUNT(*) sessions, AVG(pages) avgPages, AVG(seconds) avgSeconds, SUM(pages = 1) bounces FROM g`).get(...e.params),i=h.sessions||0;return{views:f,visitors:g,sessions:i,pagesPerSession:i?h.avgPages:0,avgSeconds:i?h.avgSeconds:0,bounceRate:i?(h.bounces||0)/i:0}}a.s(["PUBLIC_PATHS",0,c,"RANGE_LABELS",0,{"7d":"7 days","30d":"30 days","90d":"90 days","365d":"1 year",all:"All time"},"getActivityReport",0,function({range:a="30d",page:d=null}={}){a=h(a),d=i(d);let e=(0,b.default)(),p=function(a,b){let c=g[a],d=Date.now();if(c){let a=k(d)-(c-1)*864e5;return{days:c,since:j(a),until:j(d+1e3),prevSince:j(a-864e5*c),prevUntil:j(a)}}let e=b.prepare("SELECT MIN(created_at) first FROM page_views").get().first,f=e?k(Date.parse(e.replace(" ","T")+"Z")):k(d);return{days:Math.max(1,Math.round((k(d)-f)/864e5)+1),since:j(f),until:j(d+1e3),prevSince:null,prevUntil:null}}(a,e),q=n(p.since,p.until,d),r=o(e,p.since,p.until,d),s=p.prevSince?o(e,p.prevSince,p.prevUntil,d):null,t=p.days>120,u=new Map(e.prepare(`SELECT ${t?"date(created_at, 'weekday 0', '-6 days')":"date(created_at)"} bucket, COUNT(*) views, COUNT(DISTINCT visitor_id) visitors FROM page_views WHERE ${q.sql} GROUP BY bucket`).all(...q.params).map(a=>[a.bucket,a])),v=[],w=t?6048e5:864e5,x=k(Date.parse(p.since.replace(" ","T")+"Z"));for(t&&(x-=(new Date(x).getUTCDay()+6)%7*864e5);x<=Date.now();x+=w){let a=new Date(x).toISOString().slice(0,10),b=u.get(a);v.push({date:a,views:b?.views||0,visitors:b?.visitors||0})}let y=Array.from({length:7},()=>Array(24).fill(0));for(let a of e.prepare(`SELECT CAST(strftime('%w', created_at) AS INTEGER) d, CAST(strftime('%H', created_at) AS INTEGER) h, COUNT(*) n FROM page_views WHERE ${q.sql} GROUP BY d, h`).all(...q.params))y[a.d][a.h]=a.n;let z=e.prepare(`SELECT path, COUNT(*) views, COUNT(DISTINCT visitor_id) visitors FROM page_views WHERE ${q.sql} GROUP BY path ORDER BY views DESC, path ASC`).all(...q.params).map(f),A=z.filter(a=>a.path.startsWith("/events/")).map(a=>Number(a.path.slice(8)));if(A.length){let a=new Map(e.prepare(`SELECT id, title FROM events WHERE id IN (${A.map(()=>"?").join(",")})`).all(...A).map(a=>[a.id,a.title]));for(let b of z)b.path.startsWith("/events/")&&(b.title=a.get(Number(b.path.slice(8)))||null)}let B=e.prepare(`SELECT referrer_path "from", path "to", COUNT(*) n FROM page_views
+       WHERE ${q.sql} AND referrer_path IS NOT NULL AND referrer_path != path AND referrer_path IN (${l})
+       GROUP BY referrer_path, path ORDER BY n DESC LIMIT 10`).all(...q.params,...c).map(f),C=e.prepare(`SELECT country, COUNT(*) views, COUNT(DISTINCT visitor_id) visitors FROM page_views
+       WHERE ${q.sql} AND country IS NOT NULL GROUP BY country ORDER BY views DESC LIMIT 25`).all(...q.params).map(f),D=C.reduce((a,b)=>a+b.views,0),E=e.prepare(`SELECT COALESCE(SUM(first_seen >= ?), 0) newVisitors, COALESCE(SUM(first_seen < ?), 0) returningVisitors FROM (
+         SELECT visitor_id, MIN(created_at) first_seen FROM page_views GROUP BY visitor_id
+       ) WHERE visitor_id IN (SELECT DISTINCT visitor_id FROM page_views WHERE ${q.sql})`).get(p.since,p.since,...q.params),F=e.prepare(`SELECT path, COUNT(*) views FROM page_views WHERE created_at >= ? AND created_at < ? AND NOT ${m}
+       GROUP BY path ORDER BY views DESC LIMIT 5`).all(p.since,p.until,...c).map(f),G=e.prepare(`SELECT COUNT(*) n FROM page_views WHERE created_at >= ? AND created_at < ? AND NOT ${m}`).get(p.since,p.until,...c).n;return{range:a,page:d,days:p.days,since:p.since,until:p.until,weekly:t,current:r,previous:s,trend:v,heat:y,topPages:z,flows:B,countries:C,unknownLocationViews:r.views-D,newVisitors:E.newVisitors,returningVisitors:E.returningVisitors,hiddenViews:G,hiddenPaths:F}},"parsePageFilter",0,i,"parseRange",0,h,"recordPageView",0,function({visitorId:a,path:f,headers:g}){let h,i,j;if(!a||(h=d(f),!(c.includes(h)||e.test(h))))return;if(f=d(f),!c.includes(f)&&!((i=d(f).match(e))&&(0,b.default)().prepare("SELECT 1 FROM events WHERE id = ? AND status = 'approved'").get(Number(i[1]))))return;let{country:k,region:l}={country:(j=g.get("cf-ipcountry")||g.get("x-vercel-ip-country"))&&"XX"!==j&&"T1"!==j?j.toUpperCase():null,region:g.get("cf-region-code")||g.get("x-vercel-ip-country-region")||null};(0,b.default)().prepare("INSERT INTO page_views (visitor_id, path, referrer_path, country, region) VALUES (?, ?, ?, ?, ?)").run(a,f,function(a){let b=a.get("referer"),c=a.get("host");if(!b||!c)return null;try{let a=new URL(b);return a.host===c?d(a.pathname):null}catch{return null}}(g),k,l)}])},60038,a=>{"use strict";a.s(["DATED_EVENT_TYPES",0,["event","conference"],"EVENT_CATEGORIES",0,[{value:"general",label:"General / Multi-discipline"},{value:"3d",label:"3D Art"},{value:"animation",label:"Animation / Motion"},{value:"rendering",label:"3D Fashion"},{value:"archviz",label:"Architectural Visualization"},{value:"game-art",label:"Game Art"},{value:"character",label:"Character / Creature"},{value:"vfx",label:"VFX / Motion"},{value:"product",label:"Product Viz"},{value:"sculpting",label:"Sculpting / ZBrush"},{value:"printing",label:"Stop Motion"},{value:"concept",label:"Concept / Illustration"},{value:"pixel",label:"Pixel Art"},{value:"other",label:"Other"}],"EVENT_TYPES",0,[{value:"event",label:"One-off event / contest deadline"},{value:"conference",label:"Conference"},{value:"ongoing",label:"Ongoing challenge (open-ended, no fixed date)"},{value:"rolling",label:"Rolling / recurring (weekly, monthly, etc.)"}],"LINK_CATEGORIES",0,[{value:"community",label:"Community (Discord, forum, subreddit)"},{value:"tool",label:"Tool / Plugin"},{value:"software",label:"Software"},{value:"asset-library",label:"Asset Library"},{value:"tutorial",label:"Tutorials / Learning"},{value:"job-board",label:"Jobs / Freelance"},{value:"other",label:"Other"}],"TYPE_FILTER_OPTIONS",0,[{value:"event",label:"One-off"},{value:"conference",label:"Conference"},{value:"rolling",label:"Rolling"},{value:"ongoing",label:"Ongoing"}],"labelFor",0,function(a,b){return a.find(a=>a.value===b)?.label||b}])},97729,a=>{"use strict";let b;var c=a.x("node:sqlite",()=>require("node:sqlite"),!0),d=a.i(14747),e=a.i(22734);let f=d.default.join(process.cwd(),"data");e.default.existsSync(f)||e.default.mkdirSync(f,{recursive:!0});let g=d.default.join(f,"app.db");a.s(["default",0,function(){var a;let d;return b||((b=new c.DatabaseSync(g)).exec("PRAGMA journal_mode = WAL"),(a=b).exec(`
+    CREATE TABLE IF NOT EXISTS events (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      description TEXT,
+      url TEXT,
+      host TEXT,
+      category TEXT NOT NULL DEFAULT 'general',
+      software TEXT,     -- free text, e.g. "Blender, Substance Painter"
+      geography TEXT NOT NULL DEFAULT 'international', -- 'international' | 'region:<slug>' | 'country:<ISO2>' — see lib/geography.js
+      participants INTEGER, -- admin-tracked headcount, not self-reported; NULL means unknown, not zero
+      event_type TEXT NOT NULL DEFAULT 'event', -- 'event' | 'ongoing' | 'rolling'
+      start_date TEXT,   -- ISO date, nullable for 'ongoing'/'rolling' with no fixed date
+      end_date TEXT,
+      submission_deadline TEXT,
+      location TEXT DEFAULT 'online',
+      no_ai INTEGER NOT NULL DEFAULT 0, -- 1 = the event prohibits AI-generated work
+      status TEXT NOT NULL DEFAULT 'pending', -- 'pending' | 'approved' | 'rejected' | 'archived'
+      submitted_by TEXT,
+      submitter_note TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    -- No longer surfaced anywhere in the app (the Winners feature was
+    -- removed — the site's focus is events + resources, not a winners
+    -- showcase). Left in place, not dropped, only so any rows a prior
+    -- install already had aren't destroyed by an update; nothing reads
+    -- from or writes to this table anymore.
+    CREATE TABLE IF NOT EXISTS winners (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      artist_name TEXT NOT NULL,
+      competition_name TEXT NOT NULL,
+      year INTEGER,
+      category TEXT NOT NULL DEFAULT 'general',
+      piece_title TEXT,
+      image_url TEXT,
+      portfolio_url TEXT,
+      instagram TEXT,
+      x_twitter TEXT,
+      artstation TEXT,
+      other_social TEXT,
+      notes TEXT,
+      status TEXT NOT NULL DEFAULT 'pending',
+      submitted_by TEXT,
+      submitter_note TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS links (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      url TEXT NOT NULL,
+      description TEXT,
+      category TEXT NOT NULL DEFAULT 'community', -- tool | community | tutorial | asset-library | software | other
+      no_ai INTEGER NOT NULL DEFAULT 0, -- 1 = an AI-free resource
+      status TEXT NOT NULL DEFAULT 'pending',
+      submitted_by TEXT,
+      submitter_note TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    -- One row per page view, written only for visitors who accepted the
+    -- cookie banner (see components/CookieConsent.js) — nothing here is
+    -- collected before that. visitor_id is a random id from that consent
+    -- cookie, not tied to a real identity. country/region are resolved
+    -- server-side from the request's IP at write time (see lib/analytics.js)
+    -- and that's *all* that's kept of it — the IP address itself is never
+    -- written to the database.
+    CREATE TABLE IF NOT EXISTS page_views (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      visitor_id TEXT NOT NULL,
+      path TEXT NOT NULL,
+      referrer_path TEXT,
+      country TEXT,
+      region TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    -- Background crawler (crawler/daemon.js). One state row (id = 1) that the
+    -- daemon heartbeats into and the admin dashboard reads/flags, plus one
+    -- row per crawl run. The daemon creates the same tables itself, since it
+    -- can start before the web app has opened the database.
+    CREATE TABLE IF NOT EXISTS crawler_state (
+      id INTEGER PRIMARY KEY CHECK (id = 1),
+      state TEXT NOT NULL DEFAULT 'stopped', -- 'idle' | 'running' | 'stopped'
+      paused INTEGER NOT NULL DEFAULT 0,
+      run_requested INTEGER NOT NULL DEFAULT 0,
+      heartbeat_at TEXT,
+      next_run_at TEXT,
+      pid INTEGER,
+      current_note TEXT
+    );
+    CREATE TABLE IF NOT EXISTS crawler_runs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      started_at TEXT NOT NULL,
+      finished_at TEXT,
+      trigger TEXT NOT NULL DEFAULT 'schedule', -- 'schedule' | 'manual' | 'startup'
+      status TEXT NOT NULL DEFAULT 'running',   -- 'running' | 'ok' | 'error'
+      pages INTEGER NOT NULL DEFAULT 0,
+      searches INTEGER NOT NULL DEFAULT 0,
+      candidates INTEGER NOT NULL DEFAULT 0,
+      added INTEGER NOT NULL DEFAULT 0,
+      error TEXT,
+      summary TEXT -- JSON: { found: [...], unreachable: [...] }
+    );
+
+    -- Messages from the public Query form (content removal requests,
+    -- corrections, questions). Not moderated content: nothing here is ever
+    -- shown publicly, it is only for the admin to read and resolve.
+    CREATE TABLE IF NOT EXISTS queries (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      kind TEXT NOT NULL DEFAULT 'question', -- removal | correction | question | other
+      subject TEXT NOT NULL,
+      message TEXT NOT NULL,
+      page_url TEXT,  -- the page/link/event the message is about
+      contact TEXT,   -- optional email to reply to
+      status TEXT NOT NULL DEFAULT 'open', -- open | resolved
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    -- Second admin login step: one row per emailed sign-in code. Only an HMAC
+    -- of the code is kept (never the code itself); see lib/adminLogin.js.
+    CREATE TABLE IF NOT EXISTS admin_login_codes (
+      id TEXT PRIMARY KEY,
+      code_hash TEXT NOT NULL,
+      created_at INTEGER NOT NULL,
+      expires_at INTEGER NOT NULL,
+      attempts INTEGER NOT NULL DEFAULT 0,
+      total_attempts INTEGER NOT NULL DEFAULT 0,
+      sent_count INTEGER NOT NULL DEFAULT 1,
+      last_sent_at INTEGER NOT NULL,
+      consumed INTEGER NOT NULL DEFAULT 0
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_events_status ON events(status);
+    CREATE INDEX IF NOT EXISTS idx_events_start ON events(start_date);
+    CREATE INDEX IF NOT EXISTS idx_winners_status ON winners(status);
+    CREATE INDEX IF NOT EXISTS idx_links_status ON links(status);
+    CREATE INDEX IF NOT EXISTS idx_page_views_created ON page_views(created_at);
+    CREATE INDEX IF NOT EXISTS idx_page_views_visitor ON page_views(visitor_id);
+  `),(d=a.prepare("PRAGMA table_info(events)").all()).some(a=>"software"===a.name)||a.exec("ALTER TABLE events ADD COLUMN software TEXT"),d.some(a=>"geography"===a.name)||a.exec("ALTER TABLE events ADD COLUMN geography TEXT NOT NULL DEFAULT 'international'"),d.some(a=>"participants"===a.name)||a.exec("ALTER TABLE events ADD COLUMN participants INTEGER"),d.some(a=>"no_ai"===a.name)||a.exec("ALTER TABLE events ADD COLUMN no_ai INTEGER NOT NULL DEFAULT 0"),a.prepare("PRAGMA table_info(links)").all().some(a=>"no_ai"===a.name)||a.exec("ALTER TABLE links ADD COLUMN no_ai INTEGER NOT NULL DEFAULT 0")),b}])},73235,a=>{"use strict";let b=[{slug:"africa",label:"Africa",icon:"🌍"},{slug:"asia",label:"Asia",icon:"🌏"},{slug:"europe",label:"Europe",icon:"🌍"},{slug:"north-america",label:"North America",icon:"🌎"},{slug:"south-america",label:"South America",icon:"🌎"},{slug:"oceania",label:"Oceania",icon:"🌏"}],c=[{code:"AF",name:"Afghanistan"},{code:"AL",name:"Albania"},{code:"DZ",name:"Algeria"},{code:"AD",name:"Andorra"},{code:"AO",name:"Angola"},{code:"AG",name:"Antigua and Barbuda"},{code:"AR",name:"Argentina"},{code:"AM",name:"Armenia"},{code:"AU",name:"Australia"},{code:"AT",name:"Austria"},{code:"AZ",name:"Azerbaijan"},{code:"BS",name:"Bahamas"},{code:"BH",name:"Bahrain"},{code:"BD",name:"Bangladesh"},{code:"BB",name:"Barbados"},{code:"BY",name:"Belarus"},{code:"BE",name:"Belgium"},{code:"BZ",name:"Belize"},{code:"BJ",name:"Benin"},{code:"BT",name:"Bhutan"},{code:"BO",name:"Bolivia"},{code:"BA",name:"Bosnia and Herzegovina"},{code:"BW",name:"Botswana"},{code:"BR",name:"Brazil"},{code:"BN",name:"Brunei"},{code:"BG",name:"Bulgaria"},{code:"BF",name:"Burkina Faso"},{code:"BI",name:"Burundi"},{code:"KH",name:"Cambodia"},{code:"CM",name:"Cameroon"},{code:"CA",name:"Canada"},{code:"CV",name:"Cape Verde"},{code:"CF",name:"Central African Republic"},{code:"TD",name:"Chad"},{code:"CL",name:"Chile"},{code:"CN",name:"China"},{code:"CO",name:"Colombia"},{code:"KM",name:"Comoros"},{code:"CG",name:"Congo"},{code:"CD",name:"Congo (DRC)"},{code:"CR",name:"Costa Rica"},{code:"HR",name:"Croatia"},{code:"CU",name:"Cuba"},{code:"CY",name:"Cyprus"},{code:"CZ",name:"Czechia"},{code:"DK",name:"Denmark"},{code:"DJ",name:"Djibouti"},{code:"DM",name:"Dominica"},{code:"DO",name:"Dominican Republic"},{code:"EC",name:"Ecuador"},{code:"EG",name:"Egypt"},{code:"SV",name:"El Salvador"},{code:"GQ",name:"Equatorial Guinea"},{code:"ER",name:"Eritrea"},{code:"EE",name:"Estonia"},{code:"SZ",name:"Eswatini"},{code:"ET",name:"Ethiopia"},{code:"FJ",name:"Fiji"},{code:"FI",name:"Finland"},{code:"FR",name:"France"},{code:"GA",name:"Gabon"},{code:"GM",name:"Gambia"},{code:"GE",name:"Georgia"},{code:"DE",name:"Germany"},{code:"GH",name:"Ghana"},{code:"GR",name:"Greece"},{code:"GD",name:"Grenada"},{code:"GT",name:"Guatemala"},{code:"GN",name:"Guinea"},{code:"GW",name:"Guinea-Bissau"},{code:"GY",name:"Guyana"},{code:"HT",name:"Haiti"},{code:"HN",name:"Honduras"},{code:"HK",name:"Hong Kong"},{code:"HU",name:"Hungary"},{code:"IS",name:"Iceland"},{code:"IN",name:"India"},{code:"ID",name:"Indonesia"},{code:"IR",name:"Iran"},{code:"IQ",name:"Iraq"},{code:"IE",name:"Ireland"},{code:"IL",name:"Israel"},{code:"IT",name:"Italy"},{code:"JM",name:"Jamaica"},{code:"JP",name:"Japan"},{code:"JO",name:"Jordan"},{code:"KZ",name:"Kazakhstan"},{code:"KE",name:"Kenya"},{code:"KI",name:"Kiribati"},{code:"KW",name:"Kuwait"},{code:"KG",name:"Kyrgyzstan"},{code:"LA",name:"Laos"},{code:"LV",name:"Latvia"},{code:"LB",name:"Lebanon"},{code:"LS",name:"Lesotho"},{code:"LR",name:"Liberia"},{code:"LY",name:"Libya"},{code:"LI",name:"Liechtenstein"},{code:"LT",name:"Lithuania"},{code:"LU",name:"Luxembourg"},{code:"MO",name:"Macao"},{code:"MG",name:"Madagascar"},{code:"MW",name:"Malawi"},{code:"MY",name:"Malaysia"},{code:"MV",name:"Maldives"},{code:"ML",name:"Mali"},{code:"MT",name:"Malta"},{code:"MH",name:"Marshall Islands"},{code:"MR",name:"Mauritania"},{code:"MU",name:"Mauritius"},{code:"MX",name:"Mexico"},{code:"FM",name:"Micronesia"},{code:"MD",name:"Moldova"},{code:"MC",name:"Monaco"},{code:"MN",name:"Mongolia"},{code:"ME",name:"Montenegro"},{code:"MA",name:"Morocco"},{code:"MZ",name:"Mozambique"},{code:"MM",name:"Myanmar"},{code:"NA",name:"Namibia"},{code:"NR",name:"Nauru"},{code:"NP",name:"Nepal"},{code:"NL",name:"Netherlands"},{code:"NZ",name:"New Zealand"},{code:"NI",name:"Nicaragua"},{code:"NE",name:"Niger"},{code:"NG",name:"Nigeria"},{code:"KP",name:"North Korea"},{code:"MK",name:"North Macedonia"},{code:"NO",name:"Norway"},{code:"OM",name:"Oman"},{code:"PK",name:"Pakistan"},{code:"PW",name:"Palau"},{code:"PS",name:"Palestine"},{code:"PA",name:"Panama"},{code:"PG",name:"Papua New Guinea"},{code:"PY",name:"Paraguay"},{code:"PE",name:"Peru"},{code:"PH",name:"Philippines"},{code:"PL",name:"Poland"},{code:"PT",name:"Portugal"},{code:"QA",name:"Qatar"},{code:"RO",name:"Romania"},{code:"RU",name:"Russia"},{code:"RW",name:"Rwanda"},{code:"KN",name:"Saint Kitts and Nevis"},{code:"LC",name:"Saint Lucia"},{code:"VC",name:"Saint Vincent and the Grenadines"},{code:"WS",name:"Samoa"},{code:"SM",name:"San Marino"},{code:"ST",name:"Sao Tome and Principe"},{code:"SA",name:"Saudi Arabia"},{code:"SN",name:"Senegal"},{code:"RS",name:"Serbia"},{code:"SC",name:"Seychelles"},{code:"SL",name:"Sierra Leone"},{code:"SG",name:"Singapore"},{code:"SK",name:"Slovakia"},{code:"SI",name:"Slovenia"},{code:"SB",name:"Solomon Islands"},{code:"SO",name:"Somalia"},{code:"ZA",name:"South Africa"},{code:"KR",name:"South Korea"},{code:"SS",name:"South Sudan"},{code:"ES",name:"Spain"},{code:"LK",name:"Sri Lanka"},{code:"SD",name:"Sudan"},{code:"SR",name:"Suriname"},{code:"SE",name:"Sweden"},{code:"CH",name:"Switzerland"},{code:"SY",name:"Syria"},{code:"TW",name:"Taiwan"},{code:"TJ",name:"Tajikistan"},{code:"TZ",name:"Tanzania"},{code:"TH",name:"Thailand"},{code:"TL",name:"Timor-Leste"},{code:"TG",name:"Togo"},{code:"TO",name:"Tonga"},{code:"TT",name:"Trinidad and Tobago"},{code:"TN",name:"Tunisia"},{code:"TR",name:"Turkey"},{code:"TM",name:"Turkmenistan"},{code:"TV",name:"Tuvalu"},{code:"UG",name:"Uganda"},{code:"UA",name:"Ukraine"},{code:"AE",name:"United Arab Emirates"},{code:"GB",name:"United Kingdom"},{code:"US",name:"United States"},{code:"UY",name:"Uruguay"},{code:"UZ",name:"Uzbekistan"},{code:"VU",name:"Vanuatu"},{code:"VA",name:"Vatican City"},{code:"VE",name:"Venezuela"},{code:"VN",name:"Vietnam"},{code:"YE",name:"Yemen"},{code:"ZM",name:"Zambia"},{code:"ZW",name:"Zimbabwe"}],d=new Map(c.map(a=>[a.code,a])),e=new Map(b.map(a=>[a.slug,a]));function f(a){if(a?.startsWith("country:")){let b=a.slice(8).toUpperCase(),c=d.get(b);return{scope:"country",code:b,label:c?.name||b}}if(a?.startsWith("region:")){let b=a.slice(7),c=e.get(b);return{scope:"region",icon:c?.icon||"🌐",label:c?.label||b}}return{scope:"international",icon:"🌐",label:"International"}}a.s(["geographyGroups",0,function(){return[{label:null,options:[{value:"international",label:"🌐 International"}]},{label:"Region",options:b.map(a=>({value:`region:${a.slug}`,label:`${a.icon} ${a.label}`}))},{label:"Country",options:c.map(a=>({value:`country:${a.code}`,label:a.name}))}]},"geographyIconInfo",0,function(a){let b=f(a);return"country"===b.scope?{kind:"flag",className:`fi fi-${b.code.toLowerCase()}`}:{kind:"emoji",glyph:b.icon}},"geographyLabel",0,function(a){return f(a).label},"parseGeography",0,f])}];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__0brz5dn._.js.map

@@ -28,6 +28,7 @@
   "/api/admin/verify/resend/route": "/api/admin/verify/resend",
   "/api/admin/verify/route": "/api/admin/verify",
   "/api/health/route": "/api/health",
+  "/api/places/route": "/api/places",
   "/api/submit/event/route": "/api/submit/event",
   "/api/submit/link/route": "/api/submit/link",
   "/api/submit/query/route": "/api/submit/query",
