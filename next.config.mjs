@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Self-contained build (compiled app + only the node_modules it needs) for
+  // hosts with no build step, e.g. cPanel. Only on for `npm run build:deploy`
+  // (scripts/build-deploy.js); a normal build stays as-is for `next start`.
+  ...(process.env.BUILD_STANDALONE === "1" ? { output: "standalone" } : {}),
+
   // In development Next blocks dev assets (client JS, hot reload) for any
   // hostname other than "localhost". Opening the site as http://127.0.0.1:3000
   // then leaves every page un-hydrated: forms such as the admin login just

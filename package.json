@@ -12,7 +12,8 @@
     "seed": "node scripts/seed.js",
     "crawl": "node crawler/crawl.js",
     "crawl:watch": "node crawler/daemon.js",
-    "bundle": "node scripts/bundle.js"
+    "bundle": "node scripts/bundle.js",
+    "build:deploy": "node scripts/build-deploy.js"
   },
   "dependencies": {
     "date-fns": "^4.4.0",

@@ -45,3 +45,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# cPanel deploy branch checkout (scripts/build-deploy.js)
+/.deploy-worktree/
