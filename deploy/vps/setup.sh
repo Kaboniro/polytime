@@ -147,6 +147,8 @@ Environment=NODE_ENV=production PORT=3000 HOSTNAME=127.0.0.1 NEXT_TELEMETRY_DISA
 ExecStart=/usr/bin/node server.js
 Restart=always
 RestartSec=5
+# 143 = stopped by SIGTERM (systemctl stop/restart): a clean stop, not a failure.
+SuccessExitStatus=143
 NoNewPrivileges=true
 ProtectSystem=full
 PrivateTmp=true
