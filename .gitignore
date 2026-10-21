@@ -1,0 +1,7 @@
+# Created on the server; a git pull must never touch them.
+server/data/
+server/.env.production
+server/.env.local
+server/tmp/
+server/node_modules
+*.log

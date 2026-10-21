@@ -1,0 +1,3 @@
+module.exports=[18795,a=>{"use strict";a.s(["default",0,function({children:a}){return a},"metadata",0,{title:"Submit an event or link",description:"Know a 3D art competition, conference or useful resource we're missing? Submit it for review, or send us a content removal request or question.",alternates:{canonical:"/submit"}}])},33601,function(a){a.n(a.i(18795))}];
+
+//# sourceMappingURL=app_%28site%29_submit_layout_06haa88.js.map

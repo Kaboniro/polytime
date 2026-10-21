@@ -1,0 +1,3 @@
+{
+  "/(admin)/admin/verify/page": "app/(admin)/admin/verify/page.js"
+}
