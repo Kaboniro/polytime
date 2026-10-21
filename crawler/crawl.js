@@ -23,13 +23,18 @@ const UA = "PolyTimeBot/0.1 (3D events aggregator; honours robots.txt; contact v
 // Options for the run in progress (set by runCrawl). One run at a time.
 let opts = { dry: false, only: null, maxPages: 300, minConfidence: 70, recencyDays: 30, pagesPerQuery: 2 };
 
-// ---------- env (.env.local) ----------
+// ---------- env (.env.local, then .env.production) ----------
+// .env.production too, so a standalone run (e.g. a cPanel cron job, which
+// doesn't get the Node app's environment variables) still sees its settings.
+// Variables already in the environment win; .env.local wins over production.
 function loadEnv() {
-  const file = path.join(ROOT, ".env.local");
-  if (!fs.existsSync(file)) return;
-  for (const line of fs.readFileSync(file, "utf8").split(/\r?\n/)) {
-    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
-    if (m && process.env[m[1]] === undefined) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
+  for (const name of [".env.local", ".env.production"]) {
+    const file = path.join(ROOT, name);
+    if (!fs.existsSync(file)) continue;
+    for (const line of fs.readFileSync(file, "utf8").split(/\r?\n/)) {
+      const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
+      if (m && process.env[m[1]] === undefined) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
+    }
   }
 }
 loadEnv();
