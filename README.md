@@ -353,7 +353,8 @@ service, nothing sent off this server:
   pathname as a request header, since that's the one thing a Server Component can't otherwise know
   about the request.
 - **Location is best-effort, from whatever's already in front of the app** — `cf-ipcountry`
-  (Cloudflare) or `x-vercel-ip-country` (Vercel), read directly as request headers. There's no
+  (Cloudflare; plus `cf-region-code` with its free "Add visitor location headers" transform on) or
+  `x-vercel-ip-country` (Vercel), read directly as request headers. There's no
   bundled IP-geolocation database: those either restrict redistribution (MaxMind's GeoLite2 license
   does) or run 100MB+ for a country code, and this project avoids both for the same reasons
   `lib/db.js` gives for using `node:sqlite` over `better-sqlite3`. A plain VPS with nothing in front

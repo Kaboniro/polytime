@@ -160,12 +160,32 @@ systemctl daemon-reload
 systemctl enable polytime >/dev/null
 systemctl restart polytime
 
-say "Caddy site ($DOMAIN)"
+say "Caddy site ($DOMAIN, ready for Cloudflare's proxy)"
+# With Cloudflare in front, every request arrives from a Cloudflare IP. Trust
+# only those ranges to say who the visitor is (CF-Connecting-IP), and hand the
+# app exactly that one IP in X-Forwarded-For — the rate limiter keys on it, so
+# a client-supplied chain must never get through. Requests that skip
+# Cloudflare lose any cf-* location headers so they can't fake analytics.
+# Works unchanged without Cloudflare (client_ip is then just the peer).
+cf_ranges=$( { curl -fsS https://www.cloudflare.com/ips-v4; echo; curl -fsS https://www.cloudflare.com/ips-v6; } | tr -s '\n' ' ')
+[ -n "${cf_ranges// /}" ] || { echo "Couldn't fetch Cloudflare IP ranges."; exit 1; }
 cat > /etc/caddy/Caddyfile <<EOF
 # Managed by PolyTime's deploy/vps/setup.sh
+{
+	servers {
+		trusted_proxies static $cf_ranges
+		client_ip_headers CF-Connecting-IP
+	}
+}
+
 $DOMAIN {
 	encode zstd gzip
-	reverse_proxy 127.0.0.1:3000
+	@direct not remote_ip $cf_ranges
+	request_header @direct -Cf-Ipcountry
+	request_header @direct -Cf-Region-Code
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Forwarded-For {client_ip}
+	}
 }
 
 www.$DOMAIN {
