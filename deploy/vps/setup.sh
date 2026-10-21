@@ -217,6 +217,14 @@ curl -fsS http://127.0.0.1:3000/api/health && echo " — PolyTime is up."
 EOF
 chmod 755 /usr/local/bin/polytime-update
 
+# Firewall lock to Cloudflare: installed, not switched on (`polytime-cloudflare lock`
+# once the site is served through Cloudflare). The weekly job keeps the allowed
+# ranges current and does nothing while unlocked.
+curl -fsSL "$RAW/deploy/vps/cloudflare-lock.sh" -o /usr/local/bin/polytime-cloudflare
+chmod 755 /usr/local/bin/polytime-cloudflare
+printf '#!/bin/sh\nDOMAIN=%s /usr/local/bin/polytime-cloudflare refresh >/dev/null\n' "$DOMAIN" > /etc/cron.weekly/polytime-cloudflare
+chmod 755 /etc/cron.weekly/polytime-cloudflare
+
 say "Health check"
 for _ in $(seq 1 30); do curl -fsS http://127.0.0.1:3000/api/health >/dev/null 2>&1 && break; sleep 1; done
 curl -fsS http://127.0.0.1:3000/api/health && echo " — app is up on 127.0.0.1:3000"
