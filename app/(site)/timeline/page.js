@@ -2,7 +2,7 @@ import GanttChart from "@/components/GanttChart";
 import { EVENT_CATEGORIES, labelFor } from "@/lib/constants";
 import { getApprovedEvents } from "@/lib/queries";
 import { fmtDate } from "@/lib/dates";
-import { eventPhase } from "@/lib/filters";
+import { effectiveEnd, eventPhase } from "@/lib/filters";
 import { geographyIconInfo, geographyLabel } from "@/lib/geography";
 
 export const dynamic = "force-dynamic";
@@ -39,18 +39,15 @@ function toGanttRow(e, end) {
 export default function TimelinePage() {
   const approved = getApprovedEvents();
 
-  // Every event with a start date gets a dated bar, even ones missing a
-  // fixed end — a bar just needs *some* end anchor, not necessarily
-  // event.end_date: fall back to the submission deadline (a real, meaningful
-  // end for an entry window), then to the start date itself (a single-day
-  // marker). Ongoing/rolling entries have no start date to place, so the
-  // calendar leaves them out; they have their own tables on the home page.
+  // Every event with a start date gets a dated bar, running to its last date
+  // (end, submission deadline or start — see effectiveEnd), the same date
+  // that decides when it counts as archived. Ongoing/rolling entries have no
+  // start date to place, so the calendar leaves them out; they have their own
+  // tables on the home page.
   const ganttRows = [];
   for (const e of approved) {
     if (!e.start_date) continue;
-    const end =
-      e.end_date || (e.submission_deadline && e.submission_deadline >= e.start_date ? e.submission_deadline : e.start_date);
-    ganttRows.push(toGanttRow(e, end));
+    ganttRows.push(toGanttRow(e, effectiveEnd(e)));
   }
   ganttRows.sort((a, b) => a.start.localeCompare(b.start));
 

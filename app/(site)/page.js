@@ -136,9 +136,7 @@ export default async function HomePage({ searchParams }) {
   return (
     <div>
       <JsonLd data={structured} />
-      <div className="mb-4">
-        <h1 className="text-xl font-bold text-neutral-50">3D Art Events</h1>
-      </div>
+      <h1 className="sr-only">3D Art Events</h1>
 
       <FilterBar
         basePath="/"

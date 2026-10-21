@@ -27,7 +27,7 @@ export default function PrivacyPage() {
 
   return (
     <div className="max-w-2xl">
-      <h1 className="text-xl font-bold text-neutral-50 mb-6">Privacy & data</h1>
+      <h1 className="text-3xl font-bold tracking-tight text-neutral-50 mb-6">Privacy & data</h1>
 
       <Section title="What's on this site">
         <p>
@@ -89,6 +89,10 @@ export default function PrivacyPage() {
         <p>
           We do not sell, trade, or share your information with outside parties, and this site
           doesn't run any third party analytics, advertising, or tracking scripts.
+        </p>
+        <p>
+          When you search for a city in the submit form, the search runs entirely on our own
+          server against a built-in list of places; what you type isn&apos;t sent anywhere else.
         </p>
         <p>
           Event and resource listings link out to other sites we don't control, each with its own

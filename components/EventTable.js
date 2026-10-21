@@ -13,7 +13,7 @@ const COLUMNS = [
   { key: "host", label: "Host", className: "w-[14%]" },
 ];
 
-const cell = "px-2.5 py-3 align-top";
+const cell = "border-r border-neutral-50 px-2.5 py-3 align-top last:border-r-0";
 
 function Detail({ label, children }) {
   if (!children) return null;
@@ -41,12 +41,12 @@ export default function EventTable({ rows }) {
   }
 
   return (
-    <div className="overflow-x-auto rounded-2xl border border-neutral-800">
-      <table className="w-full min-w-[860px] border-collapse text-sm">
+    <div className="overflow-x-auto rounded-2xl border-2 border-neutral-50">
+      <table className="w-full min-w-[860px] border-collapse text-sm [&>tbody>tr:last-child]:border-b-0">
         <thead>
           <tr className="bg-neutral-950 text-left text-xs uppercase tracking-wide text-neutral-50">
             {COLUMNS.map((c) => (
-              <th key={c.key} scope="col" className={`border-b-2 border-neutral-50 px-2.5 py-2 font-semibold ${c.className}`}>
+              <th key={c.key} scope="col" className={`border-b-2 border-r border-neutral-50 px-2.5 py-2 font-semibold last:border-r-0 ${c.className}`}>
                 {c.label}
               </th>
             ))}
@@ -56,7 +56,7 @@ export default function EventTable({ rows }) {
           {rows.map((r, i) => {
             const isOpen = open.has(r.id);
             const panelId = `event-details-${r.id}`;
-            const stripe = "border-b border-neutral-800 bg-neutral-950";
+            const stripe = "border-b border-neutral-50 bg-neutral-950";
             return (
               <Fragment key={r.id}>
                 <tr className={`${stripe} hover:bg-neutral-900 ${r.phase === "archived" ? "text-neutral-500" : "text-neutral-100"}`}>

@@ -88,6 +88,12 @@ function layoutWeek(weekStart, weekEnd, rows) {
 export default function GanttChart({ rows }) {
   const [currentMonth, setCurrentMonth] = useState(() => startOfMonth(new Date()));
   const [selectedId, setSelectedId] = useState(null);
+  // Running & upcoming by default; finished events only when asked for.
+  const [show, setShow] = useState("current"); // "current" | "archived"
+  const visibleRows = useMemo(
+    () => rows.filter((r) => (show === "archived" ? r.phase === "archived" : r.phase !== "archived")),
+    [rows, show]
+  );
   const closeBtnRef = useRef(null);
 
   useEffect(() => {
@@ -108,13 +114,13 @@ export default function GanttChart({ rows }) {
     const days = eachDayOfInterval({ start: gridStart, end: gridEnd });
     let order = 0;
     return chunk7(days).map((weekDays) => {
-      const { segs, lanes } = layoutWeek(weekDays[0], weekDays[6], rows);
+      const { segs, lanes } = layoutWeek(weekDays[0], weekDays[6], visibleRows);
       segs.forEach((s) => {
         s.order = order++;
       });
       return { days: weekDays, segs, lanes };
     });
-  }, [rows, currentMonth]);
+  }, [visibleRows, currentMonth]);
 
   const monthKey = format(currentMonth, "yyyy-MM");
   const selected = selectedId ? rows.find((r) => r.id === selectedId) : null;
@@ -123,8 +129,29 @@ export default function GanttChart({ rows }) {
     <div>
       <div className="min-w-0">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-          <h3 className="text-sm font-semibold text-neutral-100">{format(currentMonth, "MMMM yyyy")}</h3>
-          <div className="flex items-center gap-2">
+          <h2 className="text-3xl font-bold tracking-tight text-neutral-50">{format(currentMonth, "MMMM yyyy")}</h2>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex rounded-lg border border-neutral-700 p-0.5" role="group" aria-label="Which events to show">
+              {[
+                ["current", "Running & upcoming"],
+                ["archived", "Archived"],
+              ].map(([key, label]) => (
+                <button
+                  key={key}
+                  type="button"
+                  aria-pressed={show === key}
+                  onClick={() => {
+                    setShow(key);
+                    setSelectedId(null);
+                  }}
+                  className={`rounded-md px-3 py-1 text-sm transition-colors ${
+                    show === key ? "bg-neutral-50 font-medium text-neutral-950" : "text-neutral-300 hover:bg-neutral-800"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
             <button
               type="button"
               onClick={() => setCurrentMonth((m) => subMonths(m, 1))}
@@ -151,14 +178,16 @@ export default function GanttChart({ rows }) {
           </div>
         </div>
 
-        <p className="mb-2 flex items-center gap-2 text-xs text-neutral-500">
-          <span
-            className="inline-block h-3 w-8 rounded-sm border border-dashed"
-            style={{ ...colorVars(0, true), borderWidth: 1 }}
-            aria-hidden="true"
-          />
-          Hatched, faded bars are archived: the event has already finished.
-        </p>
+        {show === "archived" && (
+          <p className="mb-2 flex items-center gap-2 text-xs text-neutral-500">
+            <span
+              className="inline-block h-3 w-8 rounded-sm border border-dashed"
+              style={{ ...colorVars(0, true), borderWidth: 1 }}
+              aria-hidden="true"
+            />
+            Showing finished events only. Switch to Running &amp; upcoming for what&apos;s on now.
+          </p>
+        )}
 
         <div className="overflow-x-auto rounded-2xl border border-neutral-700">
           <div
@@ -191,19 +220,20 @@ export default function GanttChart({ rows }) {
                     return (
                       <div
                         key={day.toISOString()}
-                        className="border-r border-neutral-800 px-1.5 pt-1 text-xs last:border-r-0"
+                        aria-current={today ? "date" : undefined}
+                        className={`border-r border-neutral-800 px-1.5 pt-1 text-xs last:border-r-0 ${
+                          today ? "bg-orange-500/15 ring-2 ring-inset ring-orange-500" : ""
+                        }`}
                       >
-                        <span
-                          className={
-                            today
-                              ? "inline-flex h-5 w-5 items-center justify-center bg-orange-500 font-semibold text-black"
-                              : inMonth
-                                ? "text-neutral-400"
-                                : "text-neutral-700"
-                          }
-                        >
-                          {format(day, "d")}
-                        </span>
+                        {today ? (
+                          // Fits the DATE_ROW_H line above the bars.
+                          <span className="inline-flex h-[18px] items-center gap-1 rounded-full bg-orange-500 px-2 text-[11px] font-bold text-black">
+                            {format(day, "d")}
+                            <span className="font-semibold uppercase tracking-wide">Today</span>
+                          </span>
+                        ) : (
+                          <span className={inMonth ? "text-neutral-400" : "text-neutral-700"}>{format(day, "d")}</span>
+                        )}
                       </div>
                     );
                   })}
@@ -247,7 +277,11 @@ export default function GanttChart({ rows }) {
           </div>
         </div>
 
-        {rows.length === 0 && <EmptyState className="mt-3">No dated events yet.</EmptyState>}
+        {visibleRows.length === 0 && (
+          <EmptyState className="mt-3">
+            {show === "archived" ? "No finished events yet." : "Nothing running or coming up right now."}
+          </EmptyState>
+        )}
       </div>
 
 

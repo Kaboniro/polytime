@@ -69,7 +69,7 @@ export default async function EventPage({ params }) {
           {phase === "running" && <Badge tone="green">Running</Badge>}
           {phase === "archived" && <Badge tone="neutral">Archived</Badge>}
         </div>
-        <h1 className="text-2xl font-bold leading-tight text-neutral-50">{e.title}</h1>
+        <h1 className="text-3xl font-bold leading-tight tracking-tight text-neutral-50">{e.title}</h1>
         {e.host && <p className="mt-1 text-neutral-400">Hosted by {e.host}</p>}
       </header>
 

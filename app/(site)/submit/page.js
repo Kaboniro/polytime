@@ -3,6 +3,7 @@
 import { useState } from "react";
 import HeadingInfo from "@/components/HeadingInfo";
 import SideImage from "@/components/SideImage";
+import LocationPicker from "@/components/LocationPicker";
 import { AxisGizmo } from "@/components/polytime-ui";
 import { EVENT_CATEGORIES, EVENT_TYPES, LINK_CATEGORIES, QUERY_KINDS } from "@/lib/constants";
 import { geographyGroups } from "@/lib/geography";
@@ -119,9 +120,12 @@ function EventForm({ onDone }) {
           <input type="date" className={inputClass} value={form.submission_deadline} onChange={set("submission_deadline")} />
         </Field>
       </div>
-      <Field label="Location">
-        <input className={inputClass} value={form.location} onChange={set("location")} placeholder="Online, or city" />
-      </Field>
+      {/* Not a <Field>: that's a <label>, and clicking a label that wraps
+          several buttons would press the first one. */}
+      <div>
+        <span className="block text-sm font-medium text-neutral-300 mb-1">Location</span>
+        <LocationPicker value={form.location} onChange={(v) => setForm((f) => ({ ...f, location: v }))} inputClass={inputClass} />
+      </div>
       <Field label="Your email (optional)" hint="Only so we can follow up if we have a question — never shown publicly.">
         <input type="email" className={inputClass} value={form.submitted_by} onChange={set("submitted_by")} />
       </Field>

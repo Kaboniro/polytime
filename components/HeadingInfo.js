@@ -3,8 +3,8 @@
 import { useState } from "react";
 
 const SIZE = {
-  h1: "text-xl font-bold text-neutral-50",
-  h2: "text-base font-semibold text-neutral-50",
+  h1: "text-3xl font-bold tracking-tight text-neutral-50",
+  h2: "text-lg font-semibold text-neutral-50",
 };
 
 // A heading with its explanatory text collapsed behind an "i" toggle instead
