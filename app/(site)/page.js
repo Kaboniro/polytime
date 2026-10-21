@@ -1,4 +1,5 @@
 import EventTable from "@/components/EventTable";
+import { CompactEventTable, GridSection } from "@/components/EventGrid";
 import JsonLd from "@/components/JsonLd";
 import { eventJsonLd } from "@/lib/seo";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/site";
@@ -27,7 +28,7 @@ const PAGE_SIZE = 25;
 
 const TYPE_SHORT = { ongoing: "Ongoing", rolling: "Rolling" };
 
-// Shape a DB row into exactly what the table needs. This runs on the server on
+// Shape a DB row into exactly what the tables need. This runs on the server on
 // purpose: EventTable is a client component, so anything passed to it is sent
 // to the browser, and event rows carry submitter emails and notes that must
 // never leave the server.
@@ -95,20 +96,24 @@ export default async function HomePage({ searchParams }) {
       (date !== "all" || !hasEnded(e))
   );
 
-  // The query returns start_date ascending (undated last), so each group below
-  // stays soonest-first. Order: running (happening right now — most
-  // time-sensitive), then upcoming, then ongoing/rolling, then archived
-  // (most recently ended first).
+  // Three tables: dated events (one-offs, conferences) in the main one,
+  // ongoing and rolling entries in their own small tables. The query returns
+  // start_date ascending (undated last), so each group stays soonest-first.
+  // Main table order: running (most time-sensitive), upcoming, then archived
+  // (most recently ended first). Only the main table is paginated; the other
+  // two are short lists.
   const rows = matching.map(toTableRow);
-  const running = rows.filter((r) => r.phase === "running");
-  const upcoming = rows.filter((r) => r.phase === "upcoming");
-  const undated = rows.filter((r) => !DATED_EVENT_TYPES.includes(r.type));
-  const archived = rows.filter((r) => r.phase === "archived").reverse();
-  const allRows = [...running, ...upcoming, ...undated, ...archived];
+  const dated = rows.filter((r) => DATED_EVENT_TYPES.includes(r.type));
+  const running = dated.filter((r) => r.phase === "running");
+  const upcoming = dated.filter((r) => r.phase === "upcoming");
+  const archived = dated.filter((r) => r.phase === "archived").reverse();
+  const mainRows = [...running, ...upcoming, ...archived];
+  const ongoing = rows.filter((r) => r.type === "ongoing");
+  const rolling = rows.filter((r) => r.type === "rolling");
 
-  const totalPages = Math.max(1, Math.ceil(allRows.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(mainRows.length / PAGE_SIZE));
   const page = Math.min(pageNum, totalPages);
-  const tableRows = allRows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const pageRows = mainRows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   // Plain serializable data, not a function — a Server Component can't hand
   // a function prop to Pagination (a Client Component) at all.
@@ -146,7 +151,7 @@ export default async function HomePage({ searchParams }) {
         ]}
       />
 
-      {allRows.length === 0 ? (
+      {rows.length === 0 ? (
         <EmptyState>
           {everything.length === 0 ? (
             <>
@@ -165,10 +170,29 @@ export default async function HomePage({ searchParams }) {
           )}
         </EmptyState>
       ) : (
-        <>
-          <EventTable rows={tableRows} />
-          <Pagination page={page} totalPages={totalPages} basePath="/" query={pageQuery} />
-        </>
+        <div className="flex flex-col gap-10">
+          {mainRows.length > 0 && (
+            <GridSection title="Events" count={mainRows.length}>
+              <EventTable rows={pageRows} />
+              <Pagination page={page} totalPages={totalPages} basePath="/" query={pageQuery} />
+            </GridSection>
+          )}
+
+          {(ongoing.length > 0 || rolling.length > 0) && (
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-8">
+              {ongoing.length > 0 && (
+                <GridSection title="Ongoing" count={ongoing.length} note="Open-ended: no fixed dates, join any time.">
+                  <CompactEventTable rows={ongoing} />
+                </GridSection>
+              )}
+              {rolling.length > 0 && (
+                <GridSection title="Rolling" count={rolling.length} note="Recurring: a new round every week, month or season.">
+                  <CompactEventTable rows={rolling} />
+                </GridSection>
+              )}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

@@ -85,7 +85,7 @@ function layoutWeek(weekStart, weekEnd, rows) {
   return { segs, lanes: laneEnds.length };
 }
 
-export default function GanttChart({ rows, ongoingRows = [] }) {
+export default function GanttChart({ rows }) {
   const [currentMonth, setCurrentMonth] = useState(() => startOfMonth(new Date()));
   const [selectedId, setSelectedId] = useState(null);
   const closeBtnRef = useRef(null);
@@ -117,12 +117,11 @@ export default function GanttChart({ rows, ongoingRows = [] }) {
   }, [rows, currentMonth]);
 
   const monthKey = format(currentMonth, "yyyy-MM");
-  const allRows = useMemo(() => [...rows, ...ongoingRows], [rows, ongoingRows]);
-  const selected = selectedId ? allRows.find((r) => r.id === selectedId) : null;
+  const selected = selectedId ? rows.find((r) => r.id === selectedId) : null;
 
   return (
-    <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
-      <div className="min-w-0 flex-1">
+    <div>
+      <div className="min-w-0">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <h3 className="text-sm font-semibold text-neutral-100">{format(currentMonth, "MMMM yyyy")}</h3>
           <div className="flex items-center gap-2">
@@ -251,37 +250,6 @@ export default function GanttChart({ rows, ongoingRows = [] }) {
         {rows.length === 0 && <EmptyState className="mt-3">No dated events yet.</EmptyState>}
       </div>
 
-      <aside className="shrink-0 lg:w-64">
-        <h3 className="mb-3 text-sm font-semibold text-neutral-100">Ongoing &amp; rolling</h3>
-        {ongoingRows.length === 0 ? (
-          <p className="text-sm text-neutral-500">Nothing open-ended or recurring right now.</p>
-        ) : (
-          <ul className="space-y-2">
-            {ongoingRows.map((r) => (
-              <li key={r.id}>
-                <button
-                  type="button"
-                  onClick={() => setSelectedId((id) => (id === r.id ? null : r.id))}
-                  aria-current={selectedId === r.id ? "true" : undefined}
-                  className={`flex w-full items-center gap-2 rounded-lg border border-neutral-800 px-3 py-2 text-left text-sm text-neutral-100 transition-colors hover:border-neutral-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-orange-500/70 ${
-                    selectedId === r.id ? "border-neutral-500" : ""
-                  }`}
-                >
-                  <span
-                    className="h-2.5 w-2.5 shrink-0 rounded-full"
-                    style={{ backgroundColor: colorVars(r.id).backgroundColor }}
-                    aria-hidden="true"
-                  />
-                  <span className="truncate">
-                    {r.kind === "rolling" ? "↻ " : "∞ "}
-                    {r.title}
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </aside>
 
       {selected && (
         <div
@@ -322,7 +290,7 @@ export default function GanttChart({ rows, ongoingRows = [] }) {
               <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 rounded-xl bg-neutral-900 px-4 py-3">
                 <dt className="text-xs uppercase tracking-wide text-neutral-500">When</dt>
                 <dd className="font-medium text-neutral-100">
-                  {selected.dateLabel ?? (selected.startLabel === selected.endLabel ? selected.startLabel : `${selected.startLabel} – ${selected.endLabel}`)}
+                  {selected.startLabel === selected.endLabel ? selected.startLabel : `${selected.startLabel} – ${selected.endLabel}`}
                 </dd>
                 {selected.category && (
                   <>

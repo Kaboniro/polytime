@@ -9,11 +9,9 @@ export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Event calendar",
-  description: "A month-by-month calendar of 3D art competitions, conferences and challenges, with ongoing and rolling contests listed alongside.",
+  description: "A month-by-month calendar of 3D art competitions, conferences and challenges.",
   alternates: { canonical: "/timeline" },
 };
-
-const ONGOING_LABEL = { ongoing: "Ongoing challenge — no fixed date", rolling: "Rolling — recurring" };
 
 // Shape a DB row for GanttChart, a client component — same reasoning as
 // app/page.js's toTableRow: only public fields cross the server/client
@@ -38,25 +36,6 @@ function toGanttRow(e, end) {
   };
 }
 
-// Ongoing/rolling entries have no start or end date at all, so they can't be
-// placed as a dated bar — GanttChart instead draws them as an always-on bar
-// in every week it renders (see its `ongoingRows` prop).
-function toOngoingRow(e) {
-  return {
-    id: e.id,
-    title: e.title,
-    kind: e.event_type,
-    typeLabel: ONGOING_LABEL[e.event_type] || "No fixed date",
-    dateLabel: ONGOING_LABEL[e.event_type] || "No fixed date",
-    category: labelFor(EVENT_CATEGORIES, e.category),
-    geo: geographyIconInfo(e.geography),
-    geoLabel: geographyLabel(e.geography),
-    host: e.host,
-    description: e.description,
-    url: e.url,
-  };
-}
-
 export default function TimelinePage() {
   const approved = getApprovedEvents();
 
@@ -64,17 +43,11 @@ export default function TimelinePage() {
   // fixed end — a bar just needs *some* end anchor, not necessarily
   // event.end_date: fall back to the submission deadline (a real, meaningful
   // end for an entry window), then to the start date itself (a single-day
-  // marker). Only events with no start date at all — ongoing/rolling
-  // entries, genuinely open-ended — have nothing to anchor a dated bar to;
-  // those go to GanttChart as `ongoingRows` instead, drawn as an always-on
-  // lane rather than dropped from the calendar.
+  // marker). Ongoing/rolling entries have no start date to place, so the
+  // calendar leaves them out; they have their own tables on the home page.
   const ganttRows = [];
-  const ongoingRows = [];
   for (const e of approved) {
-    if (!e.start_date) {
-      ongoingRows.push(toOngoingRow(e));
-      continue;
-    }
+    if (!e.start_date) continue;
     const end =
       e.end_date || (e.submission_deadline && e.submission_deadline >= e.start_date ? e.submission_deadline : e.start_date);
     ganttRows.push(toGanttRow(e, end));
@@ -85,7 +58,7 @@ export default function TimelinePage() {
     <div>
       <h1 className="sr-only">3D art event calendar</h1>
 
-      <GanttChart rows={ganttRows} ongoingRows={ongoingRows} />
+      <GanttChart rows={ganttRows} />
     </div>
   );
 }
