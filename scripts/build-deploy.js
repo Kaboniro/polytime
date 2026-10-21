@@ -22,7 +22,10 @@ const BRANCH = "deploy";
 const work = path.join(root, ".deploy-worktree");
 
 function run(cmd, args, opts = {}) {
-  const r = spawnSync(cmd, args, { cwd: root, stdio: "inherit", shell: process.platform === "win32", ...opts });
+  // npx is a .cmd on Windows and needs a shell; git must not get one, or
+  // paths with spaces (".../SOFTWARE PROJECTS/...") are split apart.
+  const shell = cmd === "npx" && process.platform === "win32";
+  const r = spawnSync(cmd, args, { cwd: root, stdio: "inherit", shell, ...opts });
   if (r.status !== 0) {
     console.error(`\n${cmd} ${args.join(" ")} failed.`);
     process.exit(1);
