@@ -40,7 +40,7 @@ function Row({ table, row }) {
   }
 
   return (
-    <div className="flex items-start justify-between gap-4 py-3 border-b border-neutral-900">
+    <div className="flex items-start justify-between gap-4 py-3 border-b border-neutral-800 last:border-b-0">
       <div className="min-w-0">
         <p className="text-sm font-medium text-neutral-100 truncate">{LABELS[table](row)}</p>
         <p className="text-xs text-neutral-500 truncate">{SUBLABELS[table](row)}</p>
@@ -78,6 +78,14 @@ function Row({ table, row }) {
         </button>
         <button
           disabled={busy}
+          onClick={() => act("archive")}
+          title="Set aside without approving — hidden from the site, kept in the resource tab"
+          className="text-xs px-2.5 py-1.5 bg-neutral-800 text-neutral-300 hover:bg-neutral-700 disabled:opacity-50"
+        >
+          Archive
+        </button>
+        <button
+          disabled={busy}
           onClick={() => act("reject")}
           className="text-xs px-2.5 py-1.5 bg-neutral-800 text-neutral-300 hover:bg-neutral-700 disabled:opacity-50"
         >
@@ -112,7 +120,7 @@ export default function AdminQueue({ title, table, rows }) {
       <h2 className="text-sm font-semibold text-neutral-400 mb-2">
         {title} ({rows.length})
       </h2>
-      <div className="border border-neutral-900 bg-neutral-900/40 px-4">
+      <div className="rounded-2xl border border-neutral-800 bg-neutral-950 px-4">
         {rows.map((r) => (
           <Row key={r.id} table={table} row={r} />
         ))}

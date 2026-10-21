@@ -169,7 +169,7 @@ export default function GanttChart({ rows, ongoingRows = [] }) {
               minHeight: 30 + weeks.reduce((sum, w) => sum + DATE_ROW_H + Math.max(w.lanes, 1) * (LANE_H + LANE_GAP) + 4, 0),
             }}
           >
-            <div className="grid shrink-0 grid-cols-7 border-b border-neutral-700 bg-black text-center text-[11px] font-semibold uppercase tracking-wide text-white">
+            <div className="grid shrink-0 grid-cols-7 border-b-2 border-neutral-50 bg-neutral-950 text-center text-[11px] font-semibold uppercase tracking-wide text-neutral-50">
               {WEEKDAYS.map((d) => (
                 <div key={d} className="py-1.5">
                   {d}

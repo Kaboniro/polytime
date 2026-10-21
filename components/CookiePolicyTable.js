@@ -25,20 +25,20 @@ export default function CookiePolicyTable({ compact = false }) {
           <div className="overflow-x-auto border border-neutral-800">
             <table className="w-full min-w-[420px] border-collapse text-xs">
               <thead>
-                <tr className="bg-black text-left uppercase tracking-wide text-white">
-                  <th scope="col" className="border border-neutral-800 px-2.5 py-1.5 font-semibold">Cookie</th>
-                  <th scope="col" className="border border-neutral-800 px-2.5 py-1.5 font-semibold">Purpose</th>
-                  <th scope="col" className="border border-neutral-800 px-2.5 py-1.5 font-semibold">Duration</th>
+                <tr className="bg-neutral-950 text-left uppercase tracking-wide text-neutral-50">
+                  <th scope="col" className="border-b-2 border-neutral-50 px-2.5 py-1.5 font-semibold">Cookie</th>
+                  <th scope="col" className="border-b-2 border-neutral-50 px-2.5 py-1.5 font-semibold">Purpose</th>
+                  <th scope="col" className="border-b-2 border-neutral-50 px-2.5 py-1.5 font-semibold">Duration</th>
                 </tr>
               </thead>
               <tbody>
                 {cookies.map((c, i) => (
-                  <tr key={c.name} className={i % 2 === 0 ? "bg-neutral-950" : "bg-neutral-900"}>
-                    <td className="border border-neutral-800 px-2.5 py-1.5 font-mono text-neutral-200 align-top whitespace-nowrap">
+                  <tr key={c.name} className="bg-neutral-950">
+                    <td className="border-b border-neutral-800 px-2.5 py-1.5 font-mono text-neutral-200 align-top whitespace-nowrap">
                       {c.name}
                     </td>
-                    <td className="border border-neutral-800 px-2.5 py-1.5 text-neutral-400 align-top">{c.purpose}</td>
-                    <td className="border border-neutral-800 px-2.5 py-1.5 text-neutral-400 align-top whitespace-nowrap">
+                    <td className="border-b border-neutral-800 px-2.5 py-1.5 text-neutral-400 align-top">{c.purpose}</td>
+                    <td className="border-b border-neutral-800 px-2.5 py-1.5 text-neutral-400 align-top whitespace-nowrap">
                       {c.duration}
                     </td>
                   </tr>

@@ -15,9 +15,9 @@
    over every component, light mode flips the scale itself: neutral-50 becomes
    what neutral-950 is, 100 <-> 900, and so on, so every existing class
    resolves to the mirrored shade. Dark mode's neutral scale is tinted toward
-   cerulean (cool, "night"); light mode's is tinted toward floral-white
-   (warm, "day") — the palette's own two temperature extremes, used as the
-   two themes instead of picking one tint for both. Accent text colors (the
+   cerulean (cool, "night"); light mode's is plain gray (black on white)
+   — chosen for readability over the earlier floral-white tint. The
+   accent text colors (the
    *-400 shades used for links, badges and errors) are too pale on a light
    surface, so they map to darker shades there. Backgrounds using the 500
    shades are left alone — they're already saturated enough for both. */
@@ -90,19 +90,20 @@
   :root {
     color-scheme: light;
 
-    /* Same neutral scale, inverted per the note above, floral-white-tinted
-       (hue ~85, from #fef9ef) instead of cerulean — neutral-950 lands
-       almost exactly on floral-white itself. */
-    --color-neutral-50: oklch(10% 0.015 84.6);
-    --color-neutral-100: oklch(14% 0.016 84.6);
-    --color-neutral-200: oklch(19% 0.017 84.6);
-    --color-neutral-300: oklch(27% 0.018 84.6);
-    --color-neutral-400: oklch(40% 0.02 84.6);
-    --color-neutral-500: oklch(50% 0.02 84.6);
-    --color-neutral-600: oklch(56% 0.02 84.6);
-    --color-neutral-700: oklch(70% 0.018 84.6);
-    --color-neutral-800: oklch(83% 0.016 84.6);
-    --color-neutral-900: oklch(91% 0.015 84.6);
+    /* Same neutral scale, inverted per the note above, but untinted: black
+       text on white surfaces. 50-300 are the text shades (black to dark
+       gray), 400-600 muted text (all >= 4.5:1 on white), 700-800 borders and
+       button fills, 900 the faint hover/header wash, 950 the white page. */
+    --color-neutral-50: oklch(0% 0 0);
+    --color-neutral-100: oklch(15% 0 0);
+    --color-neutral-200: oklch(22% 0 0);
+    --color-neutral-300: oklch(30% 0 0);
+    --color-neutral-400: oklch(40% 0 0);
+    --color-neutral-500: oklch(47% 0 0);
+    --color-neutral-600: oklch(55% 0 0);
+    --color-neutral-700: oklch(86% 0 0);
+    --color-neutral-800: oklch(92% 0 0);
+    --color-neutral-900: oklch(97% 0 0);
     --color-neutral-950: oklch(100% 0 0); /* pure white page background */
 
     --color-orange-400: oklch(48% 0.19 20.2);

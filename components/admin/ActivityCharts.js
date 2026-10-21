@@ -111,7 +111,7 @@ export function TrendChart({ data, weekly }) {
         <summary className="cursor-pointer">View as table</summary>
         <div className="mt-2 max-h-64 overflow-auto rounded-xl border border-neutral-800">
           <table className="w-full border-collapse text-left">
-            <thead className="sticky top-0 bg-neutral-900">
+            <thead className="sticky top-0 border-b-2 border-neutral-50 bg-neutral-950 text-neutral-50">
               <tr>
                 <th scope="col" className="px-3 py-1.5 font-semibold">{weekly ? "Week starting" : "Date"}</th>
                 <th scope="col" className="px-3 py-1.5 text-right font-semibold">Views</th>

@@ -19,17 +19,13 @@ export async function POST(req) {
     return NextResponse.json({ error: "Unknown action." }, { status: 400 });
   }
 
-  if ((action === "archive" || action === "unarchive") && table !== "events") {
-    return NextResponse.json({ error: "Only events can be archived." }, { status: 400 });
-  }
-
   const db = getDb();
   if (action === "delete") {
     db.prepare(`DELETE FROM ${table} WHERE id = ?`).run(id);
   } else {
-    // Archiving hides an approved event from the public site but keeps the row
-    // (so the crawler still recognises it and never re-adds it); unarchive
-    // puts it back to approved.
+    // Archiving hides a row from the public site and the review queue but keeps
+    // it (so the crawler still recognises an event and never re-adds it);
+    // unarchive puts it back to approved.
     const status = { approve: "approved", unarchive: "approved", reject: "rejected", archive: "archived" }[action];
     db.prepare(`UPDATE ${table} SET status = ? WHERE id = ?`).run(status, id);
   }

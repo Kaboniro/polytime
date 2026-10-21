@@ -41,12 +41,12 @@ export default function EventTable({ rows }) {
   }
 
   return (
-    <div className="overflow-x-auto rounded-2xl">
+    <div className="overflow-x-auto rounded-2xl border border-neutral-800">
       <table className="w-full min-w-[860px] border-collapse text-sm">
         <thead>
-          <tr className="bg-black text-left text-xs uppercase tracking-wide text-white">
+          <tr className="bg-neutral-950 text-left text-xs uppercase tracking-wide text-neutral-50">
             {COLUMNS.map((c) => (
-              <th key={c.key} scope="col" className={`px-2.5 py-1.5 font-semibold ${c.className}`}>
+              <th key={c.key} scope="col" className={`border-b-2 border-neutral-50 px-2.5 py-2 font-semibold ${c.className}`}>
                 {c.label}
               </th>
             ))}
@@ -56,10 +56,10 @@ export default function EventTable({ rows }) {
           {rows.map((r, i) => {
             const isOpen = open.has(r.id);
             const panelId = `event-details-${r.id}`;
-            const stripe = i % 2 === 0 ? "bg-neutral-950" : "bg-neutral-900";
+            const stripe = "border-b border-neutral-800 bg-neutral-950";
             return (
               <Fragment key={r.id}>
-                <tr className={`${stripe} hover:bg-neutral-800 ${r.phase === "archived" ? "text-neutral-500" : "text-neutral-100"}`}>
+                <tr className={`${stripe} hover:bg-neutral-900 ${r.phase === "archived" ? "text-neutral-500" : "text-neutral-100"}`}>
                   <td className={`${cell} font-medium`}>
                     <span className="inline-flex flex-wrap items-center gap-2">
                       <a href={r.href} className="hover:underline">{r.title}</a>

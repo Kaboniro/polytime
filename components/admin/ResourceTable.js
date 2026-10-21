@@ -15,7 +15,7 @@ const isPast = (row) => {
   const d = row.end_date || row.start_date;
   return Boolean(d) && d < todayIso();
 };
-const cell = "border border-neutral-700 px-3 py-2 align-top";
+const cell = "border-b border-neutral-800 px-3 py-2 align-top";
 const smallBtn = "text-xs px-2 py-1 disabled:opacity-50";
 const controlClass =
   " border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm text-neutral-100 placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500";
@@ -159,20 +159,20 @@ export default function ResourceTable({ table, resource, rows }) {
         </div>
       ) : (
         <>
-          <div className="overflow-x-auto border border-neutral-700">
+          <div className="overflow-x-auto rounded-2xl border border-neutral-800">
           <table className="w-full min-w-[760px] border-collapse text-sm">
             <thead>
-              <tr className="bg-black text-left text-xs uppercase tracking-wide text-white">
+              <tr className="bg-neutral-950 text-left text-xs uppercase tracking-wide text-neutral-50">
                 {resource.listColumns.map((name) => (
                   <th
                     key={name}
                     scope="col"
-                    className={`border border-neutral-700 px-3 py-2 font-semibold ${fieldByName[name]?.type === "number" ? "text-right" : ""}`}
+                    className={`border-b-2 border-neutral-50 px-3 py-2 font-semibold ${fieldByName[name]?.type === "number" ? "text-right" : ""}`}
                   >
                     {fieldByName[name].label}
                   </th>
                 ))}
-                <th scope="col" className="border border-neutral-700 px-3 py-2 font-semibold">
+                <th scope="col" className="border-b-2 border-neutral-50 px-3 py-2 font-semibold">
                   Actions
                 </th>
               </tr>
@@ -181,7 +181,7 @@ export default function ResourceTable({ table, resource, rows }) {
               {pageRows.map((row, i) => {
                 const busy = busyId === row.id;
                 return (
-                  <tr key={row.id} className={`${i % 2 === 0 ? "bg-neutral-950" : "bg-neutral-900"} hover:bg-neutral-800`}>
+                  <tr key={row.id} className="bg-neutral-950 hover:bg-neutral-900">
                     {resource.listColumns.map((name) => (
                       <td
                         key={name}
@@ -215,7 +215,7 @@ export default function ResourceTable({ table, resource, rows }) {
                             Approve
                           </button>
                         )}
-                        {table === "events" && row.status === "archived" && (
+                        {row.status === "archived" && (
                           <button
                             disabled={busy}
                             onClick={() => act(row, "unarchive")}
