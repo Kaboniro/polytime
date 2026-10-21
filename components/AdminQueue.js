@@ -13,9 +13,21 @@ const SUBLABELS = {
   links: (r) => [r.category, r.url].filter(Boolean).join(" · "),
 };
 
+// Submitted URLs are untrusted — only link out to plain http(s) addresses,
+// never javascript: or data: ones.
+function safeUrl(url) {
+  try {
+    const u = new URL(url);
+    return u.protocol === "http:" || u.protocol === "https:" ? u.href : null;
+  } catch {
+    return null;
+  }
+}
+
 function Row({ table, row }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
+  const siteUrl = safeUrl(row.url);
 
   async function act(action) {
     setBusy(true);
@@ -40,6 +52,17 @@ function Row({ table, row }) {
         {row.submitter_note && <p className="text-xs text-neutral-600 italic">"{row.submitter_note}"</p>}
       </div>
       <div className="flex gap-2 shrink-0">
+        {siteUrl && (
+          <a
+            href={siteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={siteUrl}
+            className="text-xs px-2.5 py-1.5 bg-sky-500/15 text-sky-400 hover:bg-sky-500/25"
+          >
+            Visit ↗
+          </a>
+        )}
         <a
           href={`/admin/${table}/${row.id}`}
           className="text-xs px-2.5 py-1.5 bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
