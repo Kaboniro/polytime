@@ -1,5 +1,5 @@
 import { cookies, headers } from "next/headers";
-import { Nunito } from "next/font/google";
+import { JetBrains_Mono, Nunito } from "next/font/google";
 import "../globals.css";
 // Real flag SVGs for the Geography column/filter (see lib/geography.js) —
 // not Unicode flag emoji, which Windows renders as bare two-letter text
@@ -23,6 +23,8 @@ import { HexClockLogo } from "@/components/polytime-ui";
 // palette better than a plain system sans would. Wired to --font-sans-ui,
 // which app/globals.css's body rule and @theme inline block both read.
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-sans-ui", display: "swap" });
+// A contrasting face for short status labels ("Running") so they stand out from body text.
+const labelFont = JetBrains_Mono({ subsets: ["latin"], weight: ["800"], variable: "--font-label", display: "swap" });
 
 export const metadata = {
   metadataBase: new URL(siteUrl()),
@@ -71,7 +73,7 @@ export default async function SiteLayout({ children }) {
   const nav = isAdminRequest(cookieStore) ? [...NAV, { href: "/admin", label: "Admin" }] : NAV;
 
   return (
-    <html lang="en" className={nunito.variable}>
+    <html lang="en" className={`${nunito.variable} ${labelFont.variable}`}>
       <body className="flex min-h-screen flex-col bg-neutral-950 text-neutral-100 antialiased">
         <header className="border-b border-neutral-800 bg-neutral-950/80 backdrop-blur sticky top-0 z-30">
           <div className="mx-auto max-w-[1760px] px-4 sm:px-6 flex flex-wrap items-center justify-between gap-x-4 min-h-16 py-2">

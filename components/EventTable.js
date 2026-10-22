@@ -12,15 +12,22 @@ const COLUMNS = [
   { key: "host", label: "Host", className: "w-[14%]" },
 ];
 
-// Row backgrounds. Ordinary rows alternate plain / a faint left-to-right
-// wash so records separate without hard stripes; running rows get a teal
-// wash and a solid teal bar on the left edge instead of a "Running" tag.
-const ROW_BG = {
-  even: "none",
-  odd: "linear-gradient(90deg, var(--color-neutral-950), var(--color-neutral-900))",
-  running:
-    "linear-gradient(90deg, color-mix(in oklch, var(--color-emerald-400) 24%, transparent), color-mix(in oklch, var(--color-emerald-400) 7%, transparent) 55%, transparent)",
-};
+// Rows alternate plain / a faint left-to-right wash so records separate
+// without hard stripes. Running events are marked by their label instead.
+const ODD_ROW_BG = "linear-gradient(90deg, var(--color-neutral-950), var(--color-neutral-900))";
+
+// Bold, in a contrasting monospace face (--font-label, loaded in the site
+// layout), so it reads as a status rather than part of the title.
+function RunningLabel() {
+  return (
+    <span
+      className="ml-2 inline-block whitespace-nowrap align-[1px] text-[11px] uppercase tracking-wider text-emerald-400"
+      style={{ fontFamily: "var(--font-label), ui-monospace, monospace", fontWeight: 800 }}
+    >
+      Running
+    </span>
+  );
+}
 
 const cell = "border-r border-neutral-50 px-2.5 py-3 align-top last:border-r-0";
 
@@ -49,19 +56,8 @@ export default function EventTable({ rows }) {
     });
   }
 
-  const anyRunning = rows.some((r) => r.phase === "running");
   return (
     <>
-    {anyRunning && (
-      <p className="mb-2 flex items-center gap-2 text-xs text-neutral-500">
-        <span
-          className="inline-block h-3 w-8 rounded-sm shadow-[inset_4px_0_0_var(--color-emerald-400)]"
-          style={{ backgroundImage: ROW_BG.running }}
-          aria-hidden="true"
-        />
-        Highlighted rows are running now.
-      </p>
-    )}
     <div className="overflow-x-auto rounded-2xl border-2 border-neutral-50">
       <table className="w-full min-w-[860px] border-collapse text-sm [&>tbody>tr:last-child]:border-b-0">
         <thead>
@@ -82,11 +78,11 @@ export default function EventTable({ rows }) {
               <Fragment key={r.id}>
                 <tr
                   className={`border-b border-neutral-50 bg-neutral-950 hover:bg-neutral-900 ${r.phase === "archived" ? "text-neutral-500" : "text-neutral-100"}`}
-                  style={{ backgroundImage: running ? ROW_BG.running : i % 2 ? ROW_BG.odd : ROW_BG.even }}
+                  style={i % 2 ? { backgroundImage: ODD_ROW_BG } : undefined}
                 >
-                  <td className={`${cell} font-medium ${running ? "font-semibold shadow-[inset_5px_0_0_var(--color-emerald-400)]" : ""}`}>
+                  <td className={`${cell} font-medium`}>
                     <a href={r.href} className="hover:underline">{r.title}</a>
-                    {running && <span className="sr-only"> (running now)</span>}
+                    {running && <RunningLabel />}
                     {r.phase === "archived" && <span className="sr-only"> (ended)</span>}
                   </td>
                   <td className={cell}>
