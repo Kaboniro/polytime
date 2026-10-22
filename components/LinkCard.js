@@ -1,23 +1,28 @@
 import Badge from "@/components/Badge";
 import { labelFor, LINK_CATEGORIES } from "@/lib/constants";
 
-// Each card gets its own color from the site palette (grapefruit-pink,
-// light-sea-green, cerulean, apricot-cream): a soft tint for the fill and the
-// full color for the border and hover shadow. Colors cycle by position, so
-// neighbouring cards in the 3-column grid always differ. Fixed values rather
-// than theme tokens on purpose: these are the palette's own hues, and the
-// tints must stay light whatever the neutral scale does.
-const CARD_COLORS = [
-  { fill: "#ffe3e4", edge: "#fe6d73" },
-  { fill: "#d2f4ef", edge: "#17c3b2" },
-  { fill: "#d6e8f0", edge: "#227c9d" },
-  { fill: "#fff1d6", edge: "#ffcb77" },
-];
+// Each link category has its own color, so a card's color says what kind of
+// resource it is and the Links page can filter by it (its tabs use the same
+// colors). The first four are the site palette (grapefruit-pink,
+// light-sea-green, cerulean, apricot-cream); lavender, green and grey extend
+// it to seven. Fixed values rather than theme tokens on purpose: the tints
+// must stay light whatever the neutral scale does.
+export const LINK_COLORS = {
+  community: { fill: "#ffe3e4", edge: "#fe6d73" },
+  tool: { fill: "#d2f4ef", edge: "#17c3b2" },
+  software: { fill: "#d6e8f0", edge: "#227c9d" },
+  "asset-library": { fill: "#fff1d6", edge: "#e8a93a" },
+  tutorial: { fill: "#ebe5ff", edge: "#8b6fe0" },
+  "job-board": { fill: "#e3f4d7", edge: "#5aa02c" },
+  other: { fill: "#eeeeee", edge: "#8a8a8a" },
+};
+
+export const linkColor = (category) => LINK_COLORS[category] || LINK_COLORS.other;
 
 // Same rounded + hover-tilt-and-shadow treatment as EventCard
 // (components/polytime-ui).
-export default function LinkCard({ l, index = 0 }) {
-  const c = CARD_COLORS[index % CARD_COLORS.length];
+export default function LinkCard({ l }) {
+  const c = linkColor(l.category);
   return (
     <a
       href={l.url}

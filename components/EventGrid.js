@@ -35,8 +35,12 @@ export function CompactEventTable({ rows }) {
           </tr>
         </thead>
         <tbody>
-          {rows.map((r) => (
-            <tr key={r.id} className="border-b border-neutral-50 bg-neutral-950 text-neutral-100 hover:bg-neutral-900">
+          {rows.map((r, i) => (
+            <tr
+              key={r.id}
+              className="border-b border-neutral-50 bg-neutral-950 text-neutral-100 hover:bg-neutral-900"
+              style={i % 2 ? { backgroundImage: "linear-gradient(90deg, var(--color-neutral-950), var(--color-neutral-900))" } : undefined}
+            >
               <td className={`${cell} font-medium`}>
                 <a href={r.href} className="hover:underline">{r.title}</a>
                 <div className="text-xs font-normal text-neutral-500">{r.category}</div>

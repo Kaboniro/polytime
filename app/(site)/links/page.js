@@ -1,5 +1,4 @@
-import LinkCard from "@/components/LinkCard";
-import FilterBar from "@/components/FilterBar";
+import LinkCard, { linkColor } from "@/components/LinkCard";
 import HeadingInfo from "@/components/HeadingInfo";
 import Pagination from "@/components/Pagination";
 import { EmptyState, ViewportGrid } from "@/components/polytime-ui";
@@ -17,11 +16,65 @@ export const metadata = {
 
 const PAGE_SIZE = 25;
 
+// Short names for the tabs; the full labels (LINK_CATEGORIES) stay on the cards.
+const TAB_LABEL = {
+  community: "Community",
+  tool: "Tools & plugins",
+  software: "Software",
+  "asset-library": "Asset libraries",
+  tutorial: "Tutorials",
+  "job-board": "Jobs",
+  other: "Other",
+};
+const ORDER = Object.fromEntries(LINK_CATEGORIES.map((c, i) => [c.value, i]));
+
+// One tab per category in that category's card color, so "filter by color"
+// and "filter by category" are the same click. Plain links, like the rest of
+// the site's filters (see FilterBar.js on why there's no client-side routing).
+function CategoryTabs({ category, counts, total }) {
+  const tabs = [{ value: "all", label: "All", count: total }, ...LINK_CATEGORIES.map((c) => ({ value: c.value, label: TAB_LABEL[c.value] || c.label, count: counts[c.value] || 0 }))];
+  return (
+    <nav aria-label="Link categories" className="mb-6 flex flex-wrap gap-2">
+      {tabs.map((t) => {
+        const active = t.value === category;
+        const c = t.value === "all" ? { fill: "var(--color-neutral-900)", edge: "var(--color-neutral-50)" } : linkColor(t.value);
+        return (
+          <a
+            key={t.value}
+            href={t.value === "all" ? "/links" : `/links?category=${t.value}`}
+            aria-current={active ? "page" : undefined}
+            style={{ "--tab-fill": c.fill, "--tab-edge": c.edge }}
+            className={`inline-flex items-center gap-2 rounded-full border-2 px-3.5 py-1.5 text-sm no-underline transition-colors ${
+              active
+                ? "border-[var(--tab-edge)] bg-[var(--tab-fill)] font-semibold text-neutral-50"
+                : "border-neutral-800 text-neutral-300 hover:border-[var(--tab-edge)] hover:bg-[var(--tab-fill)]"
+            } ${t.count === 0 && !active ? "opacity-50" : ""}`}
+          >
+            {t.value !== "all" && (
+              <span className="h-3 w-3 shrink-0 rounded-full bg-[var(--tab-edge)]" aria-hidden="true" />
+            )}
+            {t.label}
+            <span className="text-xs text-neutral-500">{t.count}</span>
+          </a>
+        );
+      })}
+    </nav>
+  );
+}
+
 export default async function LinksPage({ searchParams }) {
   const sp = await searchParams;
   const category = pickOption(sp?.category, LINK_CATEGORIES);
   const pageNum = Math.max(1, parseInt(sp?.page, 10) || 1);
-  const allLinks = getApprovedLinks({ category });
+  // Everything once: the tabs need every category's count. "All" is grouped by
+  // category in tab order (so same-colored cards sit together), then by title.
+  const everything = getApprovedLinks();
+  const counts = {};
+  for (const l of everything) counts[l.category] = (counts[l.category] || 0) + 1;
+  const allLinks =
+    category === "all"
+      ? [...everything].sort((a, b) => (ORDER[a.category] ?? 99) - (ORDER[b.category] ?? 99) || a.title.localeCompare(b.title))
+      : everything.filter((l) => l.category === category);
 
   const totalPages = Math.max(1, Math.ceil(allLinks.length / PAGE_SIZE));
   const page = Math.min(pageNum, totalPages);
@@ -40,10 +93,7 @@ export default async function LinksPage({ searchParams }) {
         </HeadingInfo>
       </div>
 
-      <FilterBar
-        basePath="/links"
-        filters={[{ name: "category", label: "Category", allLabel: "All categories", options: LINK_CATEGORIES, value: category }]}
-      />
+      <CategoryTabs category={category} counts={counts} total={everything.length} />
 
       {allLinks.length === 0 ? (
         <EmptyState>
@@ -56,8 +106,8 @@ export default async function LinksPage({ searchParams }) {
         <>
           <ViewportGrid as="div" gridSize={40} className="mb-4 rounded-2xl border border-neutral-800 p-5">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {links.map((l, i) => (
-                <LinkCard key={l.id} l={l} index={i} />
+              {links.map((l) => (
+                <LinkCard key={l.id} l={l} />
               ))}
             </div>
           </ViewportGrid>
