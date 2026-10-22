@@ -313,7 +313,12 @@ COUNTRY_BY_NAME.set("turkey", "TR");
 COUNTRY_BY_NAME.set("united kingdom", "GB");
 COUNTRY_BY_NAME.set("usa", "US");
 const VALID_CC = new Set([...geoSrc.matchAll(/code:\s*"([A-Z]{2})"/g)].map((m) => m[1]));
-const TLD_CC = { cn: "CN", kr: "KR", th: "TH", jp: "JP", tw: "TW", hk: "HK", vn: "VN", id: "ID", sg: "SG", my: "MY", ph: "PH", in: "IN", de: "DE", fr: "FR", uk: "GB", br: "BR", ru: "RU", pl: "PL", es: "ES", it: "IT", au: "AU", ca: "CA" };
+const TLD_CC = {
+  cn: "CN", kr: "KR", th: "TH", jp: "JP", tw: "TW", hk: "HK", vn: "VN", id: "ID", sg: "SG", my: "MY", ph: "PH", in: "IN",
+  de: "DE", fr: "FR", uk: "GB", br: "BR", ru: "RU", pl: "PL", es: "ES", it: "IT", au: "AU", ca: "CA",
+  nl: "NL", be: "BE", at: "AT", ch: "CH", se: "SE", no: "NO", dk: "DK", fi: "FI", pt: "PT", ie: "IE", cz: "CZ", us: "US", nz: "NZ",
+  mx: "MX", ar: "AR", cl: "CL", co: "CO", pe: "PE", uy: "UY", ec: "EC",
+};
 // A country is only claimed when the site's own domain (.kr, .de, ...) says so, or
 // when the page's language is effectively single-country (Korean, Japanese, Thai,
 // Vietnamese, Polish, Indonesian, Chinese). English/Spanish/French/German/...
@@ -646,7 +651,7 @@ async function runCrawl(options = {}, ctx = {}) {
           searches++;
           searchFailures = 0;
           log(`search [${locale.country}] "${q}" -> ${results.length} results`);
-          results.forEach((r) => jobs.push({ url: r.url, locale, via: `search "${q}"`, published: r.published }));
+          results.forEach((r) => jobs.push({ url: r.url, locale, via: `search "${q}"`, published: r.published, weight: locale.weight }));
         } catch (e) {
           log(`search [${locale.country}] "${q}" failed: ${e.message}`);
           if (++searchFailures >= 3) {
@@ -689,20 +694,24 @@ async function runCrawl(options = {}, ctx = {}) {
     }
     const links = linksOf(page, src.limit || 15, src.linkPattern);
     log(`source ${src.name}: ${links.length} 3D-looking links`);
-    links.forEach((u) => jobs.push({ url: u, locale, via: src.name }));
+    links.forEach((u) => jobs.push({ url: u, locale, via: src.name, weight: src.weight ?? locale.weight }));
   }
 
-  // Interleave jobs across locales/sources so every country gets a fair share
-  // of the page budget, instead of the first ones in config order using it all.
+  // Interleave jobs across locales/sources so every country gets a share of
+  // the page budget, instead of the first ones in config order using it all.
+  // Each round takes `weight` jobs from a group (config.json; default 1), so a
+  // weight-2 country gets about twice the pages of a weight-1 one.
   const byGroup = new Map();
   for (const j of jobs) {
     const key = j.locale?.country || j.via;
-    if (!byGroup.has(key)) byGroup.set(key, []);
-    byGroup.get(key).push(j);
+    if (!byGroup.has(key)) byGroup.set(key, { list: [], weight: Math.max(1, Math.round(j.weight || 1)), next: 0 });
+    byGroup.get(key).list.push(j);
   }
   const groups = [...byGroup.values()];
   jobs.length = 0;
-  for (let i = 0; groups.some((g) => i < g.length); i++) for (const g of groups) if (i < g.length) jobs.push(g[i]);
+  while (groups.some((g) => g.next < g.list.length)) {
+    for (const g of groups) for (let k = 0; k < g.weight && g.next < g.list.length; k++) jobs.push(g.list[g.next++]);
+  }
 
   const queued = new Set();
   const unique = jobs.filter((j) => {

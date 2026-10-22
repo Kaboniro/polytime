@@ -1,5 +1,5 @@
 {
-  "_readme": "Edit freely. `locales` drive per-country web searches (needs BRAVE_API_KEY); `sources` are seed pages whose links are scanned. A locale's `proxyEnv` names an env var holding an HTTP proxy URL you operate/rent in that country (e.g. CRAWL_PROXY_CN=http://user:pass@host:port) — used only for sites that can't be reached from your own network. `searxEngines` is only used with SEARXNG_URL: the engines to query for that country (they must be enabled on your SearXNG). With SearXNG each query uses one engine from `searxEngines` in rotation and falls back to the next if it returns nothing (scraped engines rate-limit quickly). `search.recencyDays` limits results to pages posted/updated in that many days (0 = no limit); `search.pagesPerQuery` is how many result pages to page through per query. A source can set `adapter` (a reader in crawler/adapters.js for structured calendars such as 80.lv), `linkPattern` (a regex: follow every link on the page whose URL matches, instead of only 3D-looking ones), `limit` (max links to follow) or `disabled` (a reason; the source is skipped).",
+  "_readme": "Edit freely. `locales` drive per-country web searches (needs BRAVE_API_KEY); `sources` are seed pages whose links are scanned. A locale's `proxyEnv` names an env var holding an HTTP proxy URL you operate/rent in that country (e.g. CRAWL_PROXY_CN=http://user:pass@host:port) — used only for sites that can't be reached from your own network. `searxEngines` is only used with SEARXNG_URL: the engines to query for that country (they must be enabled on your SearXNG). With SearXNG each query uses one engine from `searxEngines` in rotation and falls back to the next if it returns nothing (scraped engines rate-limit quickly). `search.recencyDays` limits results to pages posted/updated in that many days (0 = no limit); `search.pagesPerQuery` is how many result pages to page through per query. A source can set `adapter` (a reader in crawler/adapters.js for structured calendars such as 80.lv), `linkPattern` (a regex: follow every link on the page whose URL matches, instead of only 3D-looking ones), `limit` (max links to follow) or `disabled` (a reason; the source is skipped). A locale or source can set `weight` (default 1): each round of the page budget takes that many pages from it, so weight 2 gets about twice the share of weight 1. The Americas and Europe are weighted 2 to balance the large Asian contest sites.",
   "locales": [
     {
       "country": "CN",
@@ -103,9 +103,15 @@
         "KitBash3D challenge 2026",
         "Fox Renderfarm CG competition 2026",
         "ArtStation challenge 2026",
-        "itch.io 3D game jam 2026"
+        "itch.io 3D game jam 2026",
+        "animation festival call for entries 2026",
+        "3D student awards 2026",
+        "CG art contest open call 2026",
+        "environment art contest 2026",
+        "character art challenge 2026"
       ],
-      "searxEngines": "startpage,mojeek,brave,yahoo"
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
     },
     {
       "country": "GB",
@@ -116,9 +122,12 @@
         "CG artists competition 2026 call for entries",
         "3D animation VFX student competition 2026",
         "environment art challenge 2026 prizes",
-        "3D character art contest 2026 deadline"
+        "3D character art contest 2026 deadline",
+        "3D art competition UK 2026",
+        "animation festival submissions 2026 UK"
       ],
-      "searxEngines": "startpage,mojeek,brave,yahoo"
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
     },
     {
       "country": "DE",
@@ -129,9 +138,11 @@
         "3D Wettbewerb 2026 Einreichung",
         "Blender Wettbewerb 2026",
         "3D Kunst Wettbewerb Teilnahme Preis",
-        "CGI Animation Wettbewerb 2026"
+        "CGI Animation Wettbewerb 2026",
+        "Animationsfestival Einreichung 2026"
       ],
-      "searxEngines": "startpage,mojeek,brave,yahoo"
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
     },
     {
       "country": "FR",
@@ -142,9 +153,12 @@
         "concours 3D 2026 inscription",
         "concours Blender 2026",
         "concours création 3D étudiants 2026",
-        "concours art numérique 3D prix"
+        "concours art numérique 3D prix",
+        "festival animation appel à films 2026",
+        "concours 3D étudiants 2026"
       ],
-      "searxEngines": "startpage,mojeek,brave,yahoo"
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
     },
     {
       "country": "ES",
@@ -154,9 +168,12 @@
       "queries": [
         "concurso 3D 2026 inscripción",
         "concurso Blender 2026",
-        "concurso arte digital 3D premios"
+        "concurso arte digital 3D premios",
+        "festival animación convocatoria 2026",
+        "premios animación 3D 2026"
       ],
-      "searxEngines": "startpage,mojeek,brave,yahoo"
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
     },
     {
       "country": "IT",
@@ -166,9 +183,11 @@
       "queries": [
         "concorso 3D 2026 iscrizione",
         "concorso Blender 2026",
-        "concorso arte digitale 3D premi"
+        "concorso arte digitale 3D premi",
+        "festival animazione bando 2026"
       ],
-      "searxEngines": "startpage,mojeek,brave,yahoo"
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
     },
     {
       "country": "NL",
@@ -179,7 +198,8 @@
         "3D wedstrijd 2026 inschrijven",
         "Blender wedstrijd 2026"
       ],
-      "searxEngines": "startpage,mojeek,brave,yahoo"
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
     },
     {
       "country": "PL",
@@ -190,7 +210,8 @@
         "konkurs 3D 2026 zgłoszenia",
         "konkurs Blender 2026 nagrody"
       ],
-      "searxEngines": "startpage,mojeek,brave,yahoo"
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
     },
     {
       "country": "BR",
@@ -200,9 +221,86 @@
       "queries": [
         "concurso 3D 2026 inscrições",
         "concurso Blender 2026 prêmios",
-        "desafio arte 3D 2026"
+        "desafio arte 3D 2026",
+        "festival de animação inscrições 2026",
+        "concurso modelagem 3D 2026"
       ],
-      "searxEngines": "startpage,mojeek,brave,yahoo"
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
+    },
+    {
+      "country": "CA",
+      "lang": "en",
+      "acceptLanguage": "en-CA,en;q=0.9,fr-CA;q=0.8",
+      "proxyEnv": "CRAWL_PROXY_CA",
+      "queries": [
+        "3D art contest Canada 2026",
+        "animation festival Canada submissions 2026",
+        "game jam Canada 2026"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
+    },
+    {
+      "country": "MX",
+      "lang": "es",
+      "acceptLanguage": "es-MX,es;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_MX",
+      "queries": [
+        "concurso 3D México 2026",
+        "convocatoria animación México 2026",
+        "concurso modelado 3D 2026 México"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
+    },
+    {
+      "country": "AR",
+      "lang": "es",
+      "acceptLanguage": "es-AR,es;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_AR",
+      "queries": [
+        "concurso arte 3D Argentina 2026",
+        "convocatoria animación Argentina 2026"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
+    },
+    {
+      "country": "CO",
+      "lang": "es",
+      "acceptLanguage": "es-CO,es;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_CO",
+      "queries": [
+        "concurso 3D Colombia 2026",
+        "convocatoria animación Colombia 2026"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
+    },
+    {
+      "country": "CL",
+      "lang": "es",
+      "acceptLanguage": "es-CL,es;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_CL",
+      "queries": [
+        "concurso animación Chile 2026",
+        "convocatoria arte digital Chile 2026"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
+    },
+    {
+      "country": "PT",
+      "lang": "pt",
+      "acceptLanguage": "pt-PT,pt;q=0.9",
+      "proxyEnv": "CRAWL_PROXY_PT",
+      "queries": [
+        "concurso 3D Portugal 2026",
+        "festival de animação Portugal candidaturas 2026"
+      ],
+      "searxEngines": "startpage,mojeek,brave,yahoo",
+      "weight": 2
     }
   ],
   "sources": [
@@ -347,11 +445,59 @@
       "name": "ArtStation contests",
       "url": "https://www.artstation.com/contests",
       "disabled": "ArtStation answers automated readers with HTTP 403, so it can't be crawled. Its challenges are found through search and press coverage instead (see the brand queries under the US locale)."
+    },
+    {
+      "name": "The Rookies contests",
+      "url": "https://www.therookies.co/contests",
+      "country": null,
+      "lang": "en",
+      "weight": 2
+    },
+    {
+      "name": "Cartoon Brew events",
+      "url": "https://www.cartoonbrew.com/events",
+      "country": null,
+      "lang": "en",
+      "weight": 2
+    },
+    {
+      "name": "Chaos (V-Ray) blog",
+      "url": "https://www.chaos.com/blog",
+      "country": null,
+      "lang": "en",
+      "weight": 2
+    },
+    {
+      "name": "CG Spectrum blog",
+      "url": "https://www.cgspectrum.com/blog",
+      "country": null,
+      "lang": "en",
+      "weight": 2
+    },
+    {
+      "name": "3D Wire (ES animation festival)",
+      "url": "https://www.3dwire.es/",
+      "country": "ES",
+      "lang": "es"
+    },
+    {
+      "name": "Premios Quirino (Ibero-American animation)",
+      "url": "https://www.quirino.org/",
+      "country": "ES",
+      "lang": "es"
+    },
+    {
+      "name": "Chilemonos (CL animation festival)",
+      "url": "https://www.chilemonos.cl/",
+      "country": "CL",
+      "lang": "es",
+      "linkPattern": "chilemonos\\.cl/web20\\d\\d/?$",
+      "limit": 3
     }
   ],
   "schedule": {
     "intervalMinutes": 1440,
-    "maxPagesPerRun": 300,
+    "maxPagesPerRun": 400,
     "startDelaySeconds": 30
   },
   "search": {
