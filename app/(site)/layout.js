@@ -26,8 +26,24 @@ const nunito = Nunito({ subsets: ["latin"], variable: "--font-sans-ui", display:
 // A contrasting face for short status labels ("Running") so they stand out from body text.
 const labelFont = JetBrains_Mono({ subsets: ["latin"], weight: ["800"], variable: "--font-label", display: "swap" });
 
+// Search engine ownership checks, as <meta> tags on every public page. Set
+// only the ones you use in .env.production (the values aren't secret: they
+// appear in the page). Google can also verify by DNS instead.
+const env = (k) => process.env[k] || undefined;
+const verification = {
+  google: env("GOOGLE_SITE_VERIFICATION"),
+  yandex: env("YANDEX_SITE_VERIFICATION"),
+  other: Object.fromEntries(
+    [
+      ["msvalidate.01", env("BING_SITE_VERIFICATION")],
+      ["naver-site-verification", env("NAVER_SITE_VERIFICATION")],
+    ].filter(([, v]) => v)
+  ),
+};
+
 export const metadata = {
   metadataBase: new URL(siteUrl()),
+  verification,
   title: { default: `${SITE_NAME} — ${SITE_TAGLINE}`, template: `%s — ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
