@@ -2,7 +2,8 @@
   "pages": {},
   "app": {
     "[project]/app/(admin)/admin/queries/page": [
-      "static/media/07454f8ad8aaac57-s.p.2kjei9psvcorz.woff2"
+      "static/media/07454f8ad8aaac57-s.p.2kjei9psvcorz.woff2",
+      "static/media/209fde95d1dbf6f7-s.p.3qx-pr5g6fgys.woff2"
     ]
   },
   "appUsingSizeAdjust": true,
