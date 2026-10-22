@@ -19,27 +19,26 @@ export function GridSection({ title, count, note, children, className = "" }) {
   );
 }
 
-const cell = "border-r border-neutral-50 px-2.5 py-2.5 align-top last:border-r-0";
+const cell = "px-4 py-3 align-top";
 
 // Compact table for ongoing and rolling entries: no dates to show, so just
 // what it is, who runs it and where. Same header/row styling as EventTable.
 export function CompactEventTable({ rows }) {
   return (
-    <div className="overflow-x-auto rounded-2xl border-2 border-neutral-50">
+    <div className="overflow-x-auto rounded-2xl border border-neutral-800">
       <table className="w-full min-w-[330px] border-collapse text-sm [&>tbody>tr:last-child]:border-b-0">
         <thead>
-          <tr className="bg-neutral-950 text-left text-xs uppercase tracking-wide text-neutral-50">
-            <th scope="col" className="w-[48%] border-b-2 border-r border-neutral-50 px-2.5 py-2 font-semibold last:border-r-0">Name</th>
-            <th scope="col" className="w-[26%] border-b-2 border-r border-neutral-50 px-2.5 py-2 font-semibold last:border-r-0">Host</th>
-            <th scope="col" className="w-[26%] border-b-2 border-r border-neutral-50 px-2.5 py-2 font-semibold last:border-r-0">Where</th>
+          <tr className="bg-neutral-900 text-left text-xs text-neutral-500">
+            <th scope="col" className="w-[48%] border-b border-neutral-800 px-4 py-2.5 font-medium">Event</th>
+            <th scope="col" className="w-[26%] border-b border-neutral-800 px-4 py-2.5 font-medium">Host</th>
+            <th scope="col" className="w-[26%] border-b border-neutral-800 px-4 py-2.5 font-medium">Where</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((r, i) => (
             <tr
               key={r.id}
-              className="border-b border-neutral-50 bg-neutral-950 text-neutral-100 hover:bg-neutral-900"
-              style={i % 2 ? { backgroundImage: "linear-gradient(90deg, var(--color-neutral-950), var(--color-neutral-900))" } : undefined}
+              className={`border-b border-neutral-800 text-neutral-100 transition-colors hover:bg-neutral-900 ${i % 2 ? "bg-neutral-900/40" : "bg-neutral-950"}`}
             >
               <td className={`${cell} font-medium`}>
                 <a href={r.href} className="hover:underline">{r.title}</a>
