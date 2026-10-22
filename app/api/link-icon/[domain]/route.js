@@ -10,6 +10,8 @@ import { linkDomain } from "@/lib/links";
 // (nobody can make the server fetch an arbitrary address through this). A
 // site with no usable icon gets a letter tile instead, so a card never shows
 // a broken image; that miss is remembered for a day before trying again.
+// The first request for a new site answers with the tile at once and
+// downloads the icon in the background (see the end of GET).
 
 const DIR = path.join(process.cwd(), "data", "link-icons");
 const MAX_BYTES = 300_000;
@@ -122,19 +124,24 @@ export async function GET(req, { params }) {
   }
   if (fs.existsSync(miss) && Date.now() - fs.statSync(miss).mtimeMs < MISS_RETRY_MS) return letterTile(domain, color);
 
+  // Not stored yet: fetch it in the background and answer with the letter
+  // tile straight away, uncached, so a slow site never holds up the page;
+  // the real icon is served from storage on the next visit.
   if (!inflight.has(domain)) {
     inflight.set(
       domain,
-      download(origin).finally(() => inflight.delete(domain))
+      download(origin)
+        .then((got) => {
+          if (!got) return fs.writeFileSync(miss, "");
+          fs.writeFileSync(file, got.buf);
+          fs.writeFileSync(meta, got.type);
+          fs.rmSync(miss, { force: true });
+        })
+        .catch(() => {})
+        .finally(() => inflight.delete(domain))
     );
   }
-  const got = await inflight.get(domain);
-  if (!got) {
-    fs.writeFileSync(miss, "");
-    return letterTile(domain, color);
-  }
-  fs.writeFileSync(file, got.buf);
-  fs.writeFileSync(meta, got.type);
-  fs.rmSync(miss, { force: true });
-  return new Response(got.buf, { headers: { ...HEADERS, "Content-Type": got.type, "Cache-Control": "public, max-age=604800" } });
+  const tile = letterTile(domain, color);
+  tile.headers.set("Cache-Control", "no-store");
+  return tile;
 }
