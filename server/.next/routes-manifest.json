@@ -88,6 +88,14 @@
       "namedRegex": "^/api/admin/(?<nxtPtable>[^/]+?)/(?<nxtPid>[^/]+?)(?:/)?$"
     },
     {
+      "page": "/api/link-icon/[domain]",
+      "regex": "^/api/link\\-icon/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPdomain": "nxtPdomain"
+      },
+      "namedRegex": "^/api/link\\-icon/(?<nxtPdomain>[^/]+?)(?:/)?$"
+    },
+    {
       "page": "/events/[id]",
       "regex": "^/events/([^/]+?)(?:/)?$",
       "routeKeys": {

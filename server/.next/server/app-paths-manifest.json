@@ -27,6 +27,7 @@
   "/api/admin/verify/resend/route": "app/api/admin/verify/resend/route.js",
   "/api/admin/verify/route": "app/api/admin/verify/route.js",
   "/api/health/route": "app/api/health/route.js",
+  "/api/link-icon/[domain]/route": "app/api/link-icon/[domain]/route.js",
   "/api/places/route": "app/api/places/route.js",
   "/api/submit/event/route": "app/api/submit/event/route.js",
   "/api/submit/link/route": "app/api/submit/link/route.js",
