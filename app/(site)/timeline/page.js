@@ -26,6 +26,8 @@ function toGanttRow(e, end) {
     end,
     startLabel: fmtDate(e.start_date),
     endLabel: fmtDate(end),
+    deadline: e.submission_deadline || null,
+    deadlineLabel: fmtDate(e.submission_deadline),
     category: labelFor(EVENT_CATEGORIES, e.category),
     geo: geographyIconInfo(e.geography),
     geoLabel: geographyLabel(e.geography),
