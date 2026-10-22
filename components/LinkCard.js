@@ -1,5 +1,6 @@
 import Badge from "@/components/Badge";
 import { labelFor, LINK_CATEGORIES } from "@/lib/constants";
+import { linkDomain } from "@/lib/links";
 
 // Each link category has its own color, so a card's color says what kind of
 // resource it is and the Links page can filter by it (its tabs use the same
@@ -23,6 +24,7 @@ export const linkColor = (category) => LINK_COLORS[category] || LINK_COLORS.othe
 // (components/polytime-ui).
 export default function LinkCard({ l }) {
   const c = linkColor(l.category);
+  const domain = linkDomain(l.url);
   return (
     <a
       href={l.url}
@@ -31,10 +33,27 @@ export default function LinkCard({ l }) {
       style={{ "--card-fill": c.fill, "--card-edge": c.edge }}
       className="group flex flex-col gap-2 rounded-2xl border-2 border-[var(--card-edge)] bg-[var(--card-fill)] p-5 no-underline transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:-rotate-[0.35deg] hover:shadow-[5px_5px_0_var(--card-edge)] focus-visible:-translate-y-1 focus-visible:-rotate-[0.35deg] focus-visible:shadow-[5px_5px_0_var(--card-edge)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-orange-500 motion-reduce:!transform-none"
     >
-      <h3 className="font-semibold text-neutral-50">{l.title}</h3>
+      <div className="flex items-center gap-3">
+        {/* The site's own icon, served from our server (app/api/link-icon). */}
+        <img
+          src={`/api/link-icon/${domain}?c=${encodeURIComponent(c.edge)}`}
+          alt=""
+          width={32}
+          height={32}
+          loading="lazy"
+          decoding="async"
+          className="h-8 w-8 shrink-0 rounded-lg bg-white object-contain p-0.5 shadow-sm"
+        />
+        <h3 className="min-w-0 font-semibold leading-snug text-neutral-50">{l.title}</h3>
+      </div>
       <Badge>{labelFor(LINK_CATEGORIES, l.category)}</Badge>
       {l.description && <p className="text-sm text-neutral-300">{l.description}</p>}
-      <span className="truncate text-xs text-neutral-500">{l.url}</span>
+      <div className="mt-auto flex items-center justify-between gap-3 pt-1 text-sm">
+        <span className="truncate text-neutral-500">{domain}</span>
+        <span className="shrink-0 font-semibold text-neutral-50 group-hover:underline">
+          Visit <span aria-hidden="true">↗</span>
+        </span>
+      </div>
     </a>
   );
 }

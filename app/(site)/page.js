@@ -137,7 +137,6 @@ export default async function HomePage({ searchParams }) {
     <div>
       <JsonLd data={structured} />
       <h1 className="sr-only">3D Art Events</h1>
-      <p className="mb-6 text-base text-neutral-400">Find 3D art contests, challenges and events from around the world.</p>
 
       <FilterBar
         basePath="/"
