@@ -1,7 +1,7 @@
 var R=require("../../../chunks/ssr/[turbopack]_runtime.js")("server/app/(site)/privacy/page.js")
-R.c("server/chunks/ssr/[root-of-the-server]__1r1w59m._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__1vdgb52._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_1n3w9lb._.js")
-R.c("server/chunks/ssr/[root-of-the-server]__1c_knvr._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__0n-3yhh._.js")
 R.c("server/chunks/ssr/[root-of-the-server]__053zht7._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_client_components_0wpq8j3._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_client_components_builtin_forbidden_0symwr9.js")
@@ -14,5 +14,5 @@ R.c("server/chunks/ssr/_169o_zx._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_1poh_qr._.js")
 R.c("server/chunks/ssr/_1k6qw0q._.js")
 R.c("server/chunks/ssr/_next-internal_server_app_(site)_privacy_page_actions_02q53zn.js")
-R.m(28927)
-module.exports=R.m(28927).exports
+R.m(31879)
+module.exports=R.m(31879).exports

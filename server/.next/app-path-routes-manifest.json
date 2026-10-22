@@ -8,7 +8,6 @@
   "/(admin)/admin/queries/page": "/admin/queries",
   "/(admin)/admin/verify/page": "/admin/verify",
   "/(site)/events/[id]/page": "/events/[id]",
-  "/(site)/icon-12o0cb.svg/route": "/icon-12o0cb.svg",
   "/(site)/links/page": "/links",
   "/(site)/opengraph-image-12o0cb/route": "/opengraph-image-12o0cb",
   "/(site)/page": "/",
@@ -32,7 +31,9 @@
   "/api/submit/event/route": "/api/submit/event",
   "/api/submit/link/route": "/api/submit/link",
   "/api/submit/query/route": "/api/submit/query",
+  "/apple-icon.png/route": "/apple-icon.png",
   "/favicon.ico/route": "/favicon.ico",
+  "/icon.svg/route": "/icon.svg",
   "/robots.txt/route": "/robots.txt",
   "/sitemap.xml/route": "/sitemap.xml"
 }

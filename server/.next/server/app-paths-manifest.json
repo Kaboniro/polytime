@@ -8,7 +8,6 @@
   "/(admin)/admin/queries/page": "app/(admin)/admin/queries/page.js",
   "/(admin)/admin/verify/page": "app/(admin)/admin/verify/page.js",
   "/(site)/events/[id]/page": "app/(site)/events/[id]/page.js",
-  "/(site)/icon-12o0cb.svg/route": "app/(site)/icon-12o0cb.svg/route.js",
   "/(site)/links/page": "app/(site)/links/page.js",
   "/(site)/opengraph-image-12o0cb/route": "app/(site)/opengraph-image-12o0cb/route.js",
   "/(site)/page": "app/(site)/page.js",
@@ -32,7 +31,9 @@
   "/api/submit/event/route": "app/api/submit/event/route.js",
   "/api/submit/link/route": "app/api/submit/link/route.js",
   "/api/submit/query/route": "app/api/submit/query/route.js",
+  "/apple-icon.png/route": "app/apple-icon.png/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/icon.svg/route": "app/icon.svg/route.js",
   "/robots.txt/route": "app/robots.txt/route.js",
   "/sitemap.xml/route": "app/sitemap.xml/route.js"
 }
