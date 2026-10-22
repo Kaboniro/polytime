@@ -74,7 +74,7 @@ export default async function SiteLayout({ children }) {
     <html lang="en" className={nunito.variable}>
       <body className="flex min-h-screen flex-col bg-neutral-950 text-neutral-100 antialiased">
         <header className="border-b border-neutral-800 bg-neutral-950/80 backdrop-blur sticky top-0 z-30">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 flex flex-wrap items-center justify-between gap-x-4 min-h-16 py-2">
+          <div className="mx-auto max-w-[1760px] px-4 sm:px-6 flex flex-wrap items-center justify-between gap-x-4 min-h-16 py-2">
             <a href="/" className="flex items-center gap-2 font-semibold text-base tracking-tight">
               <HexClockLogo size={28} />
               PolyTime
@@ -82,8 +82,8 @@ export default async function SiteLayout({ children }) {
             <NavLinks items={nav} />
           </div>
         </header>
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-6 py-8">{children}</main>
-        <footer className="mx-auto w-full max-w-6xl px-4 sm:px-6 py-8 text-xs text-neutral-500 border-t border-neutral-800 mt-16">
+        <main className="mx-auto w-full max-w-[1760px] flex-1 px-4 sm:px-6 py-8">{children}</main>
+        <footer className="mx-auto w-full max-w-[1760px] px-4 sm:px-6 py-8 text-xs text-neutral-500 border-t border-neutral-800 mt-16">
           PolyTime is community-curated.{" "}
           <a href="/submit" className="underline hover:text-neutral-300">Know one we're missing?</a>{" "}
           · <a href="/privacy" className="underline hover:text-neutral-300">Privacy & data</a>{" "}

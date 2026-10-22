@@ -42,7 +42,7 @@ export default async function AdminLayout({ children }) {
     <html lang="en" className={nunito.variable}>
       <body className="min-h-screen bg-neutral-950 text-neutral-100 antialiased">
         <header className="sticky top-0 z-30 border-b border-neutral-800 bg-neutral-950/80 backdrop-blur">
-          <div className="mx-auto flex min-h-16 max-w-6xl flex-wrap items-center justify-between gap-x-4 px-4 py-2 sm:px-6">
+          <div className="mx-auto flex min-h-16 max-w-[1760px] flex-wrap items-center justify-between gap-x-4 px-4 py-2 sm:px-6">
             <a href={authed ? "/admin" : "/"} className="flex items-center gap-2 text-base font-semibold tracking-tight">
               <HexClockLogo size={28} />
               PolyTime
@@ -57,7 +57,7 @@ export default async function AdminLayout({ children }) {
             </div>
           </div>
         </header>
-        <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">{children}</main>
+        <main className="mx-auto w-full max-w-[1760px] px-4 py-8 sm:px-6">{children}</main>
       </body>
     </html>
   );

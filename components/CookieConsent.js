@@ -53,7 +53,7 @@ export default function CookieConsent() {
       aria-label="Cookie preferences"
       className="fixed inset-x-0 bottom-0 z-40 border-t border-neutral-700 bg-neutral-900 px-4 py-4 sm:px-6"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-[1760px]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-neutral-300 max-w-2xl">
             With your OK, PolyTime remembers which pages you visit and a rough location from your
