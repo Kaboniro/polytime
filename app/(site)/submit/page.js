@@ -282,7 +282,7 @@ export default function SubmitPage() {
 
   return (
     <div className="flex items-stretch gap-12">
-    <div className="w-full max-w-xl shrink-0">
+    <div className="w-full shrink-0 lg:w-3/5">
       <div className="mb-8 flex items-start gap-3">
         <AxisGizmo size={30} />
         <HeadingInfo as="h1" title="Submit something" className="flex-1">

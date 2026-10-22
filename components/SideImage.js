@@ -26,8 +26,9 @@ export default function SideImage({ src, position = "30% 50%", cutout = false })
     <aside
       className="relative hidden min-w-0 flex-1 lg:block"
       aria-hidden="true"
-      // Bleeds past the page's max-width container to the window's right edge.
-      style={{ marginRight: "calc(-1 * max(1.5rem, (100vw - 72rem) / 2 + 1.5rem))" }}
+      // Bleeds past the page's max-width container (1760px, see the layouts) to
+      // the window's right edge.
+      style={{ marginRight: "calc(-1 * max(1.5rem, (100vw - 1760px) / 2 + 1.5rem))" }}
     >
       <img
         src={src}
