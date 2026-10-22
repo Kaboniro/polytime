@@ -579,10 +579,21 @@ async function pool(items, n, fn) {
   );
 }
 
-function linksOf(page, limit, pattern) {
+function linksOf(page, limit, pattern, bareUrls = false) {
   const re = pattern ? new RegExp(pattern, "i") : null;
   const out = [];
   const seen = new Set();
+  // Some sites (Discourse forums such as Blender Artists) list their topics as
+  // plain URLs in embedded page data rather than <a> links. With `bareUrls`
+  // (and a linkPattern to say which ones), those are picked up too.
+  if (bareUrls && re) {
+    for (const [u] of page.html.matchAll(/https?:\/\/[^\s"'<>\\]+/g)) {
+      if (seen.has(u) || !re.test(u)) continue;
+      seen.add(u);
+      out.push(u);
+      if (out.length >= limit) return out;
+    }
+  }
   for (const m of page.html.matchAll(/<a\s[^>]*href=["']([^"'#]+)["'][^>]*>([\s\S]*?)<\/a>/gi)) {
     let abs;
     try {
@@ -692,7 +703,7 @@ async function runCrawl(options = {}, ctx = {}) {
       adapterCandidates.push(...found);
       continue;
     }
-    const links = linksOf(page, src.limit || 15, src.linkPattern);
+    const links = linksOf(page, src.limit || 15, src.linkPattern, src.bareUrls);
     log(`source ${src.name}: ${links.length} 3D-looking links`);
     links.forEach((u) => jobs.push({ url: u, locale, via: src.name, weight: src.weight ?? locale.weight }));
   }
