@@ -8,14 +8,17 @@ export const alt = `${SITE_NAME} — ${SITE_TAGLINE}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// The PolyTime hexagon-clock logo, the same shapes as app/icon.svg.
+// The PolyTime hexagon-clock logo: same six section colors as the header
+// logo (HexClockLogo) and app/icon.svg.
 function Logo({ size }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" style={{ marginRight: 18 }}>
-      <polygon points="32,3 57,17.5 57,46.5 32,61 7,46.5 7,17.5" fill="#227c9d" />
-      <polygon points="32,3 57,17.5 32,32" fill="#fe6d73" />
-      <polygon points="57,17.5 57,46.5 32,32" fill="#ffcb77" />
-      <polygon points="32,61 7,46.5 32,32" fill="#17c3b2" />
+      <polygon points="32,32 32,3 57,17.5" fill="#eda100" />
+      <polygon points="32,32 57,17.5 57,46.5" fill="#eb6834" />
+      <polygon points="32,32 57,46.5 32,61" fill="#e34948" />
+      <polygon points="32,32 32,61 7,46.5" fill="#4a3aa7" />
+      <polygon points="32,32 7,46.5 7,17.5" fill="#2a78d6" />
+      <polygon points="32,32 7,17.5 32,3" fill="#1baf7a" />
       <circle cx="32" cy="32" r="12" fill="#fef9ef" />
       <path d="M32 32V24M32 32l6 4" stroke="#0f2a35" strokeWidth="3" strokeLinecap="round" fill="none" />
     </svg>
