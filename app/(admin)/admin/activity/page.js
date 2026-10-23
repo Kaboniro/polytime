@@ -6,7 +6,8 @@ import HeadingInfo from "@/components/HeadingInfo";
 import StatTile from "@/components/admin/StatTile";
 import ActivityControls from "@/components/admin/ActivityControls";
 import { Heatmap, TrendChart } from "@/components/admin/ActivityCharts";
-import { BarList, Delta, SplitBar } from "@/components/admin/ActivityParts";
+import { Delta, SplitBar } from "@/components/admin/ActivityParts";
+import PagedBarList from "@/components/admin/PagedBarList";
 import { count, duration, pageLabel, percent } from "@/components/admin/activityFormat";
 
 export const dynamic = "force-dynamic";
@@ -95,9 +96,9 @@ export default async function ActivityPage({ searchParams }) {
             </Card>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-6 lg:grid-cols-2 2xl:grid-cols-3">
             <Card title="Top pages" note={page ? "Filtered to one page." : "Only pages that exist on the site."}>
-              <BarList
+              <PagedBarList
                 items={r.topPages.map((t) => ({
                   key: t.path,
                   label: (
@@ -111,7 +112,7 @@ export default async function ActivityPage({ searchParams }) {
               />
             </Card>
             <Card title="Where visitors go next" note="Moves from one page to another on this site.">
-              <BarList
+              <PagedBarList
                 tone="flow"
                 empty="No navigation between pages recorded yet."
                 items={r.flows.map((f) => ({
@@ -121,17 +122,15 @@ export default async function ActivityPage({ searchParams }) {
                 }))}
               />
             </Card>
-          </div>
 
           <Card title="Visitors by country" note="Best-effort, from a header Cloudflare or Vercel add to each request.">
             {r.countries.length === 0 ? (
               <p className="text-sm text-neutral-500">
-                No location data yet. This app reads it from a header Cloudflare or Vercel add automatically; a plain
-                VPS with nothing in front of it won't set one. Put Cloudflare's free tier in front of the site to
-                populate this.
+                No location data in this period. Countries come from the header Cloudflare adds to each visit, so
+                only visits made through Cloudflare (and with the cookie banner accepted) have one.
               </p>
             ) : (
-              <BarList
+              <PagedBarList
                 tone="visitors"
                 items={r.countries.map((k) => {
                   const value = `country:${k.country}`;
@@ -152,6 +151,7 @@ export default async function ActivityPage({ searchParams }) {
               <p className="mt-3 text-xs text-neutral-500">{count(r.unknownLocationViews)} view(s) had no location.</p>
             )}
           </Card>
+          </div>
         </div>
       )}
     </div>

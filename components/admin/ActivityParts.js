@@ -6,15 +6,20 @@ const TONES = { views: "var(--color-orange-500)", visitors: "var(--color-sky-400
 
 // Horizontal bars for a ranked list. `share` is drawn against the largest value,
 // so the top row always fills the track and the rest read as proportions.
-export function BarList({ items, tone = "views", empty = "Nothing to show yet." }) {
+// `max` and `startRank` let a paged view (PagedBarList) keep bars comparable
+// across pages and number rows by their overall rank.
+export function BarList({ items, tone = "views", empty = "Nothing to show yet.", max: maxValue, startRank }) {
   if (!items.length) return <p className="text-sm text-neutral-500">{empty}</p>;
-  const max = Math.max(...items.map((i) => i.value), 1);
+  const max = maxValue || Math.max(...items.map((i) => i.value), 1);
   return (
     <ul className="space-y-2.5">
-      {items.map((i) => (
+      {items.map((i, n) => (
         <li key={i.key}>
           <div className="flex items-baseline justify-between gap-3 text-sm">
-            <span className="min-w-0 truncate text-neutral-100">{i.label}</span>
+            <span className="min-w-0 truncate text-neutral-100">
+              {startRank != null && <span className="mr-2 inline-block w-6 text-right text-xs tabular-nums text-neutral-500">{startRank + n}</span>}
+              {i.label}
+            </span>
             <span className="shrink-0 tabular-nums text-neutral-200">
               {i.value.toLocaleString()}
               {i.sub && <span className="ml-2 text-xs text-neutral-500">{i.sub}</span>}
