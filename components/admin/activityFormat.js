@@ -6,6 +6,7 @@ export const PAGE_LABELS = {
   "/timeline": "Calendar",
   "/links": "Links",
   "/submit": "Submit",
+  "/about": "About",
   "/privacy": "Privacy",
 };
 

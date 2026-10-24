@@ -10,6 +10,7 @@ const STATIC = [
   { path: "/timeline", changeFrequency: "daily", priority: 0.8 },
   { path: "/links", changeFrequency: "weekly", priority: 0.7 },
   { path: "/submit", changeFrequency: "monthly", priority: 0.4 },
+  { path: "/about", changeFrequency: "yearly", priority: 0.3 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.2 },
 ];
 

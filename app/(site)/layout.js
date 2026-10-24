@@ -102,6 +102,7 @@ export default async function SiteLayout({ children }) {
         <footer className="mx-auto w-full max-w-[1760px] px-4 sm:px-6 py-8 text-xs text-neutral-500 border-t border-neutral-800 mt-16">
           PolyTime is community-curated.{" "}
           <a href="/submit" className="underline hover:text-neutral-300">Know one we're missing?</a>{" "}
+          · <a href="/about" className="underline hover:text-neutral-300">About</a>{" "}
           · <a href="/privacy" className="underline hover:text-neutral-300">Privacy & data</a>{" "}
           · <CookiePrefsLink />
         </footer>
