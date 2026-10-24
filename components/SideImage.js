@@ -25,7 +25,10 @@ export const imageForId = (id) => SIDE_IMAGES[Math.abs(Number(id) || 0) % SIDE_I
 export default function SideImage({ src, position = "30% 50%", cutout = false }) {
   return (
     <aside
-      className="relative hidden min-w-0 flex-1 lg:block"
+      // aspect-square: the panel is at least as tall as it is wide, so the
+      // square photos are never cropped top and bottom on short pages (it can
+      // still grow taller with the content beside it).
+      className="relative hidden aspect-square min-w-0 flex-1 lg:block"
       aria-hidden="true"
       // Bleeds past the page's max-width container (1760px, see the layouts) to
       // the window's right edge.
