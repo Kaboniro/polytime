@@ -5,8 +5,6 @@ export const dynamic = "force-dynamic";
 
 export const metadata = { title: "Privacy & data", alternates: { canonical: "/privacy" } };
 
-const UPDATED = "24 October 2026";
-
 
 // This page exists so anyone connected to a listing — or just visiting —
 // has a plain-language explanation of what PolyTime collects and why, and a
@@ -19,7 +17,7 @@ export default function PrivacyPage() {
     : null;
 
   return (
-    <DocPage title="Privacy & data" updated={UPDATED}>
+    <DocPage title="Privacy & data">
 
       <DocSection n={1} title="What's on this site">
         <p>

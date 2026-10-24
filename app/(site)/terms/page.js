@@ -9,8 +9,6 @@ export const metadata = {
   alternates: { canonical: "/terms" },
 };
 
-const UPDATED = "24 October 2026";
-
 
 const link = "text-orange-400 hover:underline";
 
@@ -22,7 +20,7 @@ export default function TermsPage() {
   const email = getContactEmail();
 
   return (
-    <DocPage title="Terms of use" updated={UPDATED}>
+    <DocPage title="Terms of use">
 
       <DocSection n={1} title="Using PolyTime">
         <p>
@@ -92,7 +90,7 @@ export default function TermsPage() {
 
       <DocSection n={8} title="Changes and contact">
         <p>
-          We may update these terms as the site changes; the date at the top shows the latest version.
+          We may update these terms as the site changes; the version on this page is always the current one.
           Questions, corrections or removal requests: use the{" "}
           <a href="/submit" className={link}>Query tab on the submit page</a>
           {email ? (
