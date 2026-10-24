@@ -14,6 +14,7 @@
   "/(site)/page": "/",
   "/(site)/privacy/page": "/privacy",
   "/(site)/submit/page": "/submit",
+  "/(site)/terms/page": "/terms",
   "/(site)/timeline/page": "/timeline",
   "/_global-error/page": "/_global-error",
   "/_not-found/page": "/_not-found",

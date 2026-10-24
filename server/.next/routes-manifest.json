@@ -292,6 +292,12 @@
       "namedRegex": "^/submit(?:/)?$"
     },
     {
+      "page": "/terms",
+      "regex": "^/terms(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/terms(?:/)?$"
+    },
+    {
       "page": "/timeline",
       "regex": "^/timeline(?:/)?$",
       "routeKeys": {},
