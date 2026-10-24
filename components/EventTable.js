@@ -4,12 +4,12 @@ import { Fragment, useState } from "react";
 import GeoIcon from "@/components/GeoIcon";
 
 const COLUMNS = [
-  { key: "name", label: "Event", className: "w-[26%]" },
-  { key: "dates", label: "Dates", className: "w-[18%]" },
-  { key: "category", label: "Category", className: "w-[15%]" },
-  { key: "geography", label: "Where", className: "w-[15%]" },
-  { key: "software", label: "Software", className: "w-[12%]" },
-  { key: "host", label: "Host", className: "w-[14%]" },
+  { key: "name", label: "Event", className: "w-[25%] min-w-[180px]" },
+  { key: "dates", label: "Dates", className: "w-[17%]" },
+  { key: "category", label: "Category", className: "w-[14%]" },
+  { key: "geography", label: "Where", className: "w-[13%]" },
+  { key: "software", label: "Software", className: "w-[13%]" },
+  { key: "host", label: "Host", className: "w-[18%]" },
 ];
 
 // A calm, readable table: soft row dividers instead of a black grid,
@@ -24,7 +24,7 @@ function LiveNow() {
   );
 }
 
-const cell = "px-4 py-3.5 align-top";
+const cell = "px-4 py-3.5 align-top [overflow-wrap:anywhere]";
 
 function Detail({ label, children }) {
   if (!children) return null;
@@ -36,8 +36,7 @@ function Detail({ label, children }) {
   );
 }
 
-// The expanded details for one event: shared by the desktop table row and
-// the phone card, so both show exactly the same information.
+// The expanded details for one event, shown in a row under it.
 function DetailsBody({ r }) {
   return (
     <>
@@ -62,59 +61,6 @@ function DetailsBody({ r }) {
   );
 }
 
-const Chevron = ({ open }) => (
-  <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" className={`shrink-0 text-neutral-500 transition-transform ${open ? "rotate-90" : ""}`}>
-    <path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-// Below xl (phones, tablets, small laptops): one card per event with every
-// column as a labelled line. The six-column table needs ~860px, which only
-// fits beside the Timeline page's filter sidebar from xl up.
-function PhoneList({ rows, open, toggle }) {
-  return (
-    <ul className="overflow-hidden rounded-2xl border border-neutral-800 xl:hidden">
-      {rows.map((r, i) => {
-        const isOpen = open.has(r.id);
-        const panelId = `event-details-m-${r.id}`;
-        return (
-          <li key={r.id} className={`border-b border-neutral-800 px-4 py-3.5 last:border-b-0 ${i % 2 ? "bg-neutral-900/40" : ""} ${r.phase === "archived" ? "text-neutral-500" : "text-neutral-100"}`}>
-            <a href={r.href} className="font-medium hover:underline">{r.title}</a>
-            {r.phase === "running" && <LiveNow />}
-            {r.phase === "archived" && <span className="sr-only"> (ended)</span>}
-            <div className={`mt-1.5 text-sm ${r.datesFixed ? "text-neutral-200" : "text-neutral-500"}`}>{r.dates}</div>
-            {r.deadline && <div className="text-xs text-neutral-500">Deadline {r.deadline}</div>}
-            <dl className="mt-2.5 grid grid-cols-2 gap-x-4 gap-y-2 text-sm md:grid-cols-4">
-              <Detail label="Category">{r.category}</Detail>
-              <div>
-                <dt className="text-xs text-neutral-500">Where</dt>
-                <dd className="text-neutral-200"><GeoIcon info={r.geo} /> {r.geoLabel}</dd>
-              </div>
-              <Detail label="Software">{r.software}</Detail>
-              <Detail label="Host">{r.host}</Detail>
-            </dl>
-            <button
-              type="button"
-              onClick={() => toggle(r.id)}
-              aria-expanded={isOpen}
-              aria-controls={isOpen ? panelId : undefined}
-              className="mt-2.5 inline-flex items-center gap-1.5 text-sm text-neutral-300 underline-offset-2 hover:underline"
-            >
-              <Chevron open={isOpen} />
-              {isOpen ? "Hide details" : "More details"}
-            </button>
-            {isOpen && (
-              <div id={panelId} className="mt-3 rounded-xl bg-neutral-900 p-3">
-                <DetailsBody r={r} />
-              </div>
-            )}
-          </li>
-        );
-      })}
-    </ul>
-  );
-}
-
 // Rows arrive already shaped and formatted by the server page (see app/page.js)
 // so only public fields cross into this client bundle, and dates are formatted
 // once on the server: no client/server "is it past yet?" hydration drift.
@@ -132,13 +78,16 @@ export default function EventTable({ rows }) {
 
   return (
     <>
-    <PhoneList rows={rows} open={open} toggle={toggle} />
-    <div className="hidden overflow-x-auto rounded-2xl border border-neutral-800 xl:block">
-      <table className="w-full min-w-[860px] border-collapse text-sm [&>tbody>tr:last-child]:border-b-0">
+    {/* Same table on every screen. Where it's wider than the screen it
+        scrolls sideways (thin visible scrollbar), with the Event column
+        pinned so you always know which row you're on. */}
+    <p className="mb-2 text-xs text-neutral-500 lg:hidden">Swipe sideways for more columns →</p>
+    <div className="overflow-x-auto rounded-2xl border border-neutral-800">
+      <table className="w-full min-w-[860px] table-fixed border-collapse text-sm [&>tbody>tr:last-child]:border-b-0">
         <thead>
           <tr className="bg-neutral-900 text-left text-xs text-neutral-500">
             {COLUMNS.map((c) => (
-              <th key={c.key} scope="col" className={`border-b border-neutral-800 px-4 py-2.5 font-medium ${c.className}`}>
+              <th key={c.key} scope="col" className={`border-b border-neutral-800 px-4 py-2.5 font-medium ${c.className} ${c.key === "name" ? "sticky left-0 z-10 bg-inherit max-xl:shadow-[6px_0_8px_-4px_rgb(0_0_0_/_0.18)]" : ""}`}>
                 {c.label}
               </th>
             ))}
@@ -152,9 +101,9 @@ export default function EventTable({ rows }) {
             return (
               <Fragment key={r.id}>
                 <tr
-                  className={`border-b border-neutral-800 transition-colors hover:bg-neutral-900 ${i % 2 ? "bg-neutral-900/40" : "bg-neutral-950"} ${r.phase === "archived" ? "text-neutral-500" : "text-neutral-100"}`}
+                  className={`border-b border-neutral-800 transition-colors hover:bg-neutral-800 ${i % 2 ? "bg-neutral-900" : "bg-neutral-950"} ${r.phase === "archived" ? "text-neutral-500" : "text-neutral-100"}`}
                 >
-                  <td className={`${cell} font-medium`}>
+                  <td className={`${cell} sticky left-0 z-10 bg-inherit font-medium max-xl:shadow-[6px_0_8px_-4px_rgb(0_0_0_/_0.18)]`}>
                     <a href={r.href} className="hover:underline">{r.title}</a>
                     {running && <LiveNow />}
                     {r.phase === "archived" && <span className="sr-only"> (ended)</span>}

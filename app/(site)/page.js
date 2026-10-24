@@ -1,5 +1,5 @@
 import EventTable from "@/components/EventTable";
-import { CompactEventTable, GridSection } from "@/components/EventGrid";
+import { GridSection } from "@/components/EventGrid";
 import JsonLd from "@/components/JsonLd";
 import { eventJsonLd } from "@/lib/seo";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/site";
@@ -145,7 +145,6 @@ export default async function HomePage({ searchParams }) {
   return (
     <div>
       <JsonLd data={structured} />
-      <h1 className="sr-only">3D Art Events</h1>
 
       {/* Filters: a sticky sidebar from xl up (where it fits beside the table),
           folded into a "Filters" button above the list on smaller screens. */}
@@ -193,25 +192,21 @@ export default async function HomePage({ searchParams }) {
       ) : (
         <div className="flex flex-col gap-10">
           {mainRows.length > 0 && (
-            <GridSection title="Events" count={mainRows.length} marker="bg-band">
+            <GridSection as="h1" title="Events" count={mainRows.length} marker="bg-band">
               <EventTable rows={pageRows} />
               <Pagination page={page} totalPages={totalPages} basePath="/" query={pageQuery} />
             </GridSection>
           )}
 
-          {(ongoing.length > 0 || rolling.length > 0) && (
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-8">
-              {ongoing.length > 0 && (
-                <GridSection title="Ongoing" marker="bg-go" count={ongoing.length} note="Open-ended: no fixed dates, join any time.">
-                  <CompactEventTable rows={ongoing} />
-                </GridSection>
-              )}
-              {rolling.length > 0 && (
-                <GridSection title="Rolling" marker="bg-cerulean" count={rolling.length} note="Recurring: a new round every week, month or season.">
-                  <CompactEventTable rows={rolling} />
-                </GridSection>
-              )}
-            </div>
+          {ongoing.length > 0 && (
+            <GridSection title="Ongoing" marker="bg-go" count={ongoing.length} note="Open-ended: no fixed dates, join any time.">
+              <EventTable rows={ongoing} />
+            </GridSection>
+          )}
+          {rolling.length > 0 && (
+            <GridSection title="Rolling" marker="bg-cerulean" count={rolling.length} note="Recurring: a new round every week, month or season.">
+              <EventTable rows={rolling} />
+            </GridSection>
           )}
         </div>
       )}
