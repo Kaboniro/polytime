@@ -90,7 +90,7 @@ export default async function SiteLayout({ children }) {
   return (
     <html lang="en" className={nunito.variable}>
       <body className="flex min-h-screen flex-col bg-neutral-950 text-neutral-100 antialiased">
-        <header className="border-b border-neutral-800 bg-neutral-950/80 backdrop-blur sticky top-0 z-30">
+        <header className="sticky top-0 z-30 bg-ink text-cream">
           {/* Logo | tabs | empty column: the equal side columns keep the tabs
               centered on the page, not just in the space left after the logo.
               On phones the logo sits above the tabs, both centered. */}
@@ -100,19 +100,21 @@ export default async function SiteLayout({ children }) {
               PolyTime
             </a>
             <div className="flex justify-center">
-              <NavLinks items={nav} />
+              <NavLinks items={nav} onDark />
             </div>
             <div className="hidden md:block" aria-hidden="true" />
           </div>
         </header>
         <main className="mx-auto w-full max-w-[1760px] flex-1 px-4 sm:px-6 py-8">{children}</main>
-        <footer className="mx-auto w-full max-w-[1760px] px-4 sm:px-6 py-8 text-xs text-neutral-500 border-t border-neutral-800 mt-16">
+        <footer className="mt-16 bg-ink text-cream/80">
+          <div className="mx-auto w-full max-w-[1760px] px-4 py-8 text-xs sm:px-6">
           PolyTime is community-curated.{" "}
-          <a href="/submit" className="underline hover:text-neutral-300">Know one we're missing?</a>{" "}
-          · <a href="/about" className="underline hover:text-neutral-300">About</a>{" "}
-          · <a href="/privacy" className="underline hover:text-neutral-300">Privacy & data</a>{" "}
-          · <a href="/terms" className="underline hover:text-neutral-300">Terms</a>{" "}
-          · <CookiePrefsLink />
+          <a href="/submit" className="underline hover:text-cream">Know one we're missing?</a>{" "}
+          · <a href="/about" className="underline hover:text-cream">About</a>{" "}
+          · <a href="/privacy" className="underline hover:text-cream">Privacy & data</a>{" "}
+          · <a href="/terms" className="underline hover:text-cream">Terms</a>{" "}
+          · <CookiePrefsLink className="underline hover:text-cream" />
+          </div>
         </footer>
         <CookieConsent />
         <JsonLd data={websiteJsonLd()} />

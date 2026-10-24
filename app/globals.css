@@ -143,6 +143,9 @@
 }
 
 @theme inline {
+  /* Palette band colours for the public header and footer: bg-ink, text-cream. */
+  --color-ink: #2d1e2f;
+  --color-cream: #fcf6b1;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans-ui);
