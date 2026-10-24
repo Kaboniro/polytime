@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "About",
   description:
-    "What PolyTime is, how events and links get listed, and how to reach us: a free, independent calendar of 3D art competitions, challenges and conferences.",
+    "What PolyTime is, how events and links get chosen, and how to reach me: a free, independent, hand-curated calendar of 3D art competitions, challenges and conferences.",
   alternates: { canonical: "/about" },
 };
 
@@ -23,7 +23,8 @@ const link = "text-orange-400 hover:underline";
 
 // Plain facts about how the site works, so visitors (and the services that
 // rate new sites) can see who's behind it and how listings are chosen. Keep
-// it true to the code: review queue, crawler, no paid placements.
+// it true to the code: every listing approved by hand, no paid placements.
+// Written in the curator's own voice (first person).
 export default function AboutPage() {
   const email = getContactEmail();
 
@@ -41,16 +42,17 @@ export default function AboutPage() {
         </p>
       </Section>
 
-      <Section title="How events get listed">
+      <Section title="Who curates it">
         <p>
-          Listings come from two places: people who{" "}
-          <a href="/submit" className={link}>submit an event or link</a>, and an automated finder that
-          checks organizers&apos; sites and searches the web for new contests.
+          PolyTime is curated by me, one person who follows the 3D art scene. I keep an eye on
+          organizers, studios, software makers and art communities, and add the contests and events I
+          think are worth knowing about. Visitors can also{" "}
+          <a href="/submit" className={link}>suggest an event or link</a>.
         </p>
         <p>
-          <strong className="text-neutral-100">Nothing is published automatically.</strong> Every
-          listing is reviewed by a person and checked against the organizer&apos;s own page before it
-          appears on the site.
+          <strong className="text-neutral-100">Every listing is chosen and checked by hand.</strong>{" "}
+          Before anything appears on the site, I read the organizer&apos;s own page to confirm the
+          dates, deadlines and details.
         </p>
       </Section>
 
@@ -69,17 +71,17 @@ export default function AboutPage() {
       <Section title="Corrections and contact">
         <p>
           Spotted a mistake, an event that&apos;s been cancelled, or something that shouldn&apos;t be
-          listed? Use the <a href="/submit" className={link}>Query tab on the submit page</a>
+          listed? Let me know through the <a href="/submit" className={link}>Query tab on the submit page</a>
           {email ? (
             <>
               {" "}
-              or email{" "}
+              or by emailing{" "}
               <a href={mailto(email, { subject: "PolyTime: question" })} className={link}>
                 {email}
               </a>
             </>
           ) : null}
-          . Removal requests are read by a person and acted on.
+          . I read every message, and removal requests are acted on.
         </p>
         <p>
           How the site handles data and cookies is explained on the{" "}
