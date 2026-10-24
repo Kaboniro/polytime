@@ -1,4 +1,5 @@
 import { getContactEmail, mailto } from "@/lib/contact";
+import { DocPage, DocSection } from "@/components/DocPage";
 
 export const dynamic = "force-dynamic";
 
@@ -6,15 +7,6 @@ export const metadata = { title: "Privacy & data", alternates: { canonical: "/pr
 
 const UPDATED = "24 October 2026";
 
-// Same layout as the Terms and About pages: every section open, no toggles.
-function Section({ title, children }) {
-  return (
-    <section className="mb-8">
-      <h2 className="mb-2 text-lg font-semibold text-neutral-50">{title}</h2>
-      <div className="space-y-3 leading-relaxed text-neutral-300">{children}</div>
-    </section>
-  );
-}
 
 // This page exists so anyone connected to a listing — or just visiting —
 // has a plain-language explanation of what PolyTime collects and why, and a
@@ -27,20 +19,18 @@ export default function PrivacyPage() {
     : null;
 
   return (
-    <div className="max-w-2xl">
-      <h1 className="mb-2 text-3xl font-bold tracking-tight text-neutral-50">Privacy &amp; data</h1>
-      <p className="mb-8 text-sm text-neutral-500">Last updated {UPDATED}</p>
+    <DocPage title="Privacy & data" updated={UPDATED}>
 
-      <Section title="What's on this site">
+      <DocSection n={1} title="What's on this site">
         <p>
           PolyTime aggregates 3D art events, ongoing challenges, and useful resources: communities,
           tools, and tutorials. Anyone can submit an addition through{" "}
           <a href="/submit" className="text-orange-400 hover:underline">/submit</a>, and nothing
           appears publicly until it's reviewed and approved.
         </p>
-      </Section>
+      </DocSection>
 
-      <Section title="What information do we collect?">
+      <DocSection n={2} title="What information do we collect?">
         <p>
           <strong>From submissions:</strong> whatever you enter on the form (an event's details, a
           link, a host name), plus, optionally, your email address, only so we can follow up if we
@@ -53,9 +43,9 @@ export default function PrivacyPage() {
           itself) detected from your network connection. See "Cookie policy" below for exactly
           what that is and isn't.
         </p>
-      </Section>
+      </DocSection>
 
-      <Section title="How do we use your information?">
+      <DocSection n={3} title="How do we use your information?">
         <p>
           Submission details go straight to the admin review queue for review before
           anything is published. An optional email stays there too, in case we need to follow up;
@@ -66,17 +56,17 @@ export default function PrivacyPage() {
           useful to people, and in which parts of the world, so we know what's worth featuring or
           expanding, rather than guessing.
         </p>
-      </Section>
+      </DocSection>
 
-      <Section title="How do we protect your information?">
+      <DocSection n={4} title="How do we protect your information?">
         <p>
           Absolutely nothing is handed off to a third party analytics or
           advertising service, so there's no second copy of your data sitting on someone else's
           servers.
         </p>
-      </Section>
+      </DocSection>
 
-      <Section title="Cookie policy">
+      <DocSection n={5} title="Cookie policy">
         <p>
           The visitor cookie is optional: it&apos;s set only if you accept the banner shown on your
           first visit, and never if you decline. You can change your mind any time from{" "}
@@ -85,9 +75,9 @@ export default function PrivacyPage() {
         <p>
           None of this is tied to your name, email, or any listing. It's never sold or shared with anyone outside this site.
         </p>
-      </Section>
+      </DocSection>
 
-      <Section title="Third party disclosure & links">
+      <DocSection n={6} title="Third party disclosure & links">
         <p>
           We do not sell, trade, or share your information with outside parties, and this site
           doesn't run any third party analytics, advertising, or tracking scripts.
@@ -101,23 +91,23 @@ export default function PrivacyPage() {
           privacy practices. We're not responsible for those, though we do try to only list
           reputable ones.
         </p>
-      </Section>
+      </DocSection>
 
-      <Section title="Do Not Track">
+      <DocSection n={7} title="Do Not Track">
         <p>
           There's no third party ad tracking here for a Do Not Track signal to opt out of, and
           nothing is recorded at all until you actively accept the cookie banner.
         </p>
-      </Section>
+      </DocSection>
 
-      <Section title="Corrections & deletion">
+      <DocSection n={8} title="Corrections & deletion">
         <p>
           If you&apos;re connected to something listed here (an event, a host, a link) and want it
           corrected or removed, or you&apos;d like a resource&apos;s link deleted, contact us below.
         </p>
-      </Section>
+      </DocSection>
 
-      <Section title="Contact">
+      <DocSection n={9} title="Contact">
         {contactHref ? (
           <p>
             Questions, corrections, or removal requests:{" "}
@@ -131,7 +121,7 @@ export default function PrivacyPage() {
             {process.env.NODE_ENV !== "production" && " Set CONTACT_EMAIL in .env.local to show one here."}
           </p>
         )}
-      </Section>
-    </div>
+      </DocSection>
+    </DocPage>
   );
 }
