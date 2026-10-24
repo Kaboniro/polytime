@@ -1,12 +1,10 @@
 @import "tailwindcss";
 
-/* Site palette — celadon #a9e5bb / vanilla custard #fcf6b1 / sunflower gold
-   #f7b32b / racing red #f72c25 / midnight violet #2d1e2f. The light-theme
-   block below (the one in use) derives every neutral and accent token from
-   these five; text shades are deepened where needed to stay readable on
-   white. A few decorative components (link card tints, the share image, the
-   Terms/Privacy parchment) use the same five as fixed hex values. The
-   (older) dark-theme :root block is unused. The --gantt-1..8 categorical palette
+/* Site palette — cerulean / light-sea-green / apricot-cream / floral-white /
+   grapefruit-pink. Every neutral and accent token below is derived from
+   these five (computed OKLCH, not eyeballed — see scratchpad/oklch.js for
+   the conversion), so the whole site re-themes from these two blocks alone;
+   no component file hardcodes a color. The --gantt-1..8 categorical palette
    is deliberately NOT touched — it's a separate, CVD-validated system built
    to tell many individual calendar events apart (see the comment below it),
    a different job than site chrome, and this 5-color palette doesn't have
@@ -92,42 +90,30 @@
   :root {
     color-scheme: light;
 
-    /* Site palette (light theme, the one in use): celadon #a9e5bb,
-       vanilla custard #fcf6b1, sunflower gold #f7b32b, racing red #f72c25,
-       midnight violet #2d1e2f. The neutral scale is tinted toward midnight
-       violet (hue ~322): 50-300 are text (50 = midnight violet itself),
-       400-600 muted text (all >= 4.5:1 on white), 700-800 borders and
+    /* Same neutral scale, inverted per the note above, but untinted: black
+       text on white surfaces. 50-300 are the text shades (black to dark
+       gray), 400-600 muted text (all >= 4.5:1 on white), 700-800 borders and
        button fills, 900 the faint hover/header wash, 950 the white page. */
-    --color-neutral-50: oklch(24.5% 0.035 322);
-    --color-neutral-100: oklch(28% 0.032 322);
-    --color-neutral-200: oklch(33% 0.03 322);
-    --color-neutral-300: oklch(38% 0.028 322);
-    --color-neutral-400: oklch(44% 0.024 322);
-    --color-neutral-500: oklch(49% 0.02 322);
-    --color-neutral-600: oklch(55% 0.017 322);
-    --color-neutral-700: oklch(87% 0.012 322);
-    --color-neutral-800: oklch(93% 0.009 322);
-    --color-neutral-900: oklch(97.4% 0.006 322);
+    --color-neutral-50: oklch(0% 0 0);
+    --color-neutral-100: oklch(15% 0 0);
+    --color-neutral-200: oklch(22% 0 0);
+    --color-neutral-300: oklch(30% 0 0);
+    --color-neutral-400: oklch(40% 0 0);
+    --color-neutral-500: oklch(47% 0 0);
+    --color-neutral-600: oklch(55% 0 0);
+    --color-neutral-700: oklch(86% 0 0);
+    --color-neutral-800: oklch(92% 0 0);
+    --color-neutral-900: oklch(97% 0 0);
     --color-neutral-950: oklch(100% 0 0); /* pure white page background */
 
-    /* Primary fill (buttons, active tab, today marker): sunflower gold, with
-       dark text on it. Accent text and links: racing red, one step deeper
-       than #f72c25 so small text stays >= 4.5:1 on white. */
-    --color-orange-500: oklch(81% 0.155 74);
-    --color-orange-400: oklch(52% 0.205 28);
-    /* Errors / destructive: a darker crimson, distinct from link red. */
-    --color-red-400: oklch(45% 0.18 22);
-    /* Secondary tones (badges, Activity chart series): midnight violet
-       lifted for contrast, and a celadon green deep enough for text. */
-    --color-sky-400: oklch(44% 0.07 322);
-    --color-violet-400: oklch(50% 0.11 150);
-    /* Success / Live now: celadon. 500 is the soft pill fill (used at
-       low opacity), 400/300 the readable text, 200/900 hover and borders. */
-    --color-emerald-500: oklch(72% 0.14 152);
-    --color-emerald-400: oklch(47% 0.11 152);
-    --color-emerald-300: oklch(47% 0.11 152);
-    --color-emerald-200: oklch(38% 0.09 152);
-    --color-emerald-900: oklch(89% 0.06 152);
+    --color-orange-400: oklch(48% 0.19 20.2);
+    --color-red-400: oklch(50% 0.2 15);
+    --color-sky-400: oklch(42% 0.11 227.6);
+    --color-violet-400: oklch(46% 0.12 183.7);
+    --color-emerald-400: oklch(50.8% 0.118 183.7);
+    --color-emerald-300: oklch(50.8% 0.118 183.7);
+    --color-emerald-200: oklch(37.8% 0.077 183.7);
+    --color-emerald-900: oklch(84.5% 0.1 183.7);
 
     /* Same 8 hues, light-surface steps from the same validated instance —
        see the :root block above for what these are and why. */
@@ -143,9 +129,10 @@
 }
 
 @theme inline {
-  /* Palette band colours for the public header and footer: bg-ink, text-cream. */
-  --color-ink: #2d1e2f;
-  --color-cream: #fcf6b1;
+  /* Palette colours used by name: bg-band (header/footer: grapefruit pink)
+     and text-ink (the dark text on it). */
+  --color-band: #fe6d73;
+  --color-ink: #1f2933;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans-ui);
@@ -221,5 +208,15 @@ textarea {
 @keyframes pt-spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* NavLinks: the hand-drawn loop around the current tab draws itself in. */
+@keyframes scribble-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
   }
 }

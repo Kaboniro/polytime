@@ -4,19 +4,18 @@ import { linkDomain } from "@/lib/links";
 
 // Each link category has its own color, so a card's color says what kind of
 // resource it is and the Links page can filter by it (its tabs use the same
-// colors). All seven come from the site palette (racing red, celadon,
-// sunflower gold, vanilla custard, midnight violet), plus an orange between
-// red and gold and a soft grey; edges are deepened where needed so the border
-// reads on the pale fill. Fixed values on purpose: the tints must stay light
-// whatever the neutral scale does.
+// colors). The first four are the site palette (grapefruit-pink,
+// light-sea-green, cerulean, apricot-cream); lavender, green and grey extend
+// it to seven. Fixed values rather than theme tokens on purpose: the tints
+// must stay light whatever the neutral scale does.
 export const LINK_COLORS = {
-  community: { fill: "#fde3e2", edge: "#f72c25" },
-  tool: { fill: "#e5f7ea", edge: "#4fae6f" },
-  software: { fill: "#fef0d2", edge: "#f7b32b" },
-  "asset-library": { fill: "#fefbe0", edge: "#c9b52c" },
-  tutorial: { fill: "#ece6ee", edge: "#2d1e2f" },
-  "job-board": { fill: "#fee9dc", edge: "#f7702a" },
-  other: { fill: "#f1eff2", edge: "#8a7f8c" },
+  community: { fill: "#ffe3e4", edge: "#fe6d73" },
+  tool: { fill: "#d2f4ef", edge: "#17c3b2" },
+  software: { fill: "#d6e8f0", edge: "#227c9d" },
+  "asset-library": { fill: "#fff1d6", edge: "#e8a93a" },
+  tutorial: { fill: "#ebe5ff", edge: "#8b6fe0" },
+  "job-board": { fill: "#e3f4d7", edge: "#5aa02c" },
+  other: { fill: "#eeeeee", edge: "#8a8a8a" },
 };
 
 export const linkColor = (category) => LINK_COLORS[category] || LINK_COLORS.other;

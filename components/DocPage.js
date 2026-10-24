@@ -8,21 +8,19 @@ import { Cinzel, EB_Garamond } from "next/font/google";
 const display = Cinzel({ subsets: ["latin"], weight: ["600", "700"], display: "swap" });
 const body = EB_Garamond({ subsets: ["latin"], weight: ["400", "500", "600"], display: "swap" });
 
-// Site palette: vanilla custard paper, edges aged with sunflower gold,
-// midnight violet ink, and a deep gold (sunflower, darkened to read on the
-// paper) for numerals and the ornament.
-const INK = "#2d1e2f";
-const GOLD = "#875805";
+// Aged parchment in warm browns: a faint mottled texture, no shadows or
+// darkened edges; dark brown ink and a muted gold-brown for numerals and the
+// ornament.
+const INK = "#3a2814";
+const GOLD = "#7a5524";
 
 const PARCHMENT = {
-  backgroundColor: "#fcf6b1",
+  backgroundColor: "#f3e5c3",
   backgroundImage: [
-    "radial-gradient(ellipse at 18% 22%, rgb(247 179 43 / 0.16), transparent 45%)",
-    "radial-gradient(ellipse at 82% 68%, rgb(247 179 43 / 0.18), transparent 50%)",
-    "radial-gradient(ellipse at 55% 95%, rgb(200 130 20 / 0.12), transparent 40%)",
-    "linear-gradient(to right, rgb(190 120 20 / 0.20), transparent 7%, transparent 93%, rgb(190 120 20 / 0.20))",
+    "radial-gradient(ellipse at 18% 22%, rgb(150 100 40 / 0.10), transparent 45%)",
+    "radial-gradient(ellipse at 82% 68%, rgb(150 100 40 / 0.12), transparent 50%)",
+    "radial-gradient(ellipse at 55% 95%, rgb(130 85 30 / 0.10), transparent 40%)",
   ].join(", "),
-  boxShadow: "inset 0 0 50px rgb(170 105 10 / 0.25), 0 10px 30px rgb(45 30 47 / 0.14)",
   color: INK,
 };
 
