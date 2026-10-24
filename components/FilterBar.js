@@ -13,7 +13,9 @@ const selectClass =
 // filters: [{ name, label, allLabel, options: [{ value, label }], value }]
 // `vertical`: stacked full-width dropdowns for a sidebar (the Timeline page),
 // with a count of active filters and a Clear-all link at the bottom.
-export default function FilterBar({ basePath, filters, vertical = false }) {
+// `keep`: other URL params to carry over when a filter changes (the Timeline's
+// current tab), as plain strings.
+export default function FilterBar({ basePath, filters, vertical = false, keep = {} }) {
   const router = useRouter();
   const [, startTransition] = useTransition();
 
@@ -24,7 +26,7 @@ export default function FilterBar({ basePath, filters, vertical = false }) {
 
   function change(name, value) {
     const next = { ...selected, [name]: value };
-    const params = new URLSearchParams();
+    const params = new URLSearchParams(keep);
     for (const f of filters) {
       if (next[f.name] !== "all") params.set(f.name, next[f.name]);
     }

@@ -28,6 +28,14 @@ const PAGE_SIZE = 25;
 
 const TYPE_SHORT = { ongoing: "Ongoing", rolling: "Rolling" };
 
+// The Timeline's tabs: one table at a time. `marker` matches each tab's colour
+// square; `note` explains the two undated kinds.
+const VIEWS = [
+  { key: "dated", label: "Dated", marker: "bg-band" },
+  { key: "ongoing", label: "Ongoing", marker: "bg-go", note: "Open-ended: no fixed dates, join any time." },
+  { key: "rolling", label: "Rolling", marker: "bg-cerulean", note: "Recurring: a new round every week, month or season." },
+];
+
 // Shape a DB row into exactly what the tables need. This runs on the server on
 // purpose: EventTable is a client component, so anything passed to it is sent
 // to the browser, and event rows carry submitter emails and notes that must
@@ -61,7 +69,7 @@ function toTableRow(e) {
 // unfiltered page should rank, so the rest point at it and stay out of the index.
 export async function generateMetadata({ searchParams }) {
   const sp = await searchParams;
-  const variant = ["category", "type", "geography", "software", "date", "page"].some((k) => sp?.[k]);
+  const variant = ["category", "type", "geography", "software", "date", "page", "view"].some((k) => sp?.[k]);
   return {
     title: { absolute: `${SITE_NAME} — 3D art events, competitions & challenges` },
     description: SITE_DESCRIPTION,
@@ -96,12 +104,10 @@ export default async function HomePage({ searchParams }) {
       (date !== "all" || !hasEnded(e))
   );
 
-  // Three tables: dated events (one-offs, conferences) in the main one,
-  // ongoing and rolling entries in their own small tables. The query returns
-  // start_date ascending (undated last), so each group stays soonest-first.
-  // Main table order: running (most time-sensitive), upcoming, then archived
-  // (most recently ended first). Only the main table is paginated; the other
-  // two are short lists.
+  // Three tabs: dated events (one-offs, conferences), ongoing and rolling.
+  // The query returns start_date ascending (undated last), so each group stays
+  // soonest-first. Dated order: running (most time-sensitive), upcoming, then
+  // archived (most recently ended first).
   const rows = matching.map(toTableRow);
   const dated = rows.filter((r) => DATED_EVENT_TYPES.includes(r.type));
   const running = dated.filter((r) => r.phase === "running");
@@ -111,9 +117,18 @@ export default async function HomePage({ searchParams }) {
   const ongoing = rows.filter((r) => r.type === "ongoing");
   const rolling = rows.filter((r) => r.type === "rolling");
 
-  const totalPages = Math.max(1, Math.ceil(mainRows.length / PAGE_SIZE));
+  const byView = { dated: mainRows, ongoing, rolling };
+
+  // ?view= picks the tab. Without one, open the first tab that has anything,
+  // so a filter like Type: Rolling doesn't land on an empty Dated tab.
+  const asked = VIEWS.find((v) => v.key === sp?.view)?.key;
+  const view = asked || VIEWS.find((v) => byView[v.key].length > 0)?.key || "dated";
+  const viewRows = byView[view];
+  const viewInfo = VIEWS.find((v) => v.key === view);
+
+  const totalPages = Math.max(1, Math.ceil(viewRows.length / PAGE_SIZE));
   const page = Math.min(pageNum, totalPages);
-  const pageRows = mainRows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const pageRows = viewRows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   // Plain serializable data, not a function — a Server Component can't hand
   // a function prop to Pagination (a Client Component) at all.
@@ -123,6 +138,13 @@ export default async function HomePage({ searchParams }) {
   if (geography !== "all") pageQuery.geography = geography;
   if (software !== "all") pageQuery.software = software;
   if (date !== "all") pageQuery.date = date;
+  const keep = view !== "dated" ? { view } : {};
+  const viewHref = (key) => {
+    const params = new URLSearchParams(pageQuery);
+    if (key !== "dated") params.set("view", key);
+    const qs = params.toString();
+    return qs ? `/?${qs}` : "/";
+  };
 
   // Event markup for events that are live or coming up, on the unfiltered first page only.
   const structured =
@@ -157,7 +179,7 @@ export default async function HomePage({ searchParams }) {
           <span aria-hidden="true" className="text-neutral-500">▾</span>
         </summary>
         <div className="border-t border-neutral-800 px-4 py-4">
-          <FilterBar basePath="/" filters={filters} vertical />
+          <FilterBar basePath="/" filters={filters} keep={keep} vertical />
         </div>
       </details>
 
@@ -165,7 +187,7 @@ export default async function HomePage({ searchParams }) {
         <aside className="hidden xl:block">
           <div className="sticky top-24 rounded-2xl border border-neutral-800 bg-neutral-900/50 p-5">
             <h2 className="mb-4 text-sm font-semibold text-neutral-50">Filters</h2>
-            <FilterBar basePath="/" filters={filters} vertical />
+            <FilterBar basePath="/" filters={filters} keep={keep} vertical />
           </div>
         </aside>
 
@@ -190,25 +212,40 @@ export default async function HomePage({ searchParams }) {
           )}
         </EmptyState>
       ) : (
-        <div className="flex flex-col gap-10">
-          {mainRows.length > 0 && (
-            <GridSection as="h1" title="Events" count={mainRows.length} marker="bg-band">
+        <GridSection as="h1" title="Events" count={rows.length} marker={viewInfo.marker}>
+          {/* Plain links, not client-side tabs: each tab is a real URL that
+              keeps the current filters and can be shared or bookmarked. */}
+          <nav aria-label="Event kinds" className="mb-4 flex flex-wrap gap-1 border-b border-neutral-800">
+            {VIEWS.map((v) => {
+              const active = v.key === view;
+              return (
+                <a
+                  key={v.key}
+                  href={viewHref(v.key)}
+                  aria-current={active ? "page" : undefined}
+                  className={`-mb-px flex items-center gap-2 border-b-2 px-4 py-2.5 text-sm transition-colors ${
+                    active
+                      ? "border-neutral-50 font-bold text-neutral-50"
+                      : "border-transparent font-medium text-neutral-400 hover:border-neutral-700 hover:text-neutral-50"
+                  }`}
+                >
+                  <span className={`h-2.5 w-2.5 rounded-[2px] ${v.marker}`} aria-hidden="true" />
+                  {v.label}
+                  <span className="text-xs font-normal text-neutral-500">{byView[v.key].length}</span>
+                </a>
+              );
+            })}
+          </nav>
+          {viewInfo.note && <p className="mb-3 text-xs text-neutral-500">{viewInfo.note}</p>}
+          {viewRows.length === 0 ? (
+            <EmptyState>No {viewInfo.label.toLowerCase()} events match these filters.</EmptyState>
+          ) : (
+            <>
               <EventTable rows={pageRows} />
-              <Pagination page={page} totalPages={totalPages} basePath="/" query={pageQuery} />
-            </GridSection>
+              <Pagination page={page} totalPages={totalPages} basePath="/" query={{ ...pageQuery, ...keep }} />
+            </>
           )}
-
-          {ongoing.length > 0 && (
-            <GridSection title="Ongoing" marker="bg-go" count={ongoing.length} note="Open-ended: no fixed dates, join any time.">
-              <EventTable rows={ongoing} />
-            </GridSection>
-          )}
-          {rolling.length > 0 && (
-            <GridSection title="Rolling" marker="bg-cerulean" count={rolling.length} note="Recurring: a new round every week, month or season.">
-              <EventTable rows={rolling} />
-            </GridSection>
-          )}
-        </div>
+        </GridSection>
       )}
         </div>
       </div>
