@@ -24,6 +24,9 @@
     "[project]/app/(admin)/admin/verify/page": [
       "static/media/07454f8ad8aaac57-s.p.2kjei9psvcorz.woff2"
     ],
+    "[project]/app/(site)/about/page": [
+      "static/media/07454f8ad8aaac57-s.p.2kjei9psvcorz.woff2"
+    ],
     "[project]/app/(site)/events/[id]/page": [
       "static/media/07454f8ad8aaac57-s.p.2kjei9psvcorz.woff2"
     ],

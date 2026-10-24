@@ -7,6 +7,7 @@
   "/(admin)/admin/page": "app/(admin)/admin/page.js",
   "/(admin)/admin/queries/page": "app/(admin)/admin/queries/page.js",
   "/(admin)/admin/verify/page": "app/(admin)/admin/verify/page.js",
+  "/(site)/about/page": "app/(site)/about/page.js",
   "/(site)/events/[id]/page": "app/(site)/events/[id]/page.js",
   "/(site)/links/page": "app/(site)/links/page.js",
   "/(site)/opengraph-image-12o0cb/route": "app/(site)/opengraph-image-12o0cb/route.js",
