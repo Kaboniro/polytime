@@ -56,6 +56,7 @@ const NAV = [
   { href: "/timeline", label: "Calendar" },
   { href: "/links", label: "Links" },
   { href: "/submit", label: "Submit" },
+  { href: "/about", label: "About" },
 ];
 
 // This is a separate root layout from app/(admin)/layout.js — a Next.js

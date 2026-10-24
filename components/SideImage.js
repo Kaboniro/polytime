@@ -1,6 +1,6 @@
 // A decorative photo filling the free space beside a page's content (the
-// Submit page and every event page). It stretches to the height of the row it
-// sits in, bleeds to the window's right edge, and is faded with a CSS mask on
+// Submit page and every event page). It's a square pinned near the top of
+// the page, bleeds to the window's right edge, and is faded with a CSS mask on
 // every edge — much more on the left, so it dissolves into the content side and
 // keeps a crisp edge on the right. Hidden below the lg breakpoint, where there
 // is no free space beside the content.
@@ -25,10 +25,10 @@ export const imageForId = (id) => SIDE_IMAGES[Math.abs(Number(id) || 0) % SIDE_I
 export default function SideImage({ src, position = "30% 50%", cutout = false }) {
   return (
     <aside
-      // aspect-square: the panel is at least as tall as it is wide, so the
-      // square photos are never cropped top and bottom on short pages (it can
-      // still grow taller with the content beside it).
-      className="relative hidden aspect-square min-w-0 flex-1 lg:block"
+      // A square panel pinned near the top (it stays in view while the text
+      // beside it scrolls), so the square photos always show whole: never
+      // cropped top and bottom on short pages, never zoomed in on long ones.
+      className="relative hidden aspect-square min-w-0 flex-1 self-start lg:sticky lg:top-24 lg:block"
       aria-hidden="true"
       // Bleeds past the page's max-width container (1760px, see the layouts) to
       // the window's right edge.

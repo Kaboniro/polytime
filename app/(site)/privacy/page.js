@@ -1,16 +1,18 @@
 import { getContactEmail, mailto } from "@/lib/contact";
-import HeadingInfo from "@/components/HeadingInfo";
+import SideImage from "@/components/SideImage";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = { title: "Privacy & data", alternates: { canonical: "/privacy" } };
 
+const UPDATED = "24 October 2026";
+
+// Same layout as the Terms and About pages: every section open, no toggles.
 function Section({ title, children }) {
   return (
     <section className="mb-8">
-      <HeadingInfo as="h2" title={title}>
-        {children}
-      </HeadingInfo>
+      <h2 className="mb-2 text-lg font-semibold text-neutral-50">{title}</h2>
+      <div className="space-y-3 leading-relaxed text-neutral-300">{children}</div>
     </section>
   );
 }
@@ -26,8 +28,10 @@ export default function PrivacyPage() {
     : null;
 
   return (
-    <div className="max-w-2xl">
-      <h1 className="text-3xl font-bold tracking-tight text-neutral-50 mb-6">Privacy & data</h1>
+    <div className="flex items-stretch gap-12">
+    <div className="w-full max-w-2xl shrink-0">
+      <h1 className="mb-2 text-3xl font-bold tracking-tight text-neutral-50">Privacy &amp; data</h1>
+      <p className="mb-8 text-sm text-neutral-500">Last updated {UPDATED}</p>
 
       <Section title="What's on this site">
         <p>
@@ -56,7 +60,7 @@ export default function PrivacyPage() {
       <Section title="How do we use your information?">
         <p>
           Submission details go straight to the admin review queue for review before
-          anything is published. An optional email stays there too, in case we need to follow up 
+          anything is published. An optional email stays there too, in case we need to follow up;
           it's never shown on the site or linked to any public listing.
         </p>
         <p>
@@ -76,8 +80,8 @@ export default function PrivacyPage() {
 
       <Section title="Cookie policy">
         <p>
-          Only visitor cookies are optional only if you accept the banner shown
-          on your first visit, and never if you decline. You can change your mind any time from{" "}
+          The visitor cookie is optional: it&apos;s set only if you accept the banner shown on your
+          first visit, and never if you decline. You can change your mind any time from{" "}
           <strong>Cookie preferences</strong> in the footer.
         </p>
         <p>
@@ -110,9 +114,8 @@ export default function PrivacyPage() {
 
       <Section title="Corrections & deletion">
         <p>
-          If you're connected to
-          something listed here an event, a host, a link and want it corrected or removed, or
-          you'd like the link tied to a resource deleted, contact us below.
+          If you&apos;re connected to something listed here (an event, a host, a link) and want it
+          corrected or removed, or you&apos;d like a resource&apos;s link deleted, contact us below.
         </p>
       </Section>
 
@@ -131,6 +134,8 @@ export default function PrivacyPage() {
           </p>
         )}
       </Section>
+    </div>
+    <SideImage src="/images/cocoa-marshmallow1.jpg" position="50% 50%" />
     </div>
   );
 }
