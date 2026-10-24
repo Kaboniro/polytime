@@ -36,6 +36,84 @@ function Detail({ label, children }) {
   );
 }
 
+// The expanded details for one event: shared by the desktop table row and
+// the phone card, so both show exactly the same information.
+function DetailsBody({ r }) {
+  return (
+    <>
+      <div className="grid gap-3 sm:grid-cols-[2fr_1fr]">
+        <p className="whitespace-pre-line text-sm text-neutral-300">
+          {r.description || <span className="text-neutral-500">No description provided.</span>}
+        </p>
+        <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
+          <Detail label="Type">{r.typeLabel}</Detail>
+          <Detail label="Location">{r.location}</Detail>
+          <Detail label="Starts">{r.start}</Detail>
+          <Detail label="Ends">{r.end}</Detail>
+          <Detail label="Deadline">{r.deadline}</Detail>
+        </dl>
+      </div>
+      {r.url && (
+        <a href={r.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-sm text-orange-400 hover:underline">
+          Visit event page ↗
+        </a>
+      )}
+    </>
+  );
+}
+
+const Chevron = ({ open }) => (
+  <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" className={`shrink-0 text-neutral-500 transition-transform ${open ? "rotate-90" : ""}`}>
+    <path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+// Phones: one card per event with every column as a labelled line, since a
+// six-column table can't fit a phone screen without hiding most of it.
+function PhoneList({ rows, open, toggle }) {
+  return (
+    <ul className="overflow-hidden rounded-2xl border border-neutral-800 md:hidden">
+      {rows.map((r, i) => {
+        const isOpen = open.has(r.id);
+        const panelId = `event-details-m-${r.id}`;
+        return (
+          <li key={r.id} className={`border-b border-neutral-800 px-4 py-3.5 last:border-b-0 ${i % 2 ? "bg-neutral-900/40" : ""} ${r.phase === "archived" ? "text-neutral-500" : "text-neutral-100"}`}>
+            <a href={r.href} className="font-medium hover:underline">{r.title}</a>
+            {r.phase === "running" && <LiveNow />}
+            {r.phase === "archived" && <span className="sr-only"> (ended)</span>}
+            <div className={`mt-1.5 text-sm ${r.datesFixed ? "text-neutral-200" : "text-neutral-500"}`}>{r.dates}</div>
+            {r.deadline && <div className="text-xs text-neutral-500">Deadline {r.deadline}</div>}
+            <dl className="mt-2.5 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+              <Detail label="Category">{r.category}</Detail>
+              <div>
+                <dt className="text-xs text-neutral-500">Where</dt>
+                <dd className="text-neutral-200"><GeoIcon info={r.geo} /> {r.geoLabel}</dd>
+              </div>
+              <Detail label="Software">{r.software}</Detail>
+              <Detail label="Host">{r.host}</Detail>
+            </dl>
+            <button
+              type="button"
+              onClick={() => toggle(r.id)}
+              aria-expanded={isOpen}
+              aria-controls={isOpen ? panelId : undefined}
+              className="mt-2.5 inline-flex items-center gap-1.5 text-sm text-neutral-300 underline-offset-2 hover:underline"
+            >
+              <Chevron open={isOpen} />
+              {isOpen ? "Hide details" : "More details"}
+            </button>
+            {isOpen && (
+              <div id={panelId} className="mt-3 rounded-xl bg-neutral-900 p-3">
+                <DetailsBody r={r} />
+              </div>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
 // Rows arrive already shaped and formatted by the server page (see app/page.js)
 // so only public fields cross into this client bundle, and dates are formatted
 // once on the server: no client/server "is it past yet?" hydration drift.
@@ -53,7 +131,8 @@ export default function EventTable({ rows }) {
 
   return (
     <>
-    <div className="overflow-x-auto rounded-2xl border border-neutral-800">
+    <PhoneList rows={rows} open={open} toggle={toggle} />
+    <div className="hidden overflow-x-auto rounded-2xl border border-neutral-800 md:block">
       <table className="w-full min-w-[860px] border-collapse text-sm [&>tbody>tr:last-child]:border-b-0">
         <thead>
           <tr className="bg-neutral-900 text-left text-xs text-neutral-500">
@@ -112,28 +191,7 @@ export default function EventTable({ rows }) {
                 {isOpen && (
                   <tr id={panelId} className="border-b border-neutral-800 bg-neutral-900">
                     <td colSpan={COLUMNS.length} className="px-4 py-4">
-                      <div className="grid gap-3 sm:grid-cols-[2fr_1fr]">
-                        <p className="whitespace-pre-line text-sm text-neutral-300">
-                          {r.description || <span className="text-neutral-500">No description provided.</span>}
-                        </p>
-                        <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
-                          <Detail label="Type">{r.typeLabel}</Detail>
-                          <Detail label="Location">{r.location}</Detail>
-                          <Detail label="Starts">{r.start}</Detail>
-                          <Detail label="Ends">{r.end}</Detail>
-                          <Detail label="Deadline">{r.deadline}</Detail>
-                        </dl>
-                      </div>
-                      {r.url && (
-                        <a
-                          href={r.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-2 inline-block text-sm text-orange-400 hover:underline"
-                        >
-                          Visit event page ↗
-                        </a>
-                      )}
+                      <DetailsBody r={r} />
                     </td>
                   </tr>
                 )}

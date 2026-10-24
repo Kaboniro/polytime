@@ -19,19 +19,19 @@ export function GridSection({ title, count, note, children, className = "" }) {
   );
 }
 
-const cell = "px-4 py-3 align-top";
+const cell = "px-3 py-3 align-top sm:px-4";
 
 // Compact table for ongoing and rolling entries: no dates to show, so just
 // what it is, who runs it and where. Same header/row styling as EventTable.
 export function CompactEventTable({ rows }) {
   return (
     <div className="overflow-x-auto rounded-2xl border border-neutral-800">
-      <table className="w-full min-w-[330px] border-collapse text-sm [&>tbody>tr:last-child]:border-b-0">
+      <table className="w-full border-collapse text-sm [&>tbody>tr:last-child]:border-b-0">
         <thead>
           <tr className="bg-neutral-900 text-left text-xs text-neutral-500">
-            <th scope="col" className="w-[48%] border-b border-neutral-800 px-4 py-2.5 font-medium">Event</th>
-            <th scope="col" className="w-[26%] border-b border-neutral-800 px-4 py-2.5 font-medium">Host</th>
-            <th scope="col" className="w-[26%] border-b border-neutral-800 px-4 py-2.5 font-medium">Where</th>
+            <th scope="col" className="w-[48%] border-b border-neutral-800 px-3 py-2.5 font-medium sm:px-4">Event</th>
+            <th scope="col" className="w-[26%] border-b border-neutral-800 px-3 py-2.5 font-medium sm:px-4">Host</th>
+            <th scope="col" className="w-[26%] border-b border-neutral-800 px-3 py-2.5 font-medium sm:px-4">Where</th>
           </tr>
         </thead>
         <tbody>

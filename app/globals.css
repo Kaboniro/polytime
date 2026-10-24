@@ -161,6 +161,21 @@ textarea {
   display: none;
 }
 
+/* ...except sideways-scrolling areas (wide admin tables on a phone): a thin
+   bar there is the only sign that more columns are off to the side. */
+.overflow-x-auto {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neutral-700) transparent;
+}
+.overflow-x-auto::-webkit-scrollbar {
+  display: block;
+  height: 6px;
+}
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-700);
+  border-radius: 3px;
+}
+
 @keyframes gantt-grow {
   from {
     transform: scaleX(0);

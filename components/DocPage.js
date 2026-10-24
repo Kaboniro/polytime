@@ -1,8 +1,7 @@
 import { Cinzel, EB_Garamond } from "next/font/google";
 
-// The Terms and Privacy pages as an old rolled scroll: a parchment sheet
-// hanging between two shaded paper rolls with wooden knobs, a classical
-// capitals title (Cinzel), old-style body text (EB Garamond) and Roman-numeral
+// The Terms and Privacy pages as an old parchment document: an aged
+// parchment sheet, a classical capitals title (Cinzel), old-style body text (EB Garamond) and Roman-numeral
 // section headings. Fonts are self-hosted by next/font. The sheet stays a
 // comfortable reading width; wider would make lines too long to read.
 
@@ -23,31 +22,10 @@ const PARCHMENT = {
   color: INK,
 };
 
-// One rolled end: a shaded cylinder of paper, a little wider than the sheet,
-// with a turned wooden knob at each end.
-function Roll({ bottom = false }) {
-  const knob = "absolute top-1/2 h-10 w-10 -translate-y-1/2 rounded-full shadow-[0_3px_6px_rgb(0_0_0_/_0.35)]";
-  const wood = { background: "radial-gradient(circle at 35% 35%, #9a6a3a, #5b3716 60%, #3a220c)" };
-  return (
-    <div className={`relative z-10 mx-3 ${bottom ? "-mt-2" : "-mb-2"}`} aria-hidden="true">
-      <div
-        className="h-8 rounded-full"
-        style={{
-          background: "linear-gradient(to bottom, #8a6332, #d8bd8a 22%, #f6e8c6 48%, #d4b47c 74%, #7c5428)",
-          boxShadow: "0 4px 10px rgb(60 35 10 / 0.30)",
-        }}
-      />
-      <span className={`${knob} -left-5`} style={wood} />
-      <span className={`${knob} -right-5`} style={wood} />
-    </div>
-  );
-}
-
 export function DocPage({ title, children }) {
   return (
-    <div className={`mx-auto max-w-4xl px-6 sm:px-8 ${body.className}`}>
-      <Roll />
-      <article className="relative mx-5 px-6 pb-12 pt-14 sm:mx-8 sm:px-14" style={PARCHMENT}>
+    <div className={`mx-auto max-w-4xl ${body.className}`}>
+      <article className="relative rounded-sm px-5 pb-10 pt-10 sm:px-14 sm:pb-12 sm:pt-14" style={PARCHMENT}>
         <header className="mb-10 text-center">
           <h1 className={`${display.className} text-3xl font-bold tracking-wide sm:text-4xl`} style={{ color: "#2a1a08" }}>
             {title}
@@ -58,7 +36,6 @@ export function DocPage({ title, children }) {
         </header>
         <div className="text-[17px] leading-8">{children}</div>
       </article>
-      <Roll bottom />
     </div>
   );
 }

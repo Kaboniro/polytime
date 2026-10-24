@@ -15,7 +15,7 @@ export const metadata = { title: "Activity — PolyTime Admin" };
 
 function Card({ title, note, children, className = "" }) {
   return (
-    <section className={`rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4 ${className}`}>
+    <section className={`min-w-0 rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4 ${className}`}>
       <h2 className="text-sm font-semibold text-neutral-50">{title}</h2>
       {note && <p className="mt-0.5 mb-3 text-xs text-neutral-500">{note}</p>}
       {!note && <div className="mb-3" />}

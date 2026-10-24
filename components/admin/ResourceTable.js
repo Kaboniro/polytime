@@ -159,6 +159,7 @@ export default function ResourceTable({ table, resource, rows }) {
         </div>
       ) : (
         <>
+          <p className="mb-2 text-xs text-neutral-500 md:hidden">Swipe sideways to see all columns →</p>
           <div className="overflow-x-auto rounded-2xl border border-neutral-800">
           <table className="w-full min-w-[760px] border-collapse text-sm">
             <thead>
