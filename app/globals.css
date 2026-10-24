@@ -129,10 +129,16 @@
 }
 
 @theme inline {
-  /* Palette colours used by name: bg-band (header/footer: grapefruit pink)
-     and text-ink (the dark text on it). */
+  /* Palette colours used by name. band: grapefruit pink (header); ink: the
+     dark text used on the light palette colours; go: light sea green, for
+     positive actions (Submit, Accept, Visit); cerulean: the footer;
+     apricot: today on the calendar. */
   --color-band: #fe6d73;
   --color-ink: #1f2933;
+  --color-go: #17c3b2;
+  --color-go-hover: #14ae9f;
+  --color-cerulean: #227c9d;
+  --color-apricot: #ffcb77;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans-ui);

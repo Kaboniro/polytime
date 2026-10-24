@@ -106,14 +106,14 @@ export default async function SiteLayout({ children }) {
           </div>
         </header>
         <main className="mx-auto w-full max-w-[1760px] flex-1 px-4 sm:px-6 py-8">{children}</main>
-        <footer className="mt-16 bg-band text-ink/85">
+        <footer className="mt-16 bg-cerulean text-white">
           <div className="mx-auto w-full max-w-[1760px] px-4 py-8 text-xs sm:px-6">
           PolyTime is community-curated.{" "}
-          <a href="/submit" className="underline decoration-ink/40 hover:decoration-ink">Know one we're missing?</a>{" "}
-          · <a href="/about" className="underline decoration-ink/40 hover:decoration-ink">About</a>{" "}
-          · <a href="/privacy" className="underline decoration-ink/40 hover:decoration-ink">Privacy & data</a>{" "}
-          · <a href="/terms" className="underline decoration-ink/40 hover:decoration-ink">Terms</a>{" "}
-          · <CookiePrefsLink className="underline decoration-ink/40 hover:decoration-ink" />
+          <a href="/submit" className="underline decoration-white/50 hover:decoration-white">Know one we're missing?</a>{" "}
+          · <a href="/about" className="underline decoration-white/50 hover:decoration-white">About</a>{" "}
+          · <a href="/privacy" className="underline decoration-white/50 hover:decoration-white">Privacy & data</a>{" "}
+          · <a href="/terms" className="underline decoration-white/50 hover:decoration-white">Terms</a>{" "}
+          · <CookiePrefsLink className="underline decoration-white/50 hover:decoration-white" />
           </div>
         </footer>
         <CookieConsent />

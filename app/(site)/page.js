@@ -170,7 +170,7 @@ export default async function HomePage({ searchParams }) {
       ) : (
         <div className="flex flex-col gap-10">
           {mainRows.length > 0 && (
-            <GridSection title="Events" count={mainRows.length}>
+            <GridSection title="Events" count={mainRows.length} marker="bg-band">
               <EventTable rows={pageRows} />
               <Pagination page={page} totalPages={totalPages} basePath="/" query={pageQuery} />
             </GridSection>
@@ -179,12 +179,12 @@ export default async function HomePage({ searchParams }) {
           {(ongoing.length > 0 || rolling.length > 0) && (
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-8">
               {ongoing.length > 0 && (
-                <GridSection title="Ongoing" count={ongoing.length} note="Open-ended: no fixed dates, join any time.">
+                <GridSection title="Ongoing" marker="bg-go" count={ongoing.length} note="Open-ended: no fixed dates, join any time.">
                   <CompactEventTable rows={ongoing} />
                 </GridSection>
               )}
               {rolling.length > 0 && (
-                <GridSection title="Rolling" count={rolling.length} note="Recurring: a new round every week, month or season.">
+                <GridSection title="Rolling" marker="bg-cerulean" count={rolling.length} note="Recurring: a new round every week, month or season.">
                   <CompactEventTable rows={rolling} />
                 </GridSection>
               )}

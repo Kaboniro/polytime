@@ -93,7 +93,7 @@ export default async function EventPage({ params }) {
           href={e.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-full bg-orange-500 px-5 py-2.5 font-semibold text-black transition-colors hover:bg-orange-400"
+          className="inline-flex items-center gap-1.5 rounded-full bg-go px-5 py-2.5 font-semibold text-ink transition-colors hover:bg-go-hover"
         >
           Visit the official event page <span aria-hidden="true">↗</span>
         </a>

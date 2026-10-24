@@ -354,7 +354,7 @@ export default function GanttChart({ rows }) {
                 {weeks.map((week, wi) => {
                   const rowH = DATE_ROW_H + Math.max(week.height, LANE_H) + 6;
                   return (
-                    <div key={wi} className="relative border-b border-neutral-800 last:border-b-0" style={{ flex: "1 1 0", minHeight: rowH }}>
+                    <div key={wi} className={`relative border-b border-neutral-800 last:border-b-0 ${week.days.some((d) => isToday(d)) ? "bg-apricot/15" : ""}`} style={{ flex: "1 1 0", minHeight: rowH }}>
                       <div className="absolute inset-0 grid grid-cols-7">
                         {week.days.map((day, di) => {
                           const inMonth = isSameMonth(day, currentMonth);
@@ -365,12 +365,12 @@ export default function GanttChart({ rows }) {
                               key={day.toISOString()}
                               aria-current={today ? "date" : undefined}
                               className={`flex items-start justify-between border-r border-neutral-800 px-1.5 pt-1 text-xs last:border-r-0 ${
-                                today ? "bg-orange-500/15 ring-2 ring-inset ring-orange-500" : ""
+                                today ? "bg-apricot/40 ring-2 ring-inset ring-apricot" : ""
                               }`}
                             >
                               {today ? (
                                 // Fits the DATE_ROW_H line above the bars.
-                                <span className="inline-flex h-[18px] items-center gap-1 rounded-full bg-orange-500 px-2 text-[11px] font-bold text-black">
+                                <span className="inline-flex h-[18px] items-center gap-1 rounded-full bg-apricot px-2 text-[11px] font-bold text-ink">
                                   {format(day, "d")}
                                   <span className="font-semibold uppercase tracking-wide">Today</span>
                                 </span>
@@ -517,7 +517,7 @@ export default function GanttChart({ rows }) {
                   href={selected.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-orange-500 px-4 py-2 font-semibold text-black transition-colors hover:bg-orange-400"
+                  className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-go px-4 py-2 font-semibold text-ink transition-colors hover:bg-go-hover"
                 >
                   Visit event page <span aria-hidden="true">↗</span>
                 </a>

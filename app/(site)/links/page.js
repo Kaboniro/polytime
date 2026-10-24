@@ -37,24 +37,24 @@ function CategoryTabs({ category, counts, total }) {
     <nav aria-label="Link categories" className="mb-6 flex flex-wrap gap-2">
       {tabs.map((t) => {
         const active = t.value === category;
-        const c = t.value === "all" ? { fill: "var(--color-neutral-900)", edge: "var(--color-neutral-50)" } : linkColor(t.value);
+        const c = t.value === "all" ? { fill: "var(--color-neutral-50)", edge: "var(--color-neutral-50)", ink: "var(--color-neutral-950)" } : linkColor(t.value);
         return (
           <a
             key={t.value}
             href={t.value === "all" ? "/links" : `/links?category=${t.value}`}
             aria-current={active ? "page" : undefined}
-            style={{ "--tab-fill": c.fill, "--tab-edge": c.edge }}
+            style={{ "--tab-fill": c.fill, "--tab-edge": c.edge, "--tab-ink": c.ink }}
             className={`inline-flex items-center gap-2 rounded-full border-2 px-3.5 py-1.5 text-sm no-underline transition-colors ${
               active
-                ? "border-[var(--tab-edge)] bg-[var(--tab-fill)] font-semibold text-neutral-50"
-                : "border-neutral-800 text-neutral-300 hover:border-[var(--tab-edge)] hover:bg-[var(--tab-fill)]"
+                ? "border-[var(--tab-edge)] bg-[var(--tab-fill)] font-semibold text-[var(--tab-ink)]"
+                : "border-neutral-800 text-neutral-300 hover:border-[var(--tab-edge)]"
             } ${t.count === 0 && !active ? "opacity-50" : ""}`}
           >
             {t.value !== "all" && (
-              <span className="h-3 w-3 shrink-0 rounded-full bg-[var(--tab-edge)]" aria-hidden="true" />
+              <span className={`h-3 w-3 shrink-0 rounded-full ${active ? "ring-2 ring-[var(--tab-ink)]/40" : ""}`} style={{ backgroundColor: c.fill }} aria-hidden="true" />
             )}
             {t.label}
-            <span className="text-xs text-neutral-500">{t.count}</span>
+            <span className={`text-xs ${active ? "" : "text-neutral-500"}`}>{t.count}</span>
           </a>
         );
       })}

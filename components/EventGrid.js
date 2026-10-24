@@ -6,10 +6,13 @@ import GeoIcon from "@/components/GeoIcon";
 // and rows arrive already shaped by app/(site)/page.js so only public fields
 // are ever rendered.
 
-export function GridSection({ title, count, note, children, className = "" }) {
+// `marker`: a palette colour class for the small square before the title
+// (bg-band, bg-go, bg-cerulean) so each section reads at a glance.
+export function GridSection({ title, count, note, marker, children, className = "" }) {
   return (
     <section className={`min-w-0 ${className}`}>
       <div className="mb-2 flex items-baseline gap-2">
+        {marker && <span className={`inline-block h-3 w-3 shrink-0 self-center rounded-[3px] ${marker}`} aria-hidden="true" />}
         <h2 className="text-xl font-bold text-neutral-50">{title}</h2>
         <span className="text-sm text-neutral-500">{count}</span>
       </div>
