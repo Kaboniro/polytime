@@ -2,7 +2,9 @@
   "pages": {},
   "app": {
     "[project]/app/(site)/privacy/page": [
-      "static/media/07454f8ad8aaac57-s.p.2kjei9psvcorz.woff2"
+      "static/media/07454f8ad8aaac57-s.p.2kjei9psvcorz.woff2",
+      "static/media/cc014fcb166cf364-s.p.2cu9iw-l3ih8o.woff2",
+      "static/media/e4505858a30c79c2-s.p.0tlhhw_qyyfys.woff2"
     ]
   },
   "appUsingSizeAdjust": true,
