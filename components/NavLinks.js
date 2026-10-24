@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 export default function NavLinks({ items }) {
   const pathname = usePathname();
   return (
-    <nav className="flex flex-wrap items-center gap-1 text-sm">
+    <nav className="flex flex-wrap items-center justify-center gap-1 text-sm">
       {items.map((n) => {
         const exact = n.exact ?? n.href === "/";
         const active = exact ? pathname === n.href : pathname.startsWith(n.href);

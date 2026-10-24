@@ -1,5 +1,4 @@
 import { getContactEmail, mailto } from "@/lib/contact";
-import SideImage from "@/components/SideImage";
 
 export const dynamic = "force-dynamic";
 
@@ -28,8 +27,7 @@ export default function PrivacyPage() {
     : null;
 
   return (
-    <div className="flex items-stretch gap-12">
-    <div className="w-full max-w-2xl shrink-0">
+    <div className="max-w-2xl">
       <h1 className="mb-2 text-3xl font-bold tracking-tight text-neutral-50">Privacy &amp; data</h1>
       <p className="mb-8 text-sm text-neutral-500">Last updated {UPDATED}</p>
 
@@ -134,8 +132,6 @@ export default function PrivacyPage() {
           </p>
         )}
       </Section>
-    </div>
-    <SideImage src="/images/cocoa-marshmallow1.jpg" position="50% 50%" />
     </div>
   );
 }

@@ -55,8 +55,8 @@ const NAV = [
   { href: "/", label: "Timeline" },
   { href: "/timeline", label: "Calendar" },
   { href: "/links", label: "Links" },
-  { href: "/submit", label: "Submit" },
   { href: "/about", label: "About" },
+  { href: "/submit", label: "Submit" },
 ];
 
 // This is a separate root layout from app/(admin)/layout.js — a Next.js
@@ -91,12 +91,18 @@ export default async function SiteLayout({ children }) {
     <html lang="en" className={nunito.variable}>
       <body className="flex min-h-screen flex-col bg-neutral-950 text-neutral-100 antialiased">
         <header className="border-b border-neutral-800 bg-neutral-950/80 backdrop-blur sticky top-0 z-30">
-          <div className="mx-auto max-w-[1760px] px-4 sm:px-6 flex flex-wrap items-center justify-between gap-x-4 min-h-16 py-2">
-            <a href="/" className="flex items-center gap-2 font-semibold text-base tracking-tight">
+          {/* Logo | tabs | empty column: the equal side columns keep the tabs
+              centered on the page, not just in the space left after the logo.
+              On phones the logo sits above the tabs, both centered. */}
+          <div className="mx-auto flex max-w-[1760px] flex-col items-center gap-y-1 px-4 py-2 sm:px-6 md:grid md:min-h-16 md:grid-cols-[1fr_auto_1fr] md:gap-x-4">
+            <a href="/" className="flex items-center gap-2 font-semibold text-base tracking-tight md:justify-self-start">
               <HexClockLogo size={28} />
               PolyTime
             </a>
-            <NavLinks items={nav} />
+            <div className="flex justify-center">
+              <NavLinks items={nav} />
+            </div>
+            <div className="hidden md:block" aria-hidden="true" />
           </div>
         </header>
         <main className="mx-auto w-full max-w-[1760px] flex-1 px-4 sm:px-6 py-8">{children}</main>
