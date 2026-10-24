@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { ViewportGrid } from "@/components/polytime-ui";
 
 // Fixed brand values — canvas can't read Tailwind classes (see app/globals.css).
-const COLORS = ["#fe6d73", "#17c3b2", "#227c9d", "#ffcb77"];
-const INK = "#1f2933";
+const COLORS = ["#f72c25", "#a9e5bb", "#2d1e2f", "#f7b32b"];
+const INK = "#2d1e2f";
 
 const obstacle = { isStatic: true, friction: 0.05, render: { fillStyle: INK, strokeStyle: INK, lineWidth: 1 } };
 

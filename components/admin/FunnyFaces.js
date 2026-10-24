@@ -3,11 +3,11 @@
 // from the site palette so they need no image files and stay crisp at any
 // size. `mood` picks the expression; every one is decorative (aria-hidden) —
 // the message next to it says the same thing in words.
-const INK = "#1f2933";
-const PINK = "#fe6d73";
-const TEAL = "#17c3b2";
-const APRICOT = "#ffcb77";
-const BLUE = "#227c9d";
+const INK = "#2d1e2f";
+const PINK = "#f72c25";
+const TEAL = "#a9e5bb";
+const APRICOT = "#f7b32b";
+const BLUE = "#2d1e2f";
 const WHITE = "#ffffff";
 
 const stroke = { stroke: INK, strokeWidth: 3.5, strokeLinecap: "round", strokeLinejoin: "round" };
