@@ -12,6 +12,7 @@ const STATIC = [
   { path: "/submit", changeFrequency: "monthly", priority: 0.4 },
   { path: "/about", changeFrequency: "yearly", priority: 0.3 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.2 },
+  { path: "/terms", changeFrequency: "yearly", priority: 0.2 },
 ];
 
 export default function sitemap() {

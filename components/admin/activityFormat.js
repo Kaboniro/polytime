@@ -8,6 +8,7 @@ export const PAGE_LABELS = {
   "/submit": "Submit",
   "/about": "About",
   "/privacy": "Privacy",
+  "/terms": "Terms",
 };
 
 export const pageLabel = (path) => PAGE_LABELS[path] || path;

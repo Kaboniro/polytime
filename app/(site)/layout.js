@@ -104,6 +104,7 @@ export default async function SiteLayout({ children }) {
           <a href="/submit" className="underline hover:text-neutral-300">Know one we're missing?</a>{" "}
           · <a href="/about" className="underline hover:text-neutral-300">About</a>{" "}
           · <a href="/privacy" className="underline hover:text-neutral-300">Privacy & data</a>{" "}
+          · <a href="/terms" className="underline hover:text-neutral-300">Terms</a>{" "}
           · <CookiePrefsLink />
         </footer>
         <CookieConsent />

@@ -1,4 +1,5 @@
 import { getContactEmail, mailto } from "@/lib/contact";
+import SideImage from "@/components/SideImage";
 
 export const dynamic = "force-dynamic";
 
@@ -27,7 +28,8 @@ export default function AboutPage() {
   const email = getContactEmail();
 
   return (
-    <div className="max-w-2xl">
+    <div className="flex items-stretch gap-12">
+    <div className="w-full max-w-2xl shrink-0">
       <h1 className="mb-6 text-3xl font-bold tracking-tight text-neutral-50">About PolyTime</h1>
 
       <Section title="What PolyTime is">
@@ -81,9 +83,12 @@ export default function AboutPage() {
         </p>
         <p>
           How the site handles data and cookies is explained on the{" "}
-          <a href="/privacy" className={link}>Privacy &amp; data</a> page.
+          <a href="/privacy" className={link}>Privacy &amp; data</a> page, and the rules for using
+          it on the <a href="/terms" className={link}>Terms of use</a> page.
         </p>
       </Section>
+    </div>
+    <SideImage src="/images/building1.jpg" position="50% 50%" />
     </div>
   );
 }

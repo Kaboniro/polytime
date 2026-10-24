@@ -15,6 +15,7 @@ export const SIDE_IMAGES = [
   { src: "/images/emma-candy1.jpg", position: "30% 50%" },
   { src: "/images/emma-maina-sky1.jpg", position: "50% 50%" },
   { src: "/images/emma-princess12.jpg", position: "50% 50%" },
+  { src: "/images/rosewine1.jpg", position: "50% 50%" },
 ];
 
 // The same event always gets the same photo, and neighbours in a list differ.
