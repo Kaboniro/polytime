@@ -68,11 +68,12 @@ const Chevron = ({ open }) => (
   </svg>
 );
 
-// Phones: one card per event with every column as a labelled line, since a
-// six-column table can't fit a phone screen without hiding most of it.
+// Below xl (phones, tablets, small laptops): one card per event with every
+// column as a labelled line. The six-column table needs ~860px, which only
+// fits beside the Timeline page's filter sidebar from xl up.
 function PhoneList({ rows, open, toggle }) {
   return (
-    <ul className="overflow-hidden rounded-2xl border border-neutral-800 md:hidden">
+    <ul className="overflow-hidden rounded-2xl border border-neutral-800 xl:hidden">
       {rows.map((r, i) => {
         const isOpen = open.has(r.id);
         const panelId = `event-details-m-${r.id}`;
@@ -83,7 +84,7 @@ function PhoneList({ rows, open, toggle }) {
             {r.phase === "archived" && <span className="sr-only"> (ended)</span>}
             <div className={`mt-1.5 text-sm ${r.datesFixed ? "text-neutral-200" : "text-neutral-500"}`}>{r.dates}</div>
             {r.deadline && <div className="text-xs text-neutral-500">Deadline {r.deadline}</div>}
-            <dl className="mt-2.5 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+            <dl className="mt-2.5 grid grid-cols-2 gap-x-4 gap-y-2 text-sm md:grid-cols-4">
               <Detail label="Category">{r.category}</Detail>
               <div>
                 <dt className="text-xs text-neutral-500">Where</dt>
@@ -132,7 +133,7 @@ export default function EventTable({ rows }) {
   return (
     <>
     <PhoneList rows={rows} open={open} toggle={toggle} />
-    <div className="hidden overflow-x-auto rounded-2xl border border-neutral-800 md:block">
+    <div className="hidden overflow-x-auto rounded-2xl border border-neutral-800 xl:block">
       <table className="w-full min-w-[860px] border-collapse text-sm [&>tbody>tr:last-child]:border-b-0">
         <thead>
           <tr className="bg-neutral-900 text-left text-xs text-neutral-500">

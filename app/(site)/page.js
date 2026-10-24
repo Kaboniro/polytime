@@ -133,21 +133,44 @@ export default async function HomePage({ searchParams }) {
           .map(eventJsonLd)
       : [];
 
+  const filters = [
+    { name: "category", label: "Category", allLabel: "All categories", options: EVENT_CATEGORIES, value: category },
+    { name: "type", label: "Type", allLabel: "All types", options: TYPE_FILTER_OPTIONS, value: type },
+    { name: "geography", label: "Where", allLabel: "Anywhere", options: geoOpts, value: geography },
+    { name: "software", label: "Software", allLabel: "All software", options: softwareOpts, value: software },
+    { name: "date", label: "Date", allLabel: "Current & upcoming", options: DATE_OPTIONS, value: date },
+  ];
+  const activeFilters = filters.filter((f) => f.value !== "all").length;
+
   return (
     <div>
       <JsonLd data={structured} />
       <h1 className="sr-only">3D Art Events</h1>
 
-      <FilterBar
-        basePath="/"
-        filters={[
-          { name: "category", label: "Category", allLabel: "All categories", options: EVENT_CATEGORIES, value: category },
-          { name: "type", label: "Type", allLabel: "All types", options: TYPE_FILTER_OPTIONS, value: type },
-          { name: "geography", label: "Geography", allLabel: "Anywhere", options: geoOpts, value: geography },
-          { name: "software", label: "Software", allLabel: "All software", options: softwareOpts, value: software },
-          { name: "date", label: "Date", allLabel: "Current & upcoming", options: DATE_OPTIONS, value: date },
-        ]}
-      />
+      {/* Filters: a sticky sidebar from xl up (where it fits beside the table),
+          folded into a "Filters" button above the list on smaller screens. */}
+      <details className="mb-6 rounded-2xl border border-neutral-800 xl:hidden">
+        <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-sm font-semibold text-neutral-50">
+          <span>
+            Filters
+            {activeFilters > 0 && <span className="ml-2 font-normal text-neutral-500">{activeFilters} on</span>}
+          </span>
+          <span aria-hidden="true" className="text-neutral-500">▾</span>
+        </summary>
+        <div className="border-t border-neutral-800 px-4 py-4">
+          <FilterBar basePath="/" filters={filters} vertical />
+        </div>
+      </details>
+
+      <div className="xl:grid xl:grid-cols-[250px_minmax(0,1fr)] xl:gap-8">
+        <aside className="hidden xl:block">
+          <div className="sticky top-24 rounded-2xl border border-neutral-800 bg-neutral-900/50 p-5">
+            <h2 className="mb-4 text-sm font-semibold text-neutral-50">Filters</h2>
+            <FilterBar basePath="/" filters={filters} vertical />
+          </div>
+        </aside>
+
+        <div className="min-w-0">
 
       {rows.length === 0 ? (
         <EmptyState>
@@ -192,6 +215,8 @@ export default async function HomePage({ searchParams }) {
           )}
         </div>
       )}
+        </div>
+      </div>
     </div>
   );
 }

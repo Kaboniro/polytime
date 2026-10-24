@@ -11,7 +11,9 @@ const selectClass =
 // does the actual filtering.
 //
 // filters: [{ name, label, allLabel, options: [{ value, label }], value }]
-export default function FilterBar({ basePath, filters }) {
+// `vertical`: stacked full-width dropdowns for a sidebar (the Timeline page),
+// with a count of active filters and a Clear-all link at the bottom.
+export default function FilterBar({ basePath, filters, vertical = false }) {
   const router = useRouter();
   const [, startTransition] = useTransition();
 
@@ -33,7 +35,38 @@ export default function FilterBar({ basePath, filters }) {
     });
   }
 
-  const anyActive = filters.some((f) => selected[f.name] !== "all");
+  const activeCount = filters.filter((f) => selected[f.name] !== "all").length;
+  const anyActive = activeCount > 0;
+
+  if (vertical) {
+    return (
+      <div className="flex flex-col gap-4">
+        {filters.map((f) => (
+          <label key={f.name} className="block">
+            <span className="mb-1 block text-xs font-medium text-neutral-500">{f.label}</span>
+            <select
+              className={`${selectClass} w-full`}
+              value={selected[f.name]}
+              disabled={f.options.length === 0}
+              onChange={(e) => change(f.name, e.target.value)}
+            >
+              <option value="all">{f.allLabel}</option>
+              {f.options.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+          </label>
+        ))}
+        {anyActive && (
+          <a href={basePath} className="mt-1 text-sm font-medium text-orange-400 hover:underline">
+            Clear all filters ({activeCount})
+          </a>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-wrap items-end gap-3 mb-4">
