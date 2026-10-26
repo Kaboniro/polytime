@@ -13,7 +13,7 @@ const COLUMNS = [
 ];
 
 // A calm, readable table: soft row dividers instead of a black grid,
-// normal-case headers, a gentle zebra and a crosshair hover (see LIT below). Running events get a soft
+// normal-case headers, a gentle zebra and a crosshair hover (see LIT_ROW below). Running events get a soft
 // "Live now" pill rather than a loud label.
 function LiveNow() {
   return (
@@ -26,12 +26,13 @@ function LiveNow() {
 
 const cell = "px-4 py-3.5 align-top [overflow-wrap:anywhere] transition-colors duration-150";
 
-// Crosshair highlight: pointing at (or tabbing into) a cell fills its row and
-// column with the palette's sea green and the cell itself with the deeper
-// shade, so you can follow both lines across the table. Everything inside a
-// highlighted cell turns dark ink — the muted greys elsewhere in the table
-// would be too faint on green (ink is 7:1 on go, 5.3:1 on go-hover).
-const LIT = "bg-go text-ink [&_*]:!text-ink";
+// Crosshair highlight, pointing at (or tabbing into) a cell: its row fills
+// with the palette's sea green, the rest of its column gets a pale wash of the
+// same green, and the cell itself the deeper shade, so you can follow both
+// lines across the table. Text in the highlight turns dark ink (6.7:1 on go,
+// 5.3:1 on go-hover, 14:1 on the wash); the muted greys would be too faint.
+const LIT_ROW = "bg-go text-ink [&_*]:!text-ink";
+const LIT_COL = "bg-go-wash text-ink [&_*]:!text-ink";
 const LIT_CELL = "bg-go-hover text-ink [&_*]:!text-ink";
 
 function Detail({ label, children }) {
@@ -81,7 +82,7 @@ export default function EventTable({ rows }) {
   function cellProps(rowId, col, base, rest = "") {
     const inRow = hover?.row === rowId;
     const inCol = hover?.col === col;
-    const tone = inRow && inCol ? LIT_CELL : inRow || inCol ? LIT : rest;
+    const tone = inRow && inCol ? LIT_CELL : inRow ? LIT_ROW : inCol ? LIT_COL : rest;
     const enter = () => setHover({ row: rowId, col });
     return { onMouseEnter: enter, onFocus: enter, className: `${base} ${tone}` };
   }

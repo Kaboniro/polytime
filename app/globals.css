@@ -137,6 +137,7 @@
   --color-ink: #1f2933;
   --color-go: #17c3b2;
   --color-go-hover: #14ae9f;
+  --color-go-wash: #d1f3f0; /* go at 20% on white, solid so the pinned table column stays opaque */
   --color-cerulean: #227c9d;
   --color-apricot: #ffcb77;
   --color-background: var(--background);
