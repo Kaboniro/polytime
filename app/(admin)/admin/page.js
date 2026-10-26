@@ -39,8 +39,14 @@ export default async function AdminPage() {
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
         <div>
-          <AdminQueue title="Pending events" table="events" rows={pending.events} />
-          <AdminQueue title="Pending links" table="links" rows={pending.links} />
+          {/* Visitor submissions first: there are few of them and each is a
+              person waiting on an answer, so they never sit below the crawler's finds. */}
+          <AdminQueue title="Events from visitors" table="events" rows={pending.events.visitor} highlight />
+          <AdminQueue title="Links from visitors" table="links" rows={pending.links.visitor} highlight />
+          <AdminQueue title="Events found by the crawler" table="events" rows={pending.events.crawler} />
+          {pending.links.crawler.length > 0 && (
+            <AdminQueue title="Links found by the crawler" table="links" rows={pending.links.crawler} />
+          )}
         </div>
         <aside className="lg:sticky lg:top-6">
           <CrawlerPanel initial={crawler} />

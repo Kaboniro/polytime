@@ -105,8 +105,9 @@ function Row({ table, row }) {
 
 // Only ever rendered with pending rows now (see app/admin/page.js) — approved
 // and rejected items live in their own resource tab instead of a read-only
-// "recently reviewed" list here.
-export default function AdminQueue({ title, table, rows }) {
+// "recently reviewed" list here. `highlight`: the visitor sections, given an
+// accent border so new submissions stand out.
+export default function AdminQueue({ title, table, rows, highlight = false }) {
   if (rows.length === 0) {
     return (
       <div className="mb-8">
@@ -117,10 +118,10 @@ export default function AdminQueue({ title, table, rows }) {
   }
   return (
     <div className="mb-8">
-      <h2 className="text-sm font-semibold text-neutral-400 mb-2">
+      <h2 className={`text-sm font-semibold mb-2 ${highlight ? "text-neutral-50" : "text-neutral-400"}`}>
         {title} ({rows.length})
       </h2>
-      <div className="rounded-2xl border border-neutral-800 bg-neutral-950 px-4">
+      <div className={`rounded-2xl border bg-neutral-950 px-4 ${highlight ? "border-orange-500" : "border-neutral-800"}`}>
         {rows.map((r) => (
           <Row key={r.id} table={table} row={r} />
         ))}
