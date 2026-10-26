@@ -11,7 +11,9 @@ const KIND_TONE = {
   other: "bg-neutral-800 text-neutral-300",
 };
 
-function Item({ q }) {
+// One Query-form message. `tag`: an extra label shown before the kind (the
+// Submissions tab's Event / Link / Query tag).
+export function QueryItem({ q, tag = null }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -42,6 +44,7 @@ function Item({ q }) {
     <li className={`rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4 ${resolved ? "opacity-60" : ""}`}>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
+          {tag}
           <span className={`inline-block rounded-full px-2 py-0.5 text-[11px] font-semibold ${KIND_TONE[q.kind] || KIND_TONE.other}`}>
             {labelFor(QUERY_KINDS, q.kind)}
           </span>
@@ -109,7 +112,7 @@ export default function QueryList({ queries }) {
   return (
     <ul className="space-y-3">
       {queries.map((q) => (
-        <Item key={q.id} q={q} />
+        <QueryItem key={q.id} q={q} />
       ))}
     </ul>
   );

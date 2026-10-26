@@ -14,7 +14,7 @@ const ADMIN_NAV = [
   { href: "/admin", label: "Review queue", exact: true },
   { href: "/admin/events", label: "Events" },
   { href: "/admin/links", label: "Links" },
-  { href: "/admin/queries", label: "Queries" },
+  { href: "/admin/submissions", label: "Submissions" },
   { href: "/admin/activity", label: "Activity" },
 ];
 
