@@ -6,6 +6,7 @@
   "/(admin)/admin/login/page": "/admin/login",
   "/(admin)/admin/page": "/admin",
   "/(admin)/admin/queries/page": "/admin/queries",
+  "/(admin)/admin/submissions/page": "/admin/submissions",
   "/(admin)/admin/verify/page": "/admin/verify",
   "/(site)/about/page": "/about",
   "/(site)/events/[id]/page": "/events/[id]",

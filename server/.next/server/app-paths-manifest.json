@@ -6,6 +6,7 @@
   "/(admin)/admin/login/page": "app/(admin)/admin/login/page.js",
   "/(admin)/admin/page": "app/(admin)/admin/page.js",
   "/(admin)/admin/queries/page": "app/(admin)/admin/queries/page.js",
+  "/(admin)/admin/submissions/page": "app/(admin)/admin/submissions/page.js",
   "/(admin)/admin/verify/page": "app/(admin)/admin/verify/page.js",
   "/(site)/about/page": "app/(site)/about/page.js",
   "/(site)/events/[id]/page": "app/(site)/events/[id]/page.js",

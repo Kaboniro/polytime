@@ -154,6 +154,12 @@
       "namedRegex": "^/admin/queries(?:/)?$"
     },
     {
+      "page": "/admin/submissions",
+      "regex": "^/admin/submissions(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/submissions(?:/)?$"
+    },
+    {
       "page": "/admin/verify",
       "regex": "^/admin/verify(?:/)?$",
       "routeKeys": {},
