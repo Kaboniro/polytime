@@ -164,8 +164,11 @@ export default async function HomePage({ searchParams }) {
   ];
   const activeFilters = filters.filter((f) => f.value !== "all").length;
 
+  // The Timeline is shown at 75% on laptop and desktop screens (lg and up) so
+  // more of the table fits at once; CSS zoom reflows it like browser zoom.
+  // Phones stay at 100%, where 75% would make the text too small to read.
   return (
-    <div>
+    <div className="lg:[zoom:0.75]">
       <JsonLd data={structured} />
 
       {/* Filters: a sticky sidebar from xl up (where it fits beside the table),
