@@ -22,6 +22,7 @@ const TAB_LABEL = {
   tool: "Tools & plugins",
   software: "Software",
   "asset-library": "Asset libraries",
+  "3d-printing": "3D printing",
   tutorial: "Tutorials",
   "job-board": "Jobs",
   other: "Other",

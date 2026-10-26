@@ -239,6 +239,7 @@ const count = (re, s) => (s.match(re) || []).length;
 
 const SOFTWARE = ["Blender", "ZBrush", "Maya", "3ds Max", "Cinema 4D", "Houdini", "Substance", "Unreal Engine", "Unity", "KeyShot", "Octane", "Redshift", "V-Ray", "Marmoset", "Rhino", "SketchUp", "Nomad"];
 const CATEGORY_HINTS = [
+  ["3d-printing", /3d[-\s]?print|3d-druck|additive manufactur|3D列印|3D打印|3D\s?프린[팅트]|3D\s?プリン[トタ]|พิมพ์\s?3\s?มิติ/i],
   ["character", /character|creature|角色|캐릭터|ตัวละคร|キャラクター/i],
   ["archviz", /archviz|architect|建筑|建築|건축|สถาปัตย์|建築/i],
   ["game-art", /game|游戏|遊戲|게임|เกม|ゲーム/i],

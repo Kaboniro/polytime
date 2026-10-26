@@ -14,6 +14,7 @@ export const LINK_COLORS = {
   tool: { fill: "#17c3b2", edge: "#0f998b", ink: "#1f2933" },
   software: { fill: "#227c9d", edge: "#185a73", ink: "#ffffff" },
   "asset-library": { fill: "#ffcb77", edge: "#e0a43c", ink: "#1f2933" },
+  "3d-printing": { fill: "#8b5e3c", edge: "#6b4529", ink: "#ffffff" },
   tutorial: { fill: "#7a5cc7", edge: "#5b42a3", ink: "#ffffff" },
   "job-board": { fill: "#7cc46a", edge: "#5a9a4a", ink: "#1f2933" },
   other: { fill: "#4f5d6b", edge: "#36414c", ink: "#ffffff" },
