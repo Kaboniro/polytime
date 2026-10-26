@@ -116,7 +116,7 @@ export default function EventTable({ rows }) {
               <th
                 key={c.key}
                 scope="col"
-                className={`border-b border-neutral-800 px-4 py-2.5 font-medium transition-colors duration-150 ${c.className} ${
+                className={`border-b border-neutral-800 px-4 py-2.5 font-medium transition-colors lg:font-semibold duration-150 ${c.className} ${
                   c.key === "name" ? "sticky left-0 z-10 max-xl:shadow-[6px_0_8px_-4px_rgb(0_0_0_/_0.18)]" : ""
                 } ${hover?.col === ci ? "bg-cerulean font-semibold text-white" : c.key === "name" ? "bg-inherit" : ""}`}
               >
@@ -135,7 +135,7 @@ export default function EventTable({ rows }) {
                 <tr
                   className={`border-b border-neutral-800 ${i % 2 ? "bg-neutral-900" : "bg-neutral-950"} ${r.phase === "archived" ? "text-neutral-500" : "text-neutral-100"}`}
                 >
-                  <td {...cellProps(r.id, 0, `${cell} sticky left-0 z-10 font-medium max-xl:shadow-[6px_0_8px_-4px_rgb(0_0_0_/_0.18)]`, "bg-inherit")}>
+                  <td {...cellProps(r.id, 0, `${cell} sticky left-0 z-10 font-medium lg:font-semibold max-xl:shadow-[6px_0_8px_-4px_rgb(0_0_0_/_0.18)]`, "bg-inherit")}>
                     <a href={r.href} className="hover:underline">{r.title}</a>
                     {running && <LiveNow />}
                     {r.phase === "archived" && <span className="sr-only"> (ended)</span>}

@@ -18,6 +18,7 @@ import {
   matchesGeography,
   matchesSoftware,
   pickOption,
+  pickOptions,
   softwareOptions,
 } from "@/lib/filters";
 import { geographyIconInfo, geographyLabel } from "@/lib/geography";
@@ -86,8 +87,10 @@ export default async function HomePage({ searchParams }) {
   const everything = getApprovedEvents();
   const softwareOpts = softwareOptions(everything);
   const geoOpts = geographyFilterOptions(everything);
-  const category = pickOption(sp?.category, EVENT_CATEGORIES);
-  const software = pickOption(sp?.software, softwareOpts);
+  // Category and Software are checkbox lists (several at once, comma-separated
+  // in the URL); Type, Where and Date pick a single value.
+  const category = pickOptions(sp?.category, EVENT_CATEGORIES);
+  const software = pickOptions(sp?.software, softwareOpts);
   const geography = pickOption(sp?.geography, geoOpts);
   const date = pickOption(sp?.date, DATE_OPTIONS);
   const type = pickOption(sp?.type, TYPE_FILTER_OPTIONS);
@@ -95,7 +98,7 @@ export default async function HomePage({ searchParams }) {
 
   const matching = everything.filter(
     (e) =>
-      (category === "all" || e.category === category) &&
+      (category.length === 0 || category.includes(e.category)) &&
       (type === "all" || e.event_type === type) &&
       matchesSoftware(e, software) &&
       matchesGeography(e, geography) &&
@@ -133,10 +136,10 @@ export default async function HomePage({ searchParams }) {
   // Plain serializable data, not a function — a Server Component can't hand
   // a function prop to Pagination (a Client Component) at all.
   const pageQuery = {};
-  if (category !== "all") pageQuery.category = category;
+  if (category.length) pageQuery.category = category.join(",");
   if (type !== "all") pageQuery.type = type;
   if (geography !== "all") pageQuery.geography = geography;
-  if (software !== "all") pageQuery.software = software;
+  if (software.length) pageQuery.software = software.join(",");
   if (date !== "all") pageQuery.date = date;
   const keep = view !== "dated" ? { view } : {};
   const viewHref = (key) => {
@@ -156,19 +159,20 @@ export default async function HomePage({ searchParams }) {
       : [];
 
   const filters = [
-    { name: "category", label: "Category", allLabel: "All categories", options: EVENT_CATEGORIES, value: category },
+    { name: "category", label: "Category", kind: "checkbox", options: EVENT_CATEGORIES, value: category },
     { name: "type", label: "Type", allLabel: "All types", options: TYPE_FILTER_OPTIONS, value: type },
     { name: "geography", label: "Where", allLabel: "Anywhere", options: geoOpts, value: geography },
-    { name: "software", label: "Software", allLabel: "All software", options: softwareOpts, value: software },
-    { name: "date", label: "Date", allLabel: "Current & upcoming", options: DATE_OPTIONS, value: date },
+    { name: "software", label: "Software", kind: "checkbox", options: softwareOpts, value: software },
+    { name: "date", label: "Date", kind: "radio", allLabel: "Current & upcoming", options: DATE_OPTIONS, value: date },
   ];
-  const activeFilters = filters.filter((f) => f.value !== "all").length;
+  const activeFilters = filters.filter((f) => (Array.isArray(f.value) ? f.value.length > 0 : f.value !== "all")).length;
 
   // The Timeline is shown at 75% on laptop and desktop screens (lg and up) so
   // more of the table fits at once; CSS zoom reflows it like browser zoom.
   // Phones stay at 100%, where 75% would make the text too small to read.
+  // The text is a step heavier there too, so it stays crisp when scaled down.
   return (
-    <div className="lg:[zoom:0.75]">
+    <div className="lg:font-medium lg:[zoom:0.75]">
       <JsonLd data={structured} />
 
       {/* Filters: a sticky sidebar from xl up (where it fits beside the table),
