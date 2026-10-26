@@ -4,6 +4,8 @@ import { getApprovedEvents } from "@/lib/queries";
 import { fmtDate } from "@/lib/dates";
 import { effectiveEnd, eventPhase } from "@/lib/filters";
 import { geographyIconInfo, geographyLabel } from "@/lib/geography";
+import { googleCalendarUrl } from "@/lib/calendarLinks";
+import { absoluteUrl } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +21,16 @@ export const metadata = {
 // browser. `end` is the resolved end anchor (see below), not necessarily
 // e.end_date itself.
 function toGanttRow(e, end) {
+  // "Add to Google Calendar" links for the details panel: one for the event's
+  // dates, one for its submission deadline (often the date that matters most).
+  const pageUrl = absoluteUrl(`/events/${e.id}`);
+  const details = [e.description, e.url && `Event page: ${e.url}`, `On PolyTime: ${pageUrl}`].filter(Boolean).join("\n\n");
+  const where = e.location && !/^(online|tba|see event page)$/i.test(e.location.trim()) ? e.location : "";
   return {
+    gcal: googleCalendarUrl({ title: e.title, start: e.start_date, end, details, location: where }),
+    gcalDeadline: e.submission_deadline
+      ? googleCalendarUrl({ title: `Deadline: ${e.title}`, start: e.submission_deadline, details: `Last day to enter.\n\n${details}` })
+      : null,
     id: e.id,
     title: e.title,
     start: e.start_date,

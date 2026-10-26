@@ -108,6 +108,19 @@ function layoutWeek(weekStart, weekEnd, rows) {
 }
 
 // Soft "Live now" pill, the same one the home page table uses.
+const gcalBtn =
+  "inline-flex items-center gap-1.5 rounded-full border border-neutral-700 px-4 py-2 font-semibold text-neutral-100 transition-colors hover:bg-neutral-800";
+
+// A small calendar-with-plus icon for the "Add to Google Calendar" buttons.
+function CalendarPlus() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5" />
+    </svg>
+  );
+}
+
 function LiveNow() {
   return (
     <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-semibold text-emerald-400">
@@ -512,16 +525,40 @@ export default function GanttChart({ rows }) {
 
               {selected.description && <p className="mt-4 whitespace-pre-line leading-relaxed text-neutral-300">{selected.description}</p>}
 
-              {selected.url && (
-                <a
-                  href={selected.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-go px-4 py-2 font-semibold text-ink transition-colors hover:bg-go-hover"
-                >
-                  Visit event page <span aria-hidden="true">↗</span>
-                </a>
-              )}
+              <div className="mt-5 flex flex-wrap gap-2">
+                {selected.url && (
+                  <a
+                    href={selected.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-go px-4 py-2 font-semibold text-ink transition-colors hover:bg-go-hover"
+                  >
+                    Visit event page <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+                {/* Opens Google Calendar's prefilled new-event page; nothing to
+                    add for an event that's already over. */}
+                {selected.phase !== "archived" && (
+                  <a
+                    href={selected.gcal}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={gcalBtn}
+                  >
+                    <CalendarPlus /> Add to Google Calendar
+                  </a>
+                )}
+                {selected.phase !== "archived" && selected.gcalDeadline && (
+                  <a
+                    href={selected.gcalDeadline}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={gcalBtn}
+                  >
+                    <CalendarPlus /> Add deadline
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
