@@ -13,7 +13,7 @@ const COLUMNS = [
 ];
 
 // A calm, readable table: soft row dividers instead of a black grid,
-// normal-case headers, a gentle zebra and hover. Running events get a soft
+// normal-case headers, a gentle zebra and a crosshair hover (see LIT below). Running events get a soft
 // "Live now" pill rather than a loud label.
 function LiveNow() {
   return (
@@ -24,7 +24,15 @@ function LiveNow() {
   );
 }
 
-const cell = "px-4 py-3.5 align-top [overflow-wrap:anywhere]";
+const cell = "px-4 py-3.5 align-top [overflow-wrap:anywhere] transition-colors duration-150";
+
+// Crosshair highlight: pointing at (or tabbing into) a cell fills its row and
+// column with the palette's sea green and the cell itself with the deeper
+// shade, so you can follow both lines across the table. Everything inside a
+// highlighted cell turns dark ink — the muted greys elsewhere in the table
+// would be too faint on green (ink is 7:1 on go, 5.3:1 on go-hover).
+const LIT = "bg-go text-ink [&_*]:!text-ink";
+const LIT_CELL = "bg-go-hover text-ink [&_*]:!text-ink";
 
 function Detail({ label, children }) {
   if (!children) return null;
@@ -66,6 +74,17 @@ function DetailsBody({ r }) {
 // once on the server: no client/server "is it past yet?" hydration drift.
 export default function EventTable({ rows }) {
   const [open, setOpen] = useState(() => new Set());
+  const [hover, setHover] = useState(null); // { row: event id, col: column index }
+
+  // Props for one body cell: track the pointer/focus and pick its highlight.
+  // `rest` is the class it has when not highlighted.
+  function cellProps(rowId, col, base, rest = "") {
+    const inRow = hover?.row === rowId;
+    const inCol = hover?.col === col;
+    const tone = inRow && inCol ? LIT_CELL : inRow || inCol ? LIT : rest;
+    const enter = () => setHover({ row: rowId, col });
+    return { onMouseEnter: enter, onFocus: enter, className: `${base} ${tone}` };
+  }
 
   function toggle(id) {
     setOpen((prev) => {
@@ -83,11 +102,23 @@ export default function EventTable({ rows }) {
         pinned so you always know which row you're on. */}
     <p className="mb-2 text-xs text-neutral-500 lg:hidden">Swipe sideways for more columns →</p>
     <div className="overflow-x-auto rounded-2xl border border-neutral-800">
-      <table className="w-full min-w-[860px] table-fixed border-collapse text-sm [&>tbody>tr:last-child]:border-b-0">
+      <table
+        onMouseLeave={() => setHover(null)}
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget)) setHover(null);
+        }}
+        className="w-full min-w-[860px] table-fixed border-collapse text-sm [&>tbody>tr:last-child]:border-b-0"
+      >
         <thead>
           <tr className="bg-neutral-900 text-left text-xs text-neutral-500">
-            {COLUMNS.map((c) => (
-              <th key={c.key} scope="col" className={`border-b border-neutral-800 px-4 py-2.5 font-medium ${c.className} ${c.key === "name" ? "sticky left-0 z-10 bg-inherit max-xl:shadow-[6px_0_8px_-4px_rgb(0_0_0_/_0.18)]" : ""}`}>
+            {COLUMNS.map((c, ci) => (
+              <th
+                key={c.key}
+                scope="col"
+                className={`border-b border-neutral-800 px-4 py-2.5 font-medium transition-colors duration-150 ${c.className} ${
+                  c.key === "name" ? "sticky left-0 z-10 max-xl:shadow-[6px_0_8px_-4px_rgb(0_0_0_/_0.18)]" : ""
+                } ${hover?.col === ci ? "bg-cerulean font-semibold text-white" : c.key === "name" ? "bg-inherit" : ""}`}
+              >
                 {c.label}
               </th>
             ))}
@@ -101,23 +132,23 @@ export default function EventTable({ rows }) {
             return (
               <Fragment key={r.id}>
                 <tr
-                  className={`border-b border-neutral-800 transition-colors hover:bg-neutral-800 ${i % 2 ? "bg-neutral-900" : "bg-neutral-950"} ${r.phase === "archived" ? "text-neutral-500" : "text-neutral-100"}`}
+                  className={`border-b border-neutral-800 ${i % 2 ? "bg-neutral-900" : "bg-neutral-950"} ${r.phase === "archived" ? "text-neutral-500" : "text-neutral-100"}`}
                 >
-                  <td className={`${cell} sticky left-0 z-10 bg-inherit font-medium max-xl:shadow-[6px_0_8px_-4px_rgb(0_0_0_/_0.18)]`}>
+                  <td {...cellProps(r.id, 0, `${cell} sticky left-0 z-10 font-medium max-xl:shadow-[6px_0_8px_-4px_rgb(0_0_0_/_0.18)]`, "bg-inherit")}>
                     <a href={r.href} className="hover:underline">{r.title}</a>
                     {running && <LiveNow />}
                     {r.phase === "archived" && <span className="sr-only"> (ended)</span>}
                   </td>
-                  <td className={cell}>
+                  <td {...cellProps(r.id, 1, cell)}>
                     <div className={r.datesFixed ? "" : "text-neutral-500"}>{r.dates}</div>
                     {r.deadline && <div className="text-xs text-neutral-500">Deadline {r.deadline}</div>}
                   </td>
-                  <td className={cell}>{r.category}</td>
-                  <td className={cell}>
+                  <td {...cellProps(r.id, 2, cell)}>{r.category}</td>
+                  <td {...cellProps(r.id, 3, cell)}>
                     <GeoIcon info={r.geo} /> {r.geoLabel}
                   </td>
-                  <td className={cell}>{r.software || <span className="text-neutral-600">—</span>}</td>
-                  <td className={cell}>
+                  <td {...cellProps(r.id, 4, cell)}>{r.software || <span className="text-neutral-600">—</span>}</td>
+                  <td {...cellProps(r.id, 5, cell)}>
                     <button
                       type="button"
                       onClick={() => toggle(r.id)}
